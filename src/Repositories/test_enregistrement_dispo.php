@@ -2,26 +2,26 @@
 // save_availability.php
 include 'db_connection.php'; // Connexion à la base de données
 
-$user_id = $_SESSION['user_id']; // Supposons que l'utilisateur est connecté
+$id_user = $_SESSION['id_user']; // Supposons que l'utilisateur est connecté
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Pour un seul slot
-    $day = $_POST['day'];
-    $start_time = $_POST['start_time'];
-    $end_time = $_POST['end_time'];
+    $jour = $_POST['jour'];
+    $time_debut = $_POST['time_debut'];
+    $time_fin = $_POST['time_fin'];
 
-    $sql = "INSERT INTO availabilities (user_id, day, start_time, end_time) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO disponibilite (id_user, jour, time_debut, time_fin) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isss", $user_id, $day, $start_time, $end_time);
+    $stmt->bind_param("isss", $id_user, $jour, $time_debut, $time_fin);
     $stmt->execute();
 
     // Pour les autres slots ajoutés
-    if (isset($_POST['day[]'])) {
-        foreach ($_POST['day[]'] as $index => $additional_day) {
-            $additional_start_time = $_POST['start_time[]'][$index];
-            $additional_end_time = $_POST['end_time[]'][$index];
+    if (isset($_POST['jour[]'])) {
+        foreach ($_POST['jour[]'] as $index => $additional_jour) {
+            $additional_time_debut = $_POST['time_debut[]'][$index];
+            $additional_time_fin = $_POST['time_fin[]'][$index];
 
-            $stmt->bind_param("isss", $user_id, $additional_day, $additional_start_time, $additional_end_time);
+            $stmt->bind_param("isss", $id_user, $additional_jour, $additional_time_debut, $additional_time_fin);
             $stmt->execute();
         }
     }

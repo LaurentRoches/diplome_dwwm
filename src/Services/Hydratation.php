@@ -18,7 +18,6 @@ trait Hydratation
       foreach ($parts as $part) {
         $setter .= ucfirst($part);
       }
-      
       $this->$setter($value);
     }
   }

@@ -1,8 +1,8 @@
 <form method="post" action="save_availability.php">
     <h3>Indiquez vos disponibilités</h3>
 
-    <label for="day">Jour de la semaine:</label>
-    <select name="day" id="day" required>
+    <label for="jour">Jour de la semaine:</label>
+    <select name="jour" id="jour" required>
         <option value="lundi">Lundi</option>
         <option value="mardi">Mardi</option>
         <option value="mercredi">Mercredi</option>
@@ -12,11 +12,11 @@
         <option value="dimanche">Dimanche</option>
     </select>
 
-    <label for="start_time">Heure de début:</label>
-    <input type="time" name="start_time" id="start_time" required>
+    <label for="time_debut">Heure de début:</label>
+    <input type="time" name="time_debut" id="time_debut" required>
 
-    <label for="end_time">Heure de fin:</label>
-    <input type="time" name="end_time" id="end_time" required>
+    <label for="time_fin">Heure de fin:</label>
+    <input type="time" name="time_fin" id="time_fin" required>
 
     <button type="button" id="add">Ajouter une autre plage horaire</button>
     
@@ -30,8 +30,8 @@
         const additionalSlots = document.getElementById('additional_slots');
         const newSlot = `
             <div class="time-slot">
-                <label for="day">Jour de la semaine:</label>
-                <select name="day[]" required>
+                <label for="jour">Jour de la semaine:</label>
+                <select name="jour[]" required>
                     <option value="lundi">Lundi</option>
                     <option value="mardi">Mardi</option>
                     <option value="mercredi">Mercredi</option>
@@ -41,11 +41,11 @@
                     <option value="dimanche">Dimanche</option>
                 </select>
 
-                <label for="start_time">Heure de début:</label>
-                <input type="time" name="start_time[]" required>
+                <label for="time_debut">Heure de début:</label>
+                <input type="time" name="time_debut[]" required>
 
-                <label for="end_time">Heure de fin:</label>
-                <input type="time" name="end_time[]" required>
+                <label for="time_fin">Heure de fin:</label>
+                <input type="time" name="time_fin[]" required>
 
                 <button type="button" class="remove-slot">Retirer</button>
             </div>
