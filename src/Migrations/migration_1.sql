@@ -139,7 +139,7 @@ CREATE TABLE game_voulu (
 CREATE TABLE disponibilite (
     id_disponibilite    INT AUTO_INCREMENT PRIMARY KEY,
     id_user             INT NOT NULL,
-    day                 ENUM('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche') NOT NULL,
+    str_jour            ENUM('lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche') NOT NULL,
     time_debut          TIME NOT NULL,
     time_fin            TIME NOT NULL,
     CONSTRAINT id_user_disponibilite_FK FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
