@@ -26,4 +26,20 @@ trait Hydratation
     $this->hydrate([$name => $value]);
   }
 
+  /**
+     * Hydrate l'objet avec les données fournies
+     * 
+     * @param array $data Tableau associatif des données
+     * @return void
+     */
+    public function actualise(array $data): void {
+        foreach ($data as $key => $value) {
+            $method = 'set' . str_replace('_', '', ucwords($key, '_'));
+
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
+
 }

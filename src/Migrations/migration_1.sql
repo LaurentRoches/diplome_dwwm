@@ -13,6 +13,7 @@ CREATE TABLE experience (
     str_niveau          Varchar (150) NOT NULL
 )ENGINE=InnoDB;
 
+INSERT INTO experience (str_niveau) VALUES ("Non renseigné");
 INSERT INTO experience (str_niveau) VALUES ("Découverte");
 INSERT INTO experience (str_niveau) VALUES ("Débutant");
 INSERT INTO experience (str_niveau) VALUES ("Amateur");
@@ -160,11 +161,17 @@ CREATE TABLE article (
     dtm_maj                 Datetime,
     str_resume              Varchar (255) NOT NULL,
     txt_contenu             TEXT NOT NULL,
-    id_categorie_article    Int NOT NULL,
-    CONSTRAINT id_user_article_FK FOREIGN KEY (id_user) REFERENCES user(id_user),
-    CONSTRAINT id_categorie_article_FK FOREIGN KEY (id_categorie_article) REFERENCES categorie_article(id_categorie_article)
+    CONSTRAINT id_user_article_FK FOREIGN KEY (id_user) REFERENCES user(id_user)
 )ENGINE=InnoDB;
 
+
+CREATE TABLE liste_categorie_article (
+    id_categorie_article        Int NOT NULL,
+    id_article                  Int NOT NULL,
+    CONSTRAINT id_categorie_article_FK FOREIGN KEY (id_categorie_article) REFERENCES categorie_article(id_categorie_article) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT id_article_FK FOREIGN KEY (id_article) REFERENCES article(id_article) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (id_categorie_article, id_article)
+)ENGINE=InnoDB;
 
 CREATE TABLE avis_article (
     id_avis_article         Int AUTO_INCREMENT PRIMARY KEY,
@@ -174,6 +181,6 @@ CREATE TABLE avis_article (
     str_avis                Varchar (255) NOT NULL,
     dtm_creation            Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     dtm_maj                 Datetime,
-    CONSTRAINT id_article_FK FOREIGN KEY (id_article) REFERENCES article(id_article) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT id_article_avis_FK FOREIGN KEY (id_article) REFERENCES article(id_article) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT id_user_FK FOREIGN KEY (id_user) REFERENCES user(id_user)
 )ENGINE=InnoDB;

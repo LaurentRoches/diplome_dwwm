@@ -303,4 +303,5 @@ class User {
             $this->dtm_maj = new DateTime($dtm_maj);
         }
     }
+
 }
