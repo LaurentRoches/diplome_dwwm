@@ -19,18 +19,18 @@ INSERT INTO experience (str_niveau) VALUES ("Confirmer");
 INSERT INTO experience (str_niveau) VALUES ("Expert");
 
 
-CREATE TABLE profile_image (
-    id_profile_image    INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE profil_image (
+    id_profil_image    INT AUTO_INCREMENT PRIMARY KEY,
     str_chemin          VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB;
 
-INSERT INTO profile_image (str_chemin) VALUES ('/img/profile/clerc.jpg');
-INSERT INTO profile_image (str_chemin) VALUES ('/img/profile/druid.jpg');
-INSERT INTO profile_image (str_chemin) VALUES ('/img/profile/alchimiste.jpg');
-INSERT INTO profile_image (str_chemin) VALUES ('/img/profile/ranger.jpg');
-INSERT INTO profile_image (str_chemin) VALUES ('/img/profile/rogue.jpg');
-INSERT INTO profile_image (str_chemin) VALUES ('/img/profile/warrior.jpg');
-INSERT INTO profile_image (str_chemin) VALUES ('/img/profile/wizard.jpg');
+INSERT INTO profil_image (str_chemin) VALUES ('/img/profil/clerc.jpg');
+INSERT INTO profil_image (str_chemin) VALUES ('/img/profil/druid.jpg');
+INSERT INTO profil_image (str_chemin) VALUES ('/img/profil/alchimiste.jpg');
+INSERT INTO profil_image (str_chemin) VALUES ('/img/profil/ranger.jpg');
+INSERT INTO profil_image (str_chemin) VALUES ('/img/profil/rogue.jpg');
+INSERT INTO profil_image (str_chemin) VALUES ('/img/profil/warrior.jpg');
+INSERT INTO profil_image (str_chemin) VALUES ('/img/profil/wizard.jpg');
 
 
 CREATE TABLE user (
@@ -46,12 +46,12 @@ CREATE TABLE user (
     str_description     Varchar (255),
     id_experience       Int NOT NULL DEFAULT 1,
     id_role             Int NOT NULL DEFAULT 1,
-    id_profile_image    Int NOT NULL DEFAULT 1,
+    id_profil_image    Int NOT NULL DEFAULT 1,
     dtm_creation        Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     dtm_maj             Datetime,
     CONSTRAINT id_experience_FK FOREIGN KEY (id_experience) REFERENCES experience(id_experience),
     CONSTRAINT id_role_FK FOREIGN KEY (id_role) REFERENCES role(id_role),
-    CONSTRAINT id_profile_image_FK FOREIGN KEY (id_profile_image) REFERENCES profile_image(id_profile_image)
+    CONSTRAINT id_profil_image_FK FOREIGN KEY (id_profil_image) REFERENCES profil_image(id_profil_image)
 )ENGINE=InnoDB;
 
 
