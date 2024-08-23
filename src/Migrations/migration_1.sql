@@ -90,7 +90,6 @@ CREATE TABLE reponse_avis_user (
     id_avis_user                Int NOT NULL,
     str_message                 Varchar (255) NOT NULL,
     dtm_creation                Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    dtm_maj                     Datetime,
     CONSTRAINT id_user_reponse_FK FOREIGN KEY (id_user) REFERENCES user(id_user),
     CONSTRAINT id_avis_user_FK FOREIGN KEY (id_avis_user) REFERENCES avis_user(id_avis_user)
 )ENGINE=InnoDB;

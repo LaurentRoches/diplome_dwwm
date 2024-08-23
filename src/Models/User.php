@@ -273,7 +273,7 @@ class User {
     /**
      * Set the value of dtm_creation
      */
-    public function setDtmCreated(string|DateTime $dtm_creation): void
+    public function setDtmCreation(string|DateTime $dtm_creation): void
     {
         if($dtm_creation instanceof DateTime) {
             $this->dtm_creation = $dtm_creation;
