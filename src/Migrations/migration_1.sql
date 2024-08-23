@@ -5,6 +5,7 @@ CREATE TABLE role (
 
 INSERT INTO role (str_role) VALUES ("USER");
 INSERT INTO role (str_role) VALUES ("ADMIN");
+INSERT INTO role (str_role) VALUES ("MODO");
 
 
 CREATE TABLE experience (
