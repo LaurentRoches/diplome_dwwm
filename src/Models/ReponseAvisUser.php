@@ -92,7 +92,7 @@ class ReponseAvisUser {
      */
     public function getDtmCreation(): string
     {
-        return $this->dtm_creation->format('Y-m-d');
+        return $this->dtm_creation->format('Y-m-d H:i:s');
     }
 
     /**

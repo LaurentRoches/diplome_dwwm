@@ -112,7 +112,7 @@ class AvisUser {
      */
     public function getDtmEnvoi(): string
     {
-        return $this->dtm_envoi->format('Y-m-d');
+        return $this->dtm_envoi->format('Y-m-d H:i:s');
     }
 
     /**
