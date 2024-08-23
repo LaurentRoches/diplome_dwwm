@@ -199,6 +199,73 @@ class UserRepository {
     }
 
     /**
+     * Mettre à jour un utilisateur
+     *
+     * @param   User  $user  Objet user avec toutes les données nécessaire
+     *
+     * @return  User         Retourne l'utilisateur actualisé
+     */
+    public function updateThisUser(User $user): User {
+        try {
+            $sql = "UPDATE user SET 
+                      str_email = :str_email, 
+                      str_nom = :str_nom, 
+                      str_prenom = :str_prenom, 
+                      dtm_naissance = :dtm_naissance, 
+                      bln_active = :bln_active, 
+                      str_mdp = :str_mdp, 
+                      bln_notif = :bln_notif, 
+                      str_pseudo = :str_pseudo, 
+                      str_description = :str_description, 
+                      id_experience = :id_experience, 
+                      id_role = :id_role, 
+                      id_profil_image = :id_profil_image, 
+                      dtm_maj = :dtm_maj
+                      WHERE id_user = :id_user;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ":str_email" => $user->getStrEmail(),
+                ":str_nom" => $user->getStrNom(),
+                ":str_prenom" => $user->getStrPrenom(),
+                ":dtm_naissance" => $user->getDtmNaissance(),
+                ":bln_active" => $user->isBlnActive(),
+                ":str_mdp" => $user->getStrMdp(),
+                ":bln_notif" => $user->isBlnNotif(),
+                ":str_pseudo" => $user->getStrPseudo(),
+                ":str_description" => $user->getStrDescription(),
+                ":id_experience" => $user->getIdExperience(),
+                ":id_role" => $user->getIdRole(),
+                ":id_profil_image" => $user->getIdProfilImage(),
+                ":dtm_maj" => $user->getDtmMaj(),
+                ":id_user" => $user->getIdUser(),
+            ]);
+            return $this->getThisUserById($user->getIdUser());
+        } catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+    /**
+     * Supprime un utilisateur selectionné
+     *
+     * @param   int   $id_user  Identifiant unique de l'utilisateur
+     *
+     * @return  bool            True si la suppression est réussite
+     */
+    public function deleteThisUser(int $id_user): bool {
+        try {
+            $sql = "DELETE FROM user WHERE id_user = :id_user;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ":id_user" => $id_user
+            ]);
+            return true;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    /**
      * Permet de trouver un utilisateur depuis son email et de vérifier son mdp
      *
      * @param   string  $str_email  Email donné par l'utilisateur
