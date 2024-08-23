@@ -17,6 +17,13 @@ class UserRepository {
         require_once __DIR__.'/../../config.php';
     }
 
+    /**
+     * Créer un utilisateur
+     *
+     * @param   User  $user  les données sous forme de l'objet User
+     *
+     * @return  User         Retourne l'utilisateur enregistrer
+     */
     public function createUser(User $user): User {
         try {
             $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo) 
@@ -48,6 +55,11 @@ class UserRepository {
         }
     }
 
+    /**
+     * Récupère tout les utilisateur, trier par note descendante
+     *
+     * @return  array   Un tableau listant tout les utilisateur
+     */
     public function getAllUser () :array {
         try {
             $sql = "SELECT user.*, AVG(avis_user.int_note) AS avg_score
@@ -65,42 +77,90 @@ class UserRepository {
         }
     }
 
-    public function getThisUserById (int $id_user): User {
+    /**
+     * Récupérer un utilisateur spécifique
+     *
+     * @param   int   $id_user  identifiant unique de l'utilisateur
+     *
+     * @return  User            Retourne l'utilisateur trouver
+     */
+    public function getThisUserById(int $id_user): ?User {
         try {
-            $sql = "SELECT * FROM user WHERE user.id_user = :id_user;";
+            $sql = "SELECT * FROM user WHERE user.id_user = :id_user LIMIT 1;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
                 ":id_user" => $id_user
             ]);
-            $retour = $statement->fetchAll(PDO::FETCH_CLASS, User::class);
-            return $retour;
-        }
-        catch (PDOException $error) {
+            $user = $statement->fetch(PDO::FETCH_CLASS, User::class);
+            return $user;
+        } catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
 
-    public function getThisUserByEmail (string $str_email): User {
+    /**
+     * Récupérer un utilisateur spécifique
+     *
+     * @param   string  $str_email  Email de l'utilisateur
+     *
+     * @return  User                Retourne l'utilisateur trouver
+     */
+    public function getThisUserByEmail (string $str_email): ?User {
         try {
-            $sql = "SELECT * FROM user WHERE user.str_email = :str_email;";
+            $sql = "SELECT * FROM user WHERE user.str_email = :str_email LIMIT 1;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
                 ":str_email" => $str_email
             ]);
-            $retour = $statement->fetchAll(PDO::FETCH_CLASS, User::class);
-            return $retour;
+            $user = $statement->fetch(PDO::FETCH_CLASS, User::class);
+            return $user;
         }
         catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
 
-    public function getThisUserByPseudo (int $str_pseudo): User {
+    /**
+     * Récupérer un utilisateur spécifique
+     *
+     * @param   string  $str_pseudo  Pseudo unique de l'utilisateur
+     *
+     * @return  User                 Retourne l'utilisateur trouver
+     */
+    public function getThisUserByPseudo (string $str_pseudo): ?User {
         try {
-            $sql = "SELECT * FROM user WHERE user.str_pseudo = :str_pseudo;";
+            $sql = "SELECT * FROM user WHERE user.str_pseudo = :str_pseudo LIMIT 1;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
                 ":str_pseudo" => $str_pseudo
+            ]);
+            $user = $statement->fetch(PDO::FETCH_CLASS, User::class);
+            return $user;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    /**
+     * Permet le trie des utilisateurs ayant déjà joué à ce jeu, trier par note descendante
+     *
+     * @param   int    $id_game  Identifiant unique du jeu sélectionné
+     *
+     * @return  array            Un tableau listant tout les utilisateurs trouver
+     */
+    public function trierByGameConnu (int $id_game) :array {
+        try {
+            $sql = "SELECT user.*, game_connu.id_game, AVG(avis_user.int_note) AS avg_score
+                    FROM user
+                    INNER JOIN game_connu ON user.id_user = game_connu.id_user
+                    LEFT JOIN avis_user ON user.id_user = avis_user.id_evalue
+                    WHERE game_connu.id_game = :id_game
+                    GROUP BY user.id_user
+                    ORDER BY avg_score DESC;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ":id_game" => $id_game
             ]);
             $retour = $statement->fetchAll(PDO::FETCH_CLASS, User::class);
             return $retour;
@@ -110,8 +170,42 @@ class UserRepository {
         }
     }
 
+    /**
+     * Permet le trie des utilisateurs voulant joué à ce jeu, trier par note descendante
+     *
+     * @param   int    $id_game  Identifiant unique du jeu selectionné
+     *
+     * @return  array            Un tableau listant tous les utilisateurs trouver
+     */
+    public function trierByGameVoulu (int $id_game) :array {
+        try {
+            $sql = "SELECT user.*, game_voulu.id_game, AVG(avis_user.int_note) AS avg_score
+                    FROM user
+                    INNER JOIN game_voulu ON user.id_user = game_voulu.id_user
+                    LEFT JOIN avis_user ON user.id_user = avis_user.id_evalue
+                    WHERE game_voulu.id_game = :id_game
+                    GROUP BY user.id_user
+                    ORDER BY avg_score DESC;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ":id_game" => $id_game
+            ]);
+            $retour = $statement->fetchAll(PDO::FETCH_CLASS, User::class);
+            return $retour;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
 
-
+    /**
+     * Permet de trouver un utilisateur depuis son email et de vérifier son mdp
+     *
+     * @param   string  $str_email  Email donné par l'utilisateur
+     * @param   string  $password   Mdp donné par l'utilisateur
+     *
+     * @return  User                Retourne l'utilisateur si les données sont correctes
+     */
     public function login(string $str_email, string $password): ?User {
         try {
             $sql = "SELECT * FROM ".PREFIXE."user WHERE user.str_email = :str_email;";
