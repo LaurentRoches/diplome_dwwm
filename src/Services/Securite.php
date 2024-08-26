@@ -5,18 +5,16 @@ namespace src\Services;
 use stdClass;
 
 trait Securite {
+    public static function sanitize(array|stdClass $data): array {
+        if ($data instanceof stdClass) {
+            $data = (array) $data;
+        }
 
-  public static function sanitize(array|stdClass $data): array {
+        $dataSanitized = [];
 
-    if ($data instanceof stdClass) {
-      $data = (array) $data;
+        foreach($data as $key => $value) {
+            $dataSanitized[$key] = htmlspecialchars($value);
+        }
+        return $dataSanitized;
     }
-
-    $dataSanitazed = [];
-
-    foreach($data as $key => $value) {
-      $dataSanitazed[$key] = htmlspecialchars($value);
-    }
-    return $dataSanitazed;
-  }
 }

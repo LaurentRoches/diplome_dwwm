@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projet diplome dwwm</title>
     <script src="https://cdn.tailwindcss.com" defer></script>
+    <script> const HOME_URL = "<?= HOME_URL ?>"; </script>
 </head>
 <body>
 

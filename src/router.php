@@ -1,12 +1,14 @@
 <?php
 
 use src\Controllers\HomeController;
+use src\Controllers\UserController;
 use src\Services\Routing;
 
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
 
 $HomeController = new HomeController;
+$UserController = new UserController;
 
 $routeComposee = Routing::routeComposee($route);
 
@@ -15,7 +17,7 @@ switch ($route) {
         $HomeController->index();
         break;
     case HOME_URL . 'connexion' :
-        if($methode = "GET") {
+        if($methode == "GET") {
            if(isset($_SESSION['connecte'])) {
                 $HomeController->pageProfile();
                 break;
@@ -29,9 +31,8 @@ switch ($route) {
             $UserController->connexion();
             break;
         }
-        
     case HOME_URL . 'inscription' :
-        if($methode = "GET") {
+        if($methode == "GET") {
             if(isset($_SESSION['connecte'])) {
                 $HomeController->pageProfile();
                 break;

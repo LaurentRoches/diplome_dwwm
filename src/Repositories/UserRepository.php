@@ -17,6 +17,10 @@ class UserRepository {
         require_once __DIR__.'/../../config.php';
     }
 
+    public static function getInstance(Database $db): self {
+        return new self($db);
+    }
+
     /**
      * Créer un utilisateur
      *
@@ -26,15 +30,16 @@ class UserRepository {
      */
     public function createUser(User $user): User {
         try {
-            $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo) 
-                    VALUES (:str_email, :str_nom, :str_prenom, :dtm_naissance, :str_pseudo)";
+            $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo, str_mdp) 
+                    VALUES (:str_email, :str_nom, :str_prenom, :dtm_naissance, :str_pseudo, :str_mdp)";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
                 ":str_email"     => $user->getStrEmail(),
                 ":str_nom"       => $user->getStrNom(),
                 ":str_prenom"    => $user->getStrPrenom(),
                 ":dtm_naissance" => $user->getDtmNaissance(),
-                ":str_pseudo"    => $user->getStrPseudo()
+                ":str_pseudo"    => $user->getStrPseudo(),
+                ":str_mdp"       => $user->getStrMdp()
             ]);
 
             $lastInsertId = $this->DB->lastInsertId();
@@ -269,23 +274,43 @@ class UserRepository {
      * Permet de trouver un utilisateur depuis son email et de vérifier son mdp
      *
      * @param   string  $str_email  Email donné par l'utilisateur
-     * @param   string  $password   Mdp donné par l'utilisateur
+     * @param   string  $mdp   Mdp donné par l'utilisateur
      *
      * @return  User                Retourne l'utilisateur si les données sont correctes
      */
-    public function login(string $str_email, string $password): ?User {
+    public function login(string $str_email, string $mdp): ?User {
         try {
-            $sql = "SELECT * FROM ".PREFIXE."user WHERE user.str_email = :str_email;";
+            $sql = "SELECT * FROM user WHERE str_email = :str_email LIMIT 1;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
                 ":str_email" => $str_email,
             ]);
+    
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            
+            if ($result) {
+                $user = new User();
+                $user->setStrEmail($result['str_email']);
+                $user->setStrNom($result['str_nom']);
+                $user->setStrPrenom($result['str_prenom']);
+                $user->setDtmNaissance($result['dtm_naissance']);
+                $user->setIdUser($result['id_user']);
+                $user->isBlnActive($result['bln_active']);
+                $user->setStrMdp($result['str_mdp']);
+                $user->isBlnNotif($result['bln_notif']);
+                $user->setStrPseudo($result['str_pseudo']);
+                $user->setStrDescription($result['str_description'] ?? '');
+                $user->setIdExperience($result['id_experience']);
+                $user->setIdRole($result['id_role']);
+                $user->setIdProfilImage($result['id_profil_image']);
+                $user->setDtmCreation($result['dtm_creation']);
+                $user->setDtmMaj($result['dtm_maj'] ?? '');
 
-            $statement->setFetchMode(PDO::FETCH_CLASS, User::class);
-            $user = $statement->fetch();
-
-            if ($user && password_verify($password, $user->getStrMdp())) {
-                return $user;
+                if (password_verify($mdp, $result['str_mdp'])) {
+                    return $user;
+                } else {
+                    return null;
+                }
             } else {
                 return null;
             }

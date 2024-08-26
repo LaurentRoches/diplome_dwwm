@@ -48,7 +48,7 @@ CREATE TABLE user (
     str_description     Varchar (255),
     id_experience       Int NOT NULL DEFAULT 1,
     id_role             Int NOT NULL DEFAULT 1,
-    id_profil_image    Int NOT NULL DEFAULT 1,
+    id_profil_image     Int NOT NULL DEFAULT 1,
     dtm_creation        Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     dtm_maj             Datetime,
     CONSTRAINT id_experience_FK FOREIGN KEY (id_experience) REFERENCES experience(id_experience),
@@ -57,8 +57,40 @@ CREATE TABLE user (
 )ENGINE=InnoDB;
 
 
-INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, bln_active, str_mdp, str_pseudo, id_experience, id_role)
-VALUES ('rocheslaurent@gmail.com', 'ROCHES', 'Laurent', '1989-05-29', 1, "$2y$10$rHI7VWjUaynJoY0QIQXw5ul7JYovXxUWDRDCuJm0WLGiXF6btC2rm", 'Kagelestis', 3, 2);
+INSERT INTO user (
+    id_user, 
+    str_email, 
+    str_nom, 
+    str_prenom, 
+    dtm_naissance, 
+    bln_active, 
+    str_mdp, 
+    bln_notif, 
+    str_pseudo, 
+    str_description, 
+    id_experience, 
+    id_role, 
+    id_profil_image, 
+    dtm_creation, 
+    dtm_maj
+) 
+VALUES (
+    1, 
+    'rocheslaurent@gmail.com', 
+    'ROCHES', 
+    'Laurent', 
+    '1989-05-29 00:00:00', 
+    1, 
+    '$2y$10$ATuiYOkLwkNxB2fdb.ipaOcdu/zwPWpBw83enKXGBgwuM67ED9WD.', 
+    0, 
+    'Kagelestis', 
+    '', 
+    1, 
+    1, 
+    1, 
+    '2024-08-26 14:30:43', 
+    NULL
+);
 
 
 CREATE TABLE message (

@@ -13,10 +13,10 @@ class User {
     private string $str_prenom;
     private DateTime $dtm_naissance;
     private bool $bln_active = FALSE;
-    private string $str_mdp;
+    private string $str_mdp = '';
     private bool $bln_notif = FALSE;
     private string $str_pseudo;
-    private string $str_description;
+    private string $str_description = '';
     private int $id_experience = 1;
     private int $id_role = 1;
     private int $id_profil_image = 1;
