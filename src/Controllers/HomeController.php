@@ -60,4 +60,14 @@ class HomeController {
         header("HTTP/1.1 404 Not Found");
         $this->render('404');
     }
+
+    public function pageCgu():void {
+        if(isset($_GET['error'])) {
+            $error = htmlspecialchars($_GET['error']);
+        } 
+        else {
+            $error = '';
+        }
+        $this->render("cgu", ["error"=>$error]);
+    }
 }

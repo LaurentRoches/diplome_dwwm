@@ -50,11 +50,12 @@ CREATE TABLE user (
     id_role             Int NOT NULL DEFAULT 1,
     id_profil_image     Int NOT NULL DEFAULT 1,
     dtm_creation        Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    dtm_maj             Datetime DEFAULT '',
+    dtm_maj             Datetime,
     CONSTRAINT id_experience_FK FOREIGN KEY (id_experience) REFERENCES experience(id_experience),
     CONSTRAINT id_role_FK FOREIGN KEY (id_role) REFERENCES role(id_role),
     CONSTRAINT id_profil_image_FK FOREIGN KEY (id_profil_image) REFERENCES profil_image(id_profil_image)
 )ENGINE=InnoDB;
+
 
 
 INSERT INTO user (
@@ -146,7 +147,7 @@ CREATE TABLE game (
     txt_description         TEXT NOT NULL,
     id_categorie_game       Int NOT NULL,
     dtm_creation            Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    dtm_maj                 Datetime DEFAULT '',
+    dtm_maj                 Datetime ,
     CONSTRAINT id_categorie_game_FK FOREIGN KEY (id_categorie_game) REFERENCES categorie_game(id_categorie_game)
 )ENGINE=InnoDB;
 
@@ -190,7 +191,7 @@ CREATE TABLE article (
     str_titre               Varchar (255) NOT NULL,
     id_user                 Int NOT NULL,
     dtm_creation            Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    dtm_maj                 Datetime DEFAULT '',
+    dtm_maj                 Datetime ,
     str_resume              Varchar (255) NOT NULL,
     txt_contenu             TEXT NOT NULL,
     CONSTRAINT id_user_article_FK FOREIGN KEY (id_user) REFERENCES user(id_user)
@@ -212,7 +213,7 @@ CREATE TABLE avis_article (
     str_titre               Varchar (255) NOT NULL,
     str_avis                Varchar (255) NOT NULL,
     dtm_creation            Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    dtm_maj                 Datetime DEFAULT '',
+    dtm_maj                 Datetime ,
     CONSTRAINT id_article_avis_FK FOREIGN KEY (id_article) REFERENCES article(id_article) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT id_user_FK FOREIGN KEY (id_user) REFERENCES user(id_user)
 )ENGINE=InnoDB;

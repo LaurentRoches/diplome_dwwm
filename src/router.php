@@ -49,6 +49,9 @@ switch ($route) {
     case HOME_URL . 'deconnexion' :
         $HomeController->deconnexion();
         break;
+    case HOME_URL . 'cgu' :
+        $HomeController->pageCgu();
+        break;
     default :
         $HomeController->page404();
         break;
