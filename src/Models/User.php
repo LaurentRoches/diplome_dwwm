@@ -110,9 +110,9 @@ class User {
      */
     public function setDtmNaissance(string|DateTime $dtm_naissance): void
     {
-        if($dtm_naissance instanceof DateTime) {
+        if ($dtm_naissance instanceof DateTime) {
             $this->dtm_naissance = $dtm_naissance;
-        }
+        } 
         else {
             $this->dtm_naissance = new DateTime($dtm_naissance);
         }
@@ -296,9 +296,9 @@ class User {
      */
     public function setDtmMaj(string|DateTime $dtm_maj): void
     {
-        if($dtm_maj instanceof DateTime) {
+        if ($dtm_maj instanceof DateTime) {
             $this->dtm_maj = $dtm_maj;
-        }
+        } 
         else {
             $this->dtm_maj = new DateTime($dtm_maj);
         }

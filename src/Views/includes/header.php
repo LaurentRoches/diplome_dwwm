@@ -13,7 +13,7 @@
     <p class="text-xl font-medium">SIMPLON</p>
     <?php
     if(isset($_SESSION['connecte'])){ ?>
-        <button onclick="location.href='<?= HOME_URL ?>profile'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Mon profile</button>
+        <button onclick="location.href='<?= HOME_URL ?>profil'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Mon profil</button>
         <button onclick="location.href='<?= HOME_URL ?>deconnexion'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Deconnexion</button>
     <?php
     } else { ?>

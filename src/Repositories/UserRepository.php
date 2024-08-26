@@ -73,7 +73,7 @@ class UserRepository {
                     ORDER BY avg_score DESC;";
             $statement = $this->DB->prepare($sql);
             $statement->execute();
-            $retour = $statement->fetchAll(PDO::FETCH_CLASS, User::class);
+            $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $retour;
         }
         catch (PDOException $error) {
@@ -97,7 +97,8 @@ class UserRepository {
             ]);
             $user = $statement->fetch(PDO::FETCH_CLASS, User::class);
             return $user;
-        } catch (PDOException $error) {
+        } 
+        catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }

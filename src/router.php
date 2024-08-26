@@ -19,7 +19,7 @@ switch ($route) {
     case HOME_URL . 'connexion' :
         if($methode == "GET") {
            if(isset($_SESSION['connecte'])) {
-                $HomeController->pageProfile();
+                $HomeController->pageProfil();
                 break;
             }
             else {
@@ -34,7 +34,7 @@ switch ($route) {
     case HOME_URL . 'inscription' :
         if($methode == "GET") {
             if(isset($_SESSION['connecte'])) {
-                $HomeController->pageProfile();
+                $HomeController->pageProfil();
                 break;
             }
             else {
@@ -46,6 +46,17 @@ switch ($route) {
             $UserController->inscription();
             break;
         }
+    case HOME_URL . 'profil' :
+        if(isset($_SESSION['user'])) {
+            $HomeController->pageProfil();
+            break;
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur dans le chargement du profile.";
+            $HomeController->index();
+            break;
+        }
+        
     case HOME_URL . 'deconnexion' :
         $HomeController->deconnexion();
         break;

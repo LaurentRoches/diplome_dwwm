@@ -30,14 +30,14 @@ class HomeController {
         $this->render("connexion", ["error"=>$error]);
     }
 
-    public function pageProfile():void {
+    public function pageProfil():void {
         if(isset($_GET['error'])) {
             $error = htmlspecialchars($_GET['error']);
         } 
         else {
             $error = '';
         }
-        $this->render("profile", ["error"=>$error]);
+        $this->render("profil", ["error"=>$error]);
     }
 
     public function pageInscription():void {
