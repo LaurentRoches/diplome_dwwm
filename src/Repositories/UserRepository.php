@@ -109,17 +109,19 @@ class UserRepository {
      *
      * @return  User                Retourne l'utilisateur trouver
      */
-    public function getThisUserByEmail (string $str_email): ?User {
+    public function getThisUserByEmail(string $str_email): ?User {
         try {
-            $sql = "SELECT * FROM user WHERE user.str_email = :str_email LIMIT 1;";
+            $sql = "SELECT * FROM user WHERE str_email = :str_email LIMIT 1;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
                 ":str_email" => $str_email
             ]);
-            $user = $statement->fetch(PDO::FETCH_CLASS, User::class);
-            return $user;
-        }
-        catch (PDOException $error) {
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+            if($user) {
+                return new User($user);
+            }
+            return null;
+        } catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
@@ -133,13 +135,16 @@ class UserRepository {
      */
     public function getThisUserByPseudo (string $str_pseudo): ?User {
         try {
-            $sql = "SELECT * FROM user WHERE user.str_pseudo = :str_pseudo LIMIT 1;";
+            $sql = "SELECT * FROM user WHERE str_pseudo = :str_pseudo LIMIT 1;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
                 ":str_pseudo" => $str_pseudo
             ]);
-            $user = $statement->fetch(PDO::FETCH_CLASS, User::class);
-            return $user;
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+            if($user) {
+                return new User($user);
+            }
+            return null;
         }
         catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());

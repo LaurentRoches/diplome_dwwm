@@ -2,6 +2,9 @@
 
 include_once __DIR__ . '/Includes/header.php';
 
+$erreur = isset($_SESSION['erreur']) ? $_SESSION['erreur'] : '';
+$_SESSION['erreur'] = '';
+
 ?>
 
 <p>Page pour l'inscription</p>
@@ -52,6 +55,7 @@ include_once __DIR__ . '/Includes/header.php';
     </div>
 
     <div>
+        <p> <?= $erreur ?> </p>
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">S'enregistrer</button>
     </div>
 </form>
