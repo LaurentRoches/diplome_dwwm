@@ -30,16 +30,15 @@ class UserRepository {
      */
     public function createUser(User $user): User {
         try {
-            $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo, str_mdp) 
-                    VALUES (:str_email, :str_nom, :str_prenom, :dtm_naissance, :str_pseudo, :str_mdp)";
+            $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo) 
+                    VALUES (:str_email, :str_nom, :str_prenom, :dtm_naissance, :str_pseudo)";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
                 ":str_email"     => $user->getStrEmail(),
                 ":str_nom"       => $user->getStrNom(),
                 ":str_prenom"    => $user->getStrPrenom(),
                 ":dtm_naissance" => $user->getDtmNaissance(),
-                ":str_pseudo"    => $user->getStrPseudo(),
-                ":str_mdp"       => $user->getStrMdp()
+                ":str_pseudo"    => $user->getStrPseudo()
             ]);
 
             $lastInsertId = $this->DB->lastInsertId();

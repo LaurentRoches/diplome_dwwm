@@ -20,20 +20,20 @@ class UserController {
         if(!empty($user)) {
             $user = $this->sanitize($user);
             $email = $user['str_email'];
-            $mdp = password_hash($user['str_mdp'], PASSWORD_DEFAULT);
+            $mdp = $user['str_mdp'];
             $DbConnexion = new Database();
             $UserRepository = UserRepository::getInstance($DbConnexion);
             $user = $UserRepository->login($email, $mdp);
             if($user){
                 $_SESSION["connecte"] = TRUE;
                 $_SESSION["user"] = serialize($user);
-                $this->render("accueil",["user" => $user], 200);
+                $_SESSION['succes'] = "Vous êtes connecté";
+                $this->render("accueil",["user" => $user, "succes" => $_SESSION['succes']]);
                 die();
             } 
             else{
-                $code = 406;
-                $message = ["echec" => "Echec de connexion"];
-                $this->sendJson($message, $code);
+                $_SESSION["erreur"] = "Echec de connexion";
+                $this->render('connexion', ["erreur" => $_SESSION["erreur"]]);
                 die();
             }
         }
@@ -56,16 +56,7 @@ class UserController {
             return;
         }
 
-        $hashedMdp = password_hash($sanitizedData['str_mdp'], PASSWORD_DEFAULT);
-        $sanitizedData['str_mdp'] = $hashedMdp;
-
         $obj = new User($sanitizedData);
-
-        if (is_null($obj->getStrMdp())) {
-            $this->render("accueil", ["erreur" => "Le mot de passe n'a pas pu être correctement enregistré."], 500);
-            return;
-        }
-
         $DbConnexion = new Database();
         $UserRepository = UserRepository::getInstance($DbConnexion);
 

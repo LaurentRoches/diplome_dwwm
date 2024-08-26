@@ -2,9 +2,17 @@
 
 include_once __DIR__ . '/Includes/header.php';
 
+$erreur = isset($_SESSION['erreur']) ? $_SESSION['erreur'] : '';
+$_SESSION['erreur'] = '';
+$succes = isset($_SESSION['succes']) ? $_SESSION['succes'] : '';
+$_SESSION['succes'] = '';
+
+
 ?>
 
-<p>Page de connexion</p>
+<h2>Page de connexion</h2>
+<p> <?= $erreur ?> </p>
+<p> <?= $succes ?> </p>
 <form class="space-y-6" action="<?=HOME_URL?>connexion" method="POST">
     <div>
         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Addresse email :</label>
