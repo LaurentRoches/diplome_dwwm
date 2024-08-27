@@ -1,3 +1,6 @@
+<?php
+$user = isset($_SESSION['user']) ? unserialize($_SESSION['user']) : '';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,8 +17,13 @@
     <?php
     if(isset($_SESSION['connecte'])){ ?>
         <button onclick="location.href='<?= HOME_URL ?>profil'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Mon profil</button>
-        <button onclick="location.href='<?= HOME_URL ?>deconnexion'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Deconnexion</button>
-    <?php
+        <?php
+        if($user->getIdRole() == 2 || $user->getIdRole() == 3) { ?>
+            <button onclick="location.href='<?= HOME_URL ?>userliste'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Utilisateurs</button>
+            <button onclick="location.href='<?= HOME_URL ?>articleliste'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Articles</button>
+            <button onclick="location.href='<?= HOME_URL ?>deconnexion'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Deconnexion</button>
+            <?php
+        }
     } else { ?>
         <button onclick="location.href='<?= HOME_URL ?>connexion'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded connect">Se connecter</button>
         <button onclick="location.href='<?= HOME_URL ?>inscription'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded connect">S'enregistrer</button>

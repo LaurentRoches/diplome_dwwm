@@ -26,33 +26,26 @@ class UserRepository {
      *
      * @param   User  $user  les données sous forme de l'objet User
      *
-     * @return  User         Retourne l'utilisateur enregistrer
+     * @return  User         Retourne vrai si l'enregistrement s'est bien apssé
      */
-    public function createUser(User $user): User {
+    public function createUser(User $user): bool {
         try {
             $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo) 
                     VALUES (:str_email, :str_nom, :str_prenom, :dtm_naissance, :str_pseudo)";
             $statement = $this->DB->prepare($sql);
-            $statement->execute([
+             $retour = $statement->execute([
                 ":str_email"     => $user->getStrEmail(),
                 ":str_nom"       => $user->getStrNom(),
                 ":str_prenom"    => $user->getStrPrenom(),
                 ":dtm_naissance" => $user->getDtmNaissance(),
                 ":str_pseudo"    => $user->getStrPseudo()
             ]);
-
-            $lastInsertId = $this->DB->lastInsertId();
-            $user->setIdUser((int)$lastInsertId);
-
-            $sql = "SELECT * FROM user WHERE id_user = :id";
-            $statement = $this->DB->prepare($sql);
-            $statement->execute([":id" => $lastInsertId]);
-            $userData = $statement->fetch(PDO::FETCH_ASSOC);
-
-            if ($userData) {
-                $user->actualise($userData);
+            if ($retour) {
+                return TRUE;
             }
-            return $user;
+            else {
+                return FALSE;
+            }
         } 
         catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());

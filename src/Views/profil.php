@@ -35,7 +35,7 @@ if ($role === 2 || $role === 3) {
     foreach($user_liste as $utilisateur) { ?>
     <p><?= htmlspecialchars($utilisateur['str_nom'], ENT_QUOTES, 'UTF-8') ?></p>
 
-    <?php    
+    <?php
     }
 }
 ?>
