@@ -215,7 +215,7 @@ class UserRepository {
                       str_nom = :str_nom, 
                       str_prenom = :str_prenom, 
                       dtm_naissance = :dtm_naissance, 
-                      bln_active = :bln_active, 
+                      str_mdp = :str_mdp, 
                       str_mdp = :str_mdp, 
                       bln_notif = :bln_notif, 
                       str_pseudo = :str_pseudo, 
@@ -231,7 +231,7 @@ class UserRepository {
                 ":str_nom" => $user->getStrNom(),
                 ":str_prenom" => $user->getStrPrenom(),
                 ":dtm_naissance" => $user->getDtmNaissance(),
-                ":bln_active" => $user->isBlnActive(),
+                ":str_mdp" => $user->getStrMdp(),
                 ":str_mdp" => $user->getStrMdp(),
                 ":bln_notif" => $user->isBlnNotif(),
                 ":str_pseudo" => $user->getStrPseudo(),
@@ -243,7 +243,8 @@ class UserRepository {
                 ":id_user" => $user->getIdUser(),
             ]);
             return $this->getThisUserById($user->getIdUser());
-        } catch (PDOException $error) {
+        } 
+        catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
@@ -313,6 +314,38 @@ class UserRepository {
                 return null;
             }
         } catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    /**
+     * Fonction pour l'activation d'un compte
+     *
+     * @param   int     $id_user  identifiant unique de l'utilisateru
+     * @param   string  $str_mdp  Nouveau mot de passe donné par l'utilisateur
+     *
+     * @return  bool              Retourne vrai si tout s'est bien passé
+     */
+    public function activateThisUser(int $id_user, string $str_mdp):bool {
+        try {
+            $sql = "UPDATE user SET
+                    str_mdp = :str_mdp,
+                    bln_active = :bln_active
+                    WHERE id_user = :id_user;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ":str_mdp" => $str_mdp,
+                ":bln_active" => 1,
+                ":id_user" => $id_user
+            ]);
+            if($retour){
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
