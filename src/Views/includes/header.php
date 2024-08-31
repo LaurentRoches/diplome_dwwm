@@ -12,22 +12,19 @@ $user = isset($_SESSION['user']) ? unserialize($_SESSION['user']) : '';
 </head>
 <body>
 
-<div class="flex justify-between items-center h-16 bg-gray-200 p-4">
-    <p class="text-xl font-medium">SIMPLON</p>
+<nav class="flex justify-between items-center h-16 bg-gray-200 p-4">
+    <h1 class="text-xl font-medium"><a href="<?= HOME_URL ?>">SIMPLON</a></h1>
+    <button onclick="location.href='<?= HOME_URL ?>userliste'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Utilisateurs</button>
+    <button onclick="location.href='<?= HOME_URL ?>articleliste'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Articles</button>
     <?php
     if(isset($_SESSION['connecte'])){ ?>
         <button onclick="location.href='<?= HOME_URL ?>profil'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Mon profil</button>
+        <button onclick="location.href='<?= HOME_URL ?>deconnexion'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Deconnexion</button>
         <?php
-        if($user->getIdRole() == 2 || $user->getIdRole() == 3) { ?>
-            <button onclick="location.href='<?= HOME_URL ?>userliste'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Utilisateurs</button>
-            <button onclick="location.href='<?= HOME_URL ?>articleliste'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Articles</button>
-            <button onclick="location.href='<?= HOME_URL ?>deconnexion'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disconnect">Deconnexion</button>
-            <?php
-        }
     } else { ?>
         <button onclick="location.href='<?= HOME_URL ?>connexion'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded connect">Se connecter</button>
         <button onclick="location.href='<?= HOME_URL ?>inscription'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded connect">S'enregistrer</button>
-    <?php
+        <?php
     }
     ?>
-</div>
+</nav>

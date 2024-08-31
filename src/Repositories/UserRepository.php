@@ -284,9 +284,9 @@ class UserRepository {
             $statement->execute([
                 ":str_email" => $str_email,
             ]);
-    
+
             $result = $statement->fetch(PDO::FETCH_ASSOC);
-            
+
             if ($result) {
                 $user = new User();
                 $user->setStrEmail($result['str_email']);

@@ -31,12 +31,9 @@ $image = $ProfilImageRepository->getThisImage($id_image);
 <p> <?= $erreur ?> </p>
 <p> <?= $succes ?> </p>
 <?php
-if ($role === 2 || $role === 3) { 
-    foreach($user_liste as $utilisateur) { ?>
+foreach($user_liste as $utilisateur) { ?>
     <p><?= htmlspecialchars($utilisateur['str_nom'], ENT_QUOTES, 'UTF-8') ?></p>
-
-    <?php
-    }
+<?php
 }
 ?>
 

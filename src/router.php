@@ -16,7 +16,7 @@ switch ($route) {
     case HOME_URL:
         $HomeController->index();
         break;
-    case HOME_URL . 'connexion' :
+    case $routeComposee[0] == 'connexion' :
         if($methode == "GET") {
            if(isset($_SESSION['connecte'])) {
                 $HomeController->pageProfil();
@@ -31,7 +31,7 @@ switch ($route) {
             $UserController->connexion();
             break;
         }
-    case HOME_URL . 'inscription' :
+    case $routeComposee[0] == 'inscription' :
         if($methode == "GET") {
             if(isset($_SESSION['connecte'])) {
                 $HomeController->pageProfil();
@@ -46,7 +46,7 @@ switch ($route) {
             $UserController->inscription();
             break;
         }
-    case HOME_URL . 'profil' :
+    case $routeComposee[0] == 'profil' :
         if(isset($_SESSION['user'])) {
             $HomeController->pageProfil();
             break;
@@ -56,11 +56,10 @@ switch ($route) {
             $HomeController->index();
             break;
         }
-        
-    case HOME_URL . 'deconnexion' :
+    case $routeComposee[0] == 'deconnexion' :
         $HomeController->deconnexion();
         break;
-    case HOME_URL . 'cgu' :
+    case $routeComposee[0] == 'cgu' :
         $HomeController->pageCgu();
         break;
     default :

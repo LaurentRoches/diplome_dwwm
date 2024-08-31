@@ -30,7 +30,7 @@ class UserController {
                 $_SESSION["connecte"] = TRUE;
                 $_SESSION["user"] = serialize($user);
                 $_SESSION['succes'] = "Vous êtes connecté";
-                $this->render("accueil",["user" => $user, "succes" => $_SESSION['succes']]);
+                $this->render("accueil",["succes" => $_SESSION['succes']]);
                 die();
             } 
             else{
