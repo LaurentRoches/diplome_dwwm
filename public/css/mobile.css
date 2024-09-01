@@ -41,24 +41,36 @@
 }
 
 
+body {
+    background-color: var(--blanc);
+}
 
 
-/* Utilisation des variables dans les classes */
-.blanc {
-    color: var(--blanc);
+/* nav_bar et menu burger */
+#mobile-nav {
+    @apply hidden;
 }
-.jaune {
-    color: var(--jaune);
+@media (min-width: 768px) {
+    #mobile-nav {
+        @apply flex;
+    }
 }
-.marron_c {
-    color: var(--marron_c);
+#mobile-nav.show {
+    @apply fixed inset-y-0 right-0 w-full max-w-xs bg-white shadow-lg overflow-hidden;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
 }
-.marron_f {
-    color: var(--marron_f);
+#mobile-nav.show::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -17px;
+    width: 17px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, #fff);
 }
-.noir {
-    color: var(--noir);
-}
+
+
 
 
 /* banner accueil */
