@@ -1,0 +1,87 @@
+    /* Couleur de la charte graphique */
+:root {
+    --blanc: #f2efbd;
+    --jaune: #f2ba52;
+    --marron_c: #d9933d;
+    --marron_f: #8c310f;
+    --noir: #0d0d0d;
+}
+
+    /* Définistion des assets */
+/* Bouton action */
+.btn_action_gd {
+    width: 150px;
+    height: 50px;
+    background-color:var(--marron_c);
+    border: none;
+    border-radius: 25px;
+    color: var(--blanc);
+    font-size: 1.2em;
+    font-weight: bold;
+    font-family: 'Merriweather', serif;
+    cursor: pointer;
+    text-align: center;
+    line-height: 50px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Effet au survol */
+.btn_action:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(140, 49, 15, 0.8);
+}
+/* Effet au clic */
+.btn_action:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+/* Ajout d'un effet focus pour l'accessibilité */
+.btn_action:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(217, 147, 61, 0.5);
+}
+
+
+
+
+/* Utilisation des variables dans les classes */
+.blanc {
+    color: var(--blanc);
+}
+.jaune {
+    color: var(--jaune);
+}
+.marron_c {
+    color: var(--marron_c);
+}
+.marron_f {
+    color: var(--marron_f);
+}
+.noir {
+    color: var(--noir);
+}
+
+
+/* banner accueil */
+.banner_accueil {
+    width: 95%;
+    height: 215px;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    background-image: url('/../img/accueil_banner.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+}
+.texte_banner {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--marron_f);
+    font-size: 1.5em;
+    text-shadow: 2px 2px 5px var(--blanc);
+    background-color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}

@@ -13,6 +13,10 @@ $_SESSION['succes'] = '';
 <p> <?= $erreur ?> </p>
 <p> <?= $succes ?> </p>
 
+<div class="banner_accueil">
+    <p class="texte_banner">Message d'accueil de la banner</p>
+</div>
+
 <?php
 
 include_once __DIR__ . '/Includes/footer.php';

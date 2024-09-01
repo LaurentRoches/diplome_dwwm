@@ -7,6 +7,9 @@ $user = isset($_SESSION['user']) ? unserialize($_SESSION['user']) : '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projet diplome dwwm</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/mobile.css" media="only screen and (max-width: 768px)">
     <script src="https://cdn.tailwindcss.com" defer></script>
     <script> const HOME_URL = "<?= HOME_URL ?>"; </script>
 </head>

@@ -1,6 +1,6 @@
 
 </body>
 <footer>
-    <a href="<?= HOME_URL ?>cgu">CGU</a>
+    <button href="<?= HOME_URL ?>cgu" class="btn_action">CGU</button>
 </footer>
 </html>
