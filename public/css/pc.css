@@ -1,0 +1,65 @@
+    /* Couleur de la charte graphique */
+:root {
+    --blanc: #f2f2f2;
+    --parchemin: #F2EFBD;
+    --ecriture: #8C3842;
+    --violet: #86388C;
+    --hover: #5F558C;
+    --bleu: #38718C;
+    --noir: #292929;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Merriweather', sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--parchemin);
+    padding: 10px 20px;
+}
+
+.navbar .logo {
+    color: var(--ecriture);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar .nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.navbar .nav-links li {
+    margin-left: 20px;
+}
+
+.navbar .nav-links a {
+    color: var(--ecriture);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.navbar .burger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 21px;
+}
+
+.navbar .burger div {
+    width: 25px;
+    height: 3px;
+    background-color: var(--ecriture);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}

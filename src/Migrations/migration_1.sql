@@ -43,9 +43,10 @@ CREATE TABLE user (
     dtm_naissance       Datetime NOT NULL,
     bln_active          TINYINT(1) NOT NULL DEFAULT 0,
     str_mdp             Varchar (255) DEFAULT '',
-    bln_notif           TINYINT(1) NOT NULL DEFAULT 0 ,
+    bln_notif           TINYINT(1) NOT NULL DEFAULT 0,
     str_pseudo          Varchar (255) NOT NULL UNIQUE,
     str_description     Varchar (255) DEFAULT '',
+    bln_mj              TINYINT(1) NOT NULL DEFAULT 0,
     id_experience       Int NOT NULL DEFAULT 1,
     id_role             Int NOT NULL DEFAULT 1,
     id_profil_image     Int NOT NULL DEFAULT 1,
@@ -189,11 +190,11 @@ CREATE TABLE categorie_article (
 CREATE TABLE article (
     id_article              Int AUTO_INCREMENT PRIMARY KEY,
     str_titre               Varchar (255) NOT NULL,
+    str_resume              Varchar (255) NOT NULL,
+    txt_contenu             TEXT NOT NULL,
     id_user                 Int NOT NULL,
     dtm_creation            Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     dtm_maj                 Datetime ,
-    str_resume              Varchar (255) NOT NULL,
-    txt_contenu             TEXT NOT NULL,
     CONSTRAINT id_user_article_FK FOREIGN KEY (id_user) REFERENCES user(id_user)
 )ENGINE=InnoDB;
 

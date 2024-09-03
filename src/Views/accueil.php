@@ -8,7 +8,7 @@ $succes = isset($_SESSION['succes']) ? $_SESSION['succes'] : '';
 $_SESSION['succes'] = '';
 
 ?>
-<h1>C'est la page d'accueil !!!</h1>
+<h2>C'est la page d'accueil !!!</h2>
 
 <p> <?= $erreur ?> </p>
 <p> <?= $succes ?> </p>
