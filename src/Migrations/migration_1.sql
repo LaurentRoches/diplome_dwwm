@@ -111,22 +111,10 @@ CREATE TABLE avis_user (
     id_avis_user        Int AUTO_INCREMENT PRIMARY KEY,
     id_observateur      Int NOT NULL,
     id_evalue           Int NOT NULL,
-    str_avis            Varchar (255) NOT NULL,
-    int_note            Int NOT NULL,
-    dtm_envoi           DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    bln_aime            TINYINT(1) NOT NULL DEFAULT 0,
+    dtm_creation        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT id_observateur_FK FOREIGN KEY (id_observateur) REFERENCES user(id_user),
     CONSTRAINT id_evalue_FK FOREIGN KEY (id_evalue) REFERENCES user(id_user)
-)ENGINE=InnoDB;
-
-
-CREATE TABLE reponse_avis_user (
-    id_reponse_avis_user        Int AUTO_INCREMENT PRIMARY KEY,
-    id_user                     Int NOT NULL,
-    id_avis_user                Int NOT NULL,
-    str_message                 Varchar (255) NOT NULL,
-    dtm_creation                Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT id_user_reponse_FK FOREIGN KEY (id_user) REFERENCES user(id_user),
-    CONSTRAINT id_avis_user_FK FOREIGN KEY (id_avis_user) REFERENCES avis_user(id_avis_user)
 )ENGINE=InnoDB;
 
 
@@ -191,7 +179,12 @@ CREATE TABLE article (
     id_article              Int AUTO_INCREMENT PRIMARY KEY,
     str_titre               Varchar (255) NOT NULL,
     str_resume              Varchar (255) NOT NULL,
-    txt_contenu             TEXT NOT NULL,
+    str_chemin_img_1        VARCHAR(255) NOT NULL,
+    str_titre_section_1     Varchar (255) NOT NULL,
+    txt_section_1           TEXT NOT NULL,
+    str_chemin_img_2        VARCHAR(255) NOT NULL,
+    str_titre_section_2     Varchar (255) NOT NULL,
+    txt_section_2           TEXT NOT NULL,
     id_user                 Int NOT NULL,
     dtm_creation            Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
     dtm_maj                 Datetime ,

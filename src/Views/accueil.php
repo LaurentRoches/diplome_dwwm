@@ -17,6 +17,7 @@ $_SESSION['succes'] = '';
     <p class="texte_banner">Message d'accueil de la banner</p>
 </div>
 
+
 <?php
 
 include_once __DIR__ . '/Includes/footer.php';

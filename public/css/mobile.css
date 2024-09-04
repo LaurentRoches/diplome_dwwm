@@ -1,3 +1,14 @@
+    /* Couleur de la charte graphique */
+:root {
+    --blanc: #f2f2f2;
+    --parchemin: #F2EFBD;
+    --ecriture: #8C3842;
+    --violet: #86388C;
+    --hover: #5F558C;
+    --bleu: #38718C;
+    --noir: #292929;
+}
+
     /* Définistion des assets */
 /* Bouton action */
 .btn_action_gd {
@@ -29,11 +40,6 @@
 .btn_action:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(217, 147, 61, 0.5);
-}
-
-
-body {
-    background-color: var(--blanc);
 }
 
 

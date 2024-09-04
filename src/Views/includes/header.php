@@ -18,7 +18,14 @@ $user = isset($_SESSION['user']) ? unserialize($_SESSION['user']) : '';
 <body>
 
 <nav class="navbar">
-<h1 class="logo"><a href="<?= HOME_URL ?>">[Nom du site]</a></h1>
+    <div class="header_flex">
+        <a href="<?= HOME_URL ?>">
+            <img src="img/logo_site.png" alt="logo du site [Nom du site]" class="logo_header">
+        </a>
+        <a href="<?= HOME_URL ?>">
+            <h1 class="logo">[Nom du site]</h1>
+        </a>
+    </div>
         <ul class="nav-links">
             <li><a href="<?= HOME_URL ?>userliste">Utilisateurs</a></li>
             <li><a href="<?= HOME_URL ?>articleliste">Articles</a></li>

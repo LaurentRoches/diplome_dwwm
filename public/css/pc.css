@@ -1,7 +1,7 @@
     /* Couleur de la charte graphique */
 :root {
     --blanc: #f2f2f2;
-    --parchemin: #F2EFBD;
+    --parchemin: #f2efbd;
     --ecriture: #8C3842;
     --violet: #86388C;
     --hover: #5F558C;
@@ -17,18 +17,45 @@
 
 body {
     font-family: 'Merriweather', sans-serif;
+    background-color: var(--parchemin);
+    color: var(--ecriture);
+}
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3 {
+    font-family: 'Cinzel';
+    font-weight: bolder;
+}
+
+
+        /* HEADER */
+.header_flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 30%;
+}
+
+.logo_header {
+    width: 150px;
+    height: 150px;
 }
 
 .navbar {
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    height: 150px;
+    justify-content: space-around;
     align-items: center;
-    background-color: var(--parchemin);
+    background-color: var(--ecriture);
     padding: 10px 20px;
 }
 
 .navbar .logo {
-    color: var(--ecriture);
+    color: var(--parchemin);
     font-size: 24px;
     font-weight: bold;
 }
@@ -36,6 +63,8 @@ body {
 .navbar .nav-links {
     display: flex;
     list-style: none;
+    width: 60%;
+    justify-content: flex-end;
 }
 
 .navbar .nav-links li {
@@ -43,8 +72,7 @@ body {
 }
 
 .navbar .nav-links a {
-    color: var(--ecriture);
-    text-decoration: none;
+    color: var(--parchemin);
     font-size: 18px;
 }
 
@@ -59,7 +87,83 @@ body {
 .navbar .burger div {
     width: 25px;
     height: 3px;
-    background-color: var(--ecriture);
+    background-color: var(--parchemin);
     border-radius: 5px;
     transition: all 0.3s ease;
+}
+        /* FIN DU HEADER */
+
+
+        /*  FOOTER */
+
+footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--ecriture);
+    color: var(--parchemin);
+    width: 100%;
+    height: 300px;
+    padding: 20px;
+}
+
+.footer_logo {
+    width: 200px;
+    height: 200px;
+}
+
+.footer_sociaux{
+    display: flex;
+    flex-direction: column;
+}
+
+.footer_icones_liste {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer_icone {
+    width: 75px;
+    height: 75px;
+}
+        /* FIN DU FOOTER */
+
+
+.form_bg {
+    position: relative;
+    background-image: url('/../img/form_bg_img.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form_bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(242, 239, 189, 0.25);
+    z-index: 0;
+}
+
+.form_post_texte {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 40%;
+    background-color: rgba(242, 239, 189, 0.85);
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.connexion_titre {
+    font-size: 2em;
+    font-weight: 900;
 }
