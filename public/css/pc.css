@@ -3,10 +3,12 @@
     --blanc: #f2f2f2;
     --parchemin: #f2efbd;
     --ecriture: #8C3842;
-    --violet: #86388C;
+    --utilisateur: #86388C;
     --hover: #5F558C;
-    --bleu: #38718C;
+    --article: #38718C;
     --noir: #292929;
+    --succes: #286D22;
+    --erreur: #DB0000;
 }
 
 * {
@@ -27,6 +29,86 @@ a {
 h1, h2, h3 {
     font-family: 'Cinzel';
     font-weight: bolder;
+}
+
+    /* Définistion des assets */
+/* Bouton action */
+.btn_gd_utilisateur {
+    width: 150px;
+    height: 50px;
+    background-color:var(--utilisateur);
+    border: none;
+    border-radius: 15px;
+    color: var(--parchemin);
+    font-size: 1.2em;
+    font-weight: bold;
+    font-family: 'Merriweather', sans-serif;
+    cursor: pointer;
+    text-align: center;
+    line-height: 50px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Effet au survol */
+.btn_gd_utilisateur:hover {
+    transform: scale(1.05);
+    background-color: var(--hover);
+    box-shadow: 4px 4px 15px var(--utilisateur);
+}
+
+/* Bouton action */
+.btn_pt_utilisateur {
+    width: 125px;
+    height: 35px;
+    background-color:var(--utilisateur);
+    border: none;
+    border-radius: 15px;
+    color: var(--parchemin);
+    font-size: 1em;
+    font-weight: bold;
+    font-family: 'Merriweather', sans-serif;
+    cursor: pointer;
+    text-align: center;
+    line-height: 35px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Effet au survol */
+.btn_pt_utilisateur:hover {
+    transform: scale(1.05);
+    background-color: var(--hover);
+    box-shadow: 4px 4px 15px var(--utilisateur);
+}
+
+
+.erreur_texte {
+    color: var(--erreur);
+    font-weight: 900;
+}
+.succes_texte {
+    color: var(--succes);
+    font-weight: 900;
+}
+
+/* fond des formulaire */
+.form_bg {
+    position: relative;
+    background-image: url('/../img/form_bg_img.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.form_post_texte {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 70%;
+    background-color: rgba(242, 239, 189, 0.85);
+    padding: 10px 20px;
+    align-items: center;
+    margin: 75px 10px;
 }
 
 
@@ -131,39 +213,48 @@ footer {
         /* FIN DU FOOTER */
 
 
-.form_bg {
-    position: relative;
-    background-image: url('/../img/form_bg_img.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+        /* CONNEXION */
+.connexion_titre {
     display: flex;
-    align-items: center;
+    width: 80%;
+    font-size: 2.5em;
+    font-weight: bolder;
     justify-content: center;
+    margin: 10px 20px;
 }
-
-.form_bg::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(242, 239, 189, 0.25);
-    z-index: 0;
-}
-
-.form_post_texte {
+.connexion_form {
+    width: 80%;
     display: flex;
     flex-direction: column;
-    width: 50%;
-    height: 40%;
-    background-color: rgba(242, 239, 189, 0.85);
-    align-items: center;
-    padding: 10px 20px;
 }
-
-.connexion_titre {
-    font-size: 2em;
-    font-weight: 900;
+.connexion_champs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 10px 20px;
 }
+.connexion_champs a{
+    display: flex;
+    justify-content: flex-end;
+}
+.connexion_champs input {
+    width: 100%;
+    height: 55px;
+    border-radius: 15px;
+    padding: 5px;
+    margin-top: 10px;
+}
+.connexion_form .btn_gd_utilisateur {
+    align-self: center;
+    justify-self: flex-end;
+    margin: 20px 30px;
+}
+.connexion_inscription {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: center;
+    width: 100%;
+    margin: 20px 10px;
+}
+        /* FIN DE CONNEXION */

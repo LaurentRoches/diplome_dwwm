@@ -9,46 +9,28 @@
     --noir: #292929;
 }
 
-    /* Définistion des assets */
-/* Bouton action */
-.btn_action_gd {
-    width: 150px;
-    height: 50px;
-    background-color:var(--marron_c);
-    border: none;
-    border-radius: 25px;
-    color: var(--blanc);
-    font-size: 1.2em;
-    font-weight: bold;
-    font-family: 'Merriweather', sans-serif;
-    cursor: pointer;
-    text-align: center;
-    line-height: 50px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* fond des formulaire */
+.form_bg {
+    min-height: 500px;
 }
-/* Effet au survol */
-.btn_action:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 4px 15px rgba(140, 49, 15, 0.8);
-}
-/* Effet au clic */
-.btn_action:active {
-    transform: scale(0.95);
-    box-shadow: none;
-}
-/* Ajout d'un effet focus pour l'accessibilité */
-.btn_action:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(217, 147, 61, 0.5);
+.form_post_texte {
+    width: 75%;
 }
 
 
 /* nav_bar et menu burger */
+.header_flex {
+    width: 65%;
+}
+.logo_header {
+    width: 100px;
+    height: 100px;
+}
+
 .navbar .nav-links {
     position: absolute;
     right: 0;
-    height: 100vh;
-    top: 60px;
+    top: 100px;
     background-color: rgba(0, 0, 0, 0);
     flex-direction: column;
     align-items: center;
@@ -86,7 +68,34 @@
 }
 
 
+        /*  FOOTER */
 
+footer {
+    flex-direction: column;
+}
+.footer_sociaux p {
+    align-self: center;
+    margin-bottom: 5px;
+}
+.footer_logo {
+    width: 75px;
+    height: 75px;
+}
+.footer_icone {
+    width: 25px;
+    height: 25px;
+    margin: 0px 20px;
+}
+        /* FIN DU FOOTER */
+
+
+        /* CONNEXION */
+.connexion_titre {
+    font-size: 1.5em;
+}
+.connexion_champs {
+    margin: 20px 10px;
+}
 
 /* banner accueil */
 .banner_accueil {

@@ -10,40 +10,32 @@ $_SESSION['succes'] = '';
 
 ?>
 <div class="form_bg">
-  <div class="form_post_texte">
-    <h2 class="connexion_titre">Connectez-vous</h2>
-    <?php
-    if($erreur !== '') { ?>
-      <p> <?= $erreur ?> </p>
-    <?php } 
-    if($succes !== '') { ?>
-      <p> <?= $succes ?> </p>
-    <?php } ?>
-    <form class="" action="<?=HOME_URL?>connexion" method="POST">
-        <div>
-            <label for="email" class="">Addresse email :</label>
-            <div class="mt-2">
-              <input id="str_email" name="str_email" type="email" autocomplete="email" required class="">
+    <div class="form_post_texte">
+        <h2 class="connexion_titre">Connectez-vous</h2>
+        <?php
+        if($erreur !== '') { ?>
+        <p class="erreur_texte"> <?= $erreur ?> </p>
+        <?php } 
+        if($succes !== '') { ?>
+        <p class="succes_texte"> <?= $succes ?> </p>
+          <?php } ?>
+        <form class="connexion_form" action="<?=HOME_URL?>connexion" method="POST">
+            <div class="connexion_champs">
+                <label for="email" class="">Addresse email :</label>
+                <input id="str_email" name="str_email" type="email" autocomplete="email" required class="">
             </div>
-        </div>
-
-          <div>
-            <div class="">
-              <label for="str_mdp" class="">Mot de passe :</label>
-              <div class="text-sm">
+            <div class="connexion_champs">
+                <label for="str_mdp" class="">Mot de passe :</label>
+                <input id="str_mdp" name="str_mdp" type="password" required class="">
                 <a href="#" class="">Mot de passe oublié?</a>
-              </div>
             </div>
-            <div class="mt-2">
-              <input id="str_mdp" name="str_mdp" type="password" required class="">
-            </div>
-          </div>
-
-          <div>
-            <button type="submit" class="">Se connecter</button>
-          </div>
-    </form>
-  </div>
+            <button type="submit" class="btn_gd_utilisateur">Se connecter</button>
+        </form>
+        <div class="connexion_inscription">
+            <p>Pas encore de compte ?</p>
+            <button class="btn_pt_utilisateur">Inscription</button>
+        </div>
+    </div>
 </div>
 
 <?php
