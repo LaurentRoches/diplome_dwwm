@@ -31,7 +31,7 @@
     position: absolute;
     right: 0;
     top: 100px;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: var(--ecriture);
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -51,8 +51,8 @@
 
 .navbar .nav-links.active {
     transform: translateX(0%);
-    background-color: rgba(0, 0, 0, 0.9);
-    z-index: 1;
+    background-color: var(--ecriture);
+    z-index: 3;
 }
 
 .burger.toggle .line1 {
@@ -97,27 +97,8 @@ footer {
     margin: 20px 10px;
 }
 
-/* banner accueil */
-.banner_accueil {
-    width: 95%;
-    height: 215px;
-    margin: 0 auto;
-    position: relative;
-    text-align: center;
-    background-image: url('/../img/accueil_banner.jpg'); 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.6;
-}
-.texte_banner {
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: var(--marron_f);
-    font-size: 1.5em;
-    text-shadow: 2px 2px 5px var(--blanc);
-    background-color: rgba(255, 255, 255, 0.7);
-    margin: 0;
+
+        /* ACCUEIL */
+.accueil_presentation_2 {
+    flex-direction: column;
 }

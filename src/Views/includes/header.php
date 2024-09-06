@@ -26,22 +26,23 @@ $user = isset($_SESSION['user']) ? unserialize($_SESSION['user']) : '';
             <h1 class="logo">[Nom du site]</h1>
         </a>
     </div>
-        <ul class="nav-links">
-            <li><a href="<?= HOME_URL ?>userliste">Utilisateurs</a></li>
-            <li><a href="<?= HOME_URL ?>articleliste">Articles</a></li>
-            <?php
+    <ul class="nav-links">
+        <li><a href="<?= HOME_URL ?>userliste">Utilisateurs</a></li>
+        <li><a href="<?= HOME_URL ?>articleliste">Articles</a></li>
+        <?php
         if(isset($_SESSION['connecte'])){ ?>
-            <li><a href="<?= HOME_URL ?>profil">Mon profil</a></li>
-            <li><a href="<?= HOME_URL ?>deconnexion">Déconnexion</a></li>
-            <?php
-        } else { ?>
-            <li><a href="<?= HOME_URL ?>connexion">Se connecter</a></li>
-            <li><a href="<?= HOME_URL ?>inscription">Inscription</a></li>
-            <?php  } ?>
-        </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
+        <li><a href="<?= HOME_URL ?>profil">Mon profil</a></li>
+        <li><a href="<?= HOME_URL ?>deconnexion">Déconnexion</a></li>
+        <?php
+        } 
+        else { ?>
+        <li><a href="<?= HOME_URL ?>connexion">Se connecter</a></li>
+        <li><a href="<?= HOME_URL ?>inscription">Inscription</a></li>
+        <?php  } ?>
+    </ul>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
 </nav>
