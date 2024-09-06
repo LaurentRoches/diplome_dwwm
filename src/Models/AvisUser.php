@@ -10,11 +10,12 @@ class AvisUser {
     private int $id_avis_user;
     private int $id_observateur;
     private int $id_evalue;
-    private string $str_avis;
-    private int $int_note;
-    private DateTime $dtm_envoi;
+    private Bool $bln_aime;
+    private DateTime $dtm_creation;
+    private DateTime $dtm_maj;
 
     use Hydratation;
+
 
 
     /**
@@ -72,59 +73,62 @@ class AvisUser {
     }
 
     /**
-     * Get the value of str_avis
+     * Get the value of bln_aime
      */
-    public function getStrAvis(): string
+    public function getBlnAime(): Bool
     {
-        return $this->str_avis;
+        return $this->bln_aime;
     }
 
     /**
-     * Set the value of str_avis
+     * Set the value of bln_aime
      */
-    public function setStrAvis(string $str_avis): self
+    public function setBlnAime(Bool $bln_aime): self
     {
-        $this->str_avis = $str_avis;
+        $this->bln_aime = $bln_aime;
 
         return $this;
     }
 
     /**
-     * Get the value of int_note
+     * Get the value of dtm_creation
      */
-    public function getIntNote(): int
+    public function getDtmCreation(): string
     {
-        return $this->int_note;
+        return $this->dtm_creation->format('Y-m-d');
     }
 
     /**
-     * Set the value of int_note
+     * Set the value of dtm_creation
      */
-    public function setIntNote(int $int_note): self
+    public function setDtmCreation(string|DateTime $dtm_creation): void
     {
-        $this->int_note = $int_note;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of dtm_envoi
-     */
-    public function getDtmEnvoi(): string
-    {
-        return $this->dtm_envoi->format('Y-m-d H:i:s');
-    }
-
-    /**
-     * Set the value of dtm_envoi
-     */
-    public function setDtmEnvoi(string|DateTime $dtm_envoi): void
-    {
-        if($dtm_envoi instanceof DateTime) {
-            $this->dtm_envoi = $dtm_envoi;
+        if($dtm_creation instanceof DateTime) {
+            $this->dtm_creation = $dtm_creation;
         }
         else {
-            $this->dtm_envoi = new DateTime($dtm_envoi);
+            $this->dtm_creation = new DateTime($dtm_creation);
+        }
+    }
+
+    /**
+     * Get the value of dtm_maj
+     */
+    public function getDtmMaj(): string
+    {
+        return $this->dtm_maj->format('Y-m-d');
+    }
+
+    /**
+     * Set the value of dtm_maj
+     */
+    public function setDtmMaj(string|DateTime $dtm_maj): void
+    {
+        if($dtm_maj instanceof DateTime) {
+            $this->dtm_maj = $dtm_maj;
+        }
+        else {
+            $this->dtm_maj = new DateTime($dtm_maj);
         }
     }
 }

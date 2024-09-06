@@ -113,6 +113,7 @@ CREATE TABLE avis_user (
     id_evalue           Int NOT NULL,
     bln_aime            TINYINT(1) NOT NULL DEFAULT 0,
     dtm_creation        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    dtm_maj             Datetime,
     CONSTRAINT id_observateur_FK FOREIGN KEY (id_observateur) REFERENCES user(id_user),
     CONSTRAINT id_evalue_FK FOREIGN KEY (id_evalue) REFERENCES user(id_user)
 )ENGINE=InnoDB;

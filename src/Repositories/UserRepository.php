@@ -57,13 +57,17 @@ class UserRepository {
      *
      * @return  array   Un tableau listant tout les utilisateur
      */
-    public function getAllUser () :array {
+    public function getAllUser (): array {
         try {
-            $sql = "SELECT user.*, AVG(avis_user.int_note) AS avg_score
+            $sql = "SELECT 
+                        user.*, 
+                        COALESCE(SUM(CASE WHEN avis_user.bln_aime = 1 THEN 1 ELSE 0 END),0) AS aime,
+                        COUNT(avis_user.id_avis_user) AS total_avis,
+                        COALESCE(SUM(CASE WHEN avis_user.bln_aime = 1 THEN 1 ELSE 0 END) / NULLIF(COUNT(avis_user.id_avis_user), 0), 0) AS ratio
                     FROM user
                     LEFT JOIN avis_user ON user.id_user = avis_user.id_evalue
                     GROUP BY user.id_user
-                    ORDER BY avg_score DESC;";
+                    ORDER BY ratio DESC;";
             $statement = $this->DB->prepare($sql);
             $statement->execute();
             $retour = $statement->fetchAll(PDO::FETCH_ASSOC);

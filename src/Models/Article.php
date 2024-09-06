@@ -13,10 +13,16 @@ class Article {
     private DateTime $dtm_creation;
     private DateTime $dtm_maj;
     private string $str_resume;
-    private string $txt_contenu;
+    private string $str_chemin_img_1;
+    private string $str_titre_section_1;
+    private string $txt_section_1;
+    private string $str_chemin_img_2;
+    private string $str_titre_section_2;
+    private string $txt_section_2;
     private int $id_categorie_article;
 
     use Hydratation;
+
 
     /**
      * Get the value of id_article
@@ -133,19 +139,109 @@ class Article {
     }
 
     /**
-     * Get the value of txt_contenu
+     * Get the value of str_chemin_img_1
      */
-    public function getTxtContenu(): string
+    public function getStrCheminImg1(): string
     {
-        return $this->txt_contenu;
+        return $this->str_chemin_img_1;
     }
 
     /**
-     * Set the value of txt_contenu
+     * Set the value of str_chemin_img_1
      */
-    public function setTxtContenu(string $txt_contenu): self
+    public function setStrCheminImg1(string $str_chemin_img_1): self
     {
-        $this->txt_contenu = $txt_contenu;
+        $this->str_chemin_img_1 = $str_chemin_img_1;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of str_titre_section_1
+     */
+    public function getStrTitreSection1(): string
+    {
+        return $this->str_titre_section_1;
+    }
+
+    /**
+     * Set the value of str_titre_section_1
+     */
+    public function setStrTitreSection1(string $str_titre_section_1): self
+    {
+        $this->str_titre_section_1 = $str_titre_section_1;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of txt_section_1
+     */
+    public function getTxtSection1(): string
+    {
+        return $this->txt_section_1;
+    }
+
+    /**
+     * Set the value of txt_section_1
+     */
+    public function setTxtSection1(string $txt_section_1): self
+    {
+        $this->txt_section_1 = $txt_section_1;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of str_chemin_img_2
+     */
+    public function getStrCheminImg2(): string
+    {
+        return $this->str_chemin_img_2;
+    }
+
+    /**
+     * Set the value of str_chemin_img_2
+     */
+    public function setStrCheminImg2(string $str_chemin_img_2): self
+    {
+        $this->str_chemin_img_2 = $str_chemin_img_2;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of str_titre_section_2
+     */
+    public function getStrTitreSection2(): string
+    {
+        return $this->str_titre_section_2;
+    }
+
+    /**
+     * Set the value of str_titre_section_2
+     */
+    public function setStrTitreSection2(string $str_titre_section_2): self
+    {
+        $this->str_titre_section_2 = $str_titre_section_2;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of txt_section_2
+     */
+    public function getTxtSection2(): string
+    {
+        return $this->txt_section_2;
+    }
+
+    /**
+     * Set the value of txt_section_2
+     */
+    public function setTxtSection2(string $txt_section_2): self
+    {
+        $this->txt_section_2 = $txt_section_2;
 
         return $this;
     }

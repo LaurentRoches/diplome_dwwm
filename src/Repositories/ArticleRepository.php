@@ -2,6 +2,7 @@
 
 namespace src\Repositories;
 
+use PDO;
 use PDOException;
 use src\Models\Article;
 use src\Models\Database;
@@ -16,9 +17,40 @@ class ArticleRepository {
         require_once __DIR__.'/../../config.php';
     }
 
-    public function createArticle (Article $article):void {
+    public function createArticle (Article $article):bool {
         try {
-            $sql = "INSERT INTO article (str_titre, id_user, str_resume, txt_contenu) VALUES (:str_titre, :id_user, :str_resume, :txt_contenu);";
+            $sql = "INSERT INTO article (str_titre, id_user, str_resume, str_chemin_img_1, str_titre_section_1, txt_section_1, str_chemin_img_2, str_titre_section_2, txt_section_2) VALUES (:str_titre, :id_user, :str_resume, :str_chemin_img_1, :str_titre_section_1, :txt_section_1, :str_chemin_img_2, :str_titre_section_2, :txt_section_2);";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ":str_titre"            => $article->getStrTitre(),
+                ":id_user"              => $article->getIdUser(),
+                ":str_resume"           => $article->getStrResume(),
+                ":str_chemin_1"         => $article->getStrCheminImg1(),
+                ":str_titre_section_1"  => $article->getStrTitreSection1(),
+                ":txt_section_1"        => $article->getTxtSection1(),
+                ":str_chemin_2"         => $article->getStrCheminImg2(),
+                ":str_titre_section_2"  => $article->getStrTitreSection2(),
+                ":txt_section_2"        => $article->getTxtSection2()
+            ]);
+            if ($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function getAllArticles (): array {
+        try {
+            $sql = "SELECT * FROM article ORDER BY COALESCE(dtm_maj, dtm_creation) DESC;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute();
+            $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $retour;
         }
         catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
