@@ -17,6 +17,10 @@ class ArticleRepository {
         require_once __DIR__.'/../../config.php';
     }
 
+    public static function getInstance(Database $db): self {
+        return new self($db);
+    }
+
     public function createArticle (Article $article):bool {
         try {
             $sql = "INSERT INTO article (str_titre, id_user, str_resume, str_chemin_img_1, str_titre_section_1, txt_section_1, str_chemin_img_2, str_titre_section_2, txt_section_2) VALUES (:str_titre, :id_user, :str_resume, :str_chemin_img_1, :str_titre_section_1, :txt_section_1, :str_chemin_img_2, :str_titre_section_2, :txt_section_2);";
@@ -46,7 +50,10 @@ class ArticleRepository {
 
     public function getAllArticles (): array {
         try {
-            $sql = "SELECT * FROM article ORDER BY COALESCE(dtm_maj, dtm_creation) DESC;";
+            $sql = "SELECT article.*, user.str_pseudo 
+                    FROM article
+                    LEFT JOIN user ON user.id_user = article.id_user
+                    ORDER BY COALESCE(article.dtm_maj, article.dtm_creation) DESC;";
             $statement = $this->DB->prepare($sql);
             $statement->execute();
             $retour = $statement->fetchAll(PDO::FETCH_ASSOC);

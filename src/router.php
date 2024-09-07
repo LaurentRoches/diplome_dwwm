@@ -47,12 +47,17 @@ switch ($route) {
             break;
         }
     case $routeComposee[0] == 'profil' :
-        if(isset($_SESSION['user'])) {
-            $HomeController->pageProfil();
+        if(isset($routeComposee[1]) && !empty($routeComposee[1])){
+            $HomeController->pageProfil($routeComposee[1]);
+            break;
+        }
+        elseif(isset($_SESSION['user'])) {
+            $user = unserialize($_SESSION['user']);
+            $HomeController->pageProfil($user->getStrPseudo());
             break;
         }
         else {
-            $_SESSION['erreur'] = "Erreur dans le chargement du profile.";
+            $_SESSION['erreur'] = "Erreur dans le chargement du profil.";
             $HomeController->index();
             break;
         }

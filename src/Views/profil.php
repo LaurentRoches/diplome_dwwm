@@ -14,30 +14,26 @@ $_SESSION['succes'] = '';
 $database = new Database;
 $UserRepository = UserRepository::getInstance($database);
 $ProfilImageRepository = ProfilImageRepository::getInstance($database);
+if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+    $user = unserialize($_SESSION['user']);
+}
 
-$user_liste = $UserRepository->getAllUser();
-$user = unserialize($_SESSION['user']);
-$role = (int)$user->getIdRole();
-$id_image = (int)$user->getIdProfilImage();
-$image = $ProfilImageRepository->getThisImage($id_image);
-
-?>
-
-<h2>Page de profil</h2>
-<div>
-    <img src="/<?= $image->getStrChemin() ?>" alt="Image de profil de l'utilisateur">
-    <div>Bonjour <?= htmlspecialchars($user->getStrNom(), ENT_QUOTES, 'UTF-8') ?> <?= htmlspecialchars($user->getStrPrenom(), ENT_QUOTES, 'UTF-8') ?></div>
-</div>
-<p> <?= $erreur ?> </p>
-<p> <?= $succes ?> </p>
-<?php
-foreach($user_liste as $utilisateur) { ?>
-    <p><?= htmlspecialchars($utilisateur['str_nom'], ENT_QUOTES, 'UTF-8') ?></p>
+if(isset($utilisateur) && !empty($utilisateur)) { ?>
+    <h2> PAGE DE PROFIL</h2>
+    <p>bonjour <?= $utilisateur->getStrPseudo() ?></p>
 <?php
 }
-?>
-
-
-<?php
-
+else {
+    // Renvoyer à l'accueil avec message erreur;
+}
 include_once __DIR__ . '/Includes/footer.php';
+
+
+
+
+
+
+
+
+
+

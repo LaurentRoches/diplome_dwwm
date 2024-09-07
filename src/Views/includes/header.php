@@ -9,9 +9,8 @@ $user = isset($_SESSION['user']) ? unserialize($_SESSION['user']) : '';
     <title>Projet diplome dwwm</title>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/pc.css">
-    <link rel="stylesheet" href="css/mobile.css" media="only screen and (max-width: 768px)">
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <link rel="stylesheet" href="<?= HOME_URL ?>css/pc.css">
+    <link rel="stylesheet" href="<?= HOME_URL ?>css/mobile.css" media="only screen and (max-width: 768px)">
     <script> const HOME_URL = "<?= HOME_URL ?>"; </script>
     <script src="/public/js/burger.js"></script>
 </head>

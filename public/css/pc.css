@@ -306,7 +306,7 @@ footer {
 .accueil_presentation {
     width: 80%;
 }
-.accueil_texte_social h3 {
+.accueil_titre_section {
     font-size: 2em;
     font-weight: bolder;
     margin: 10px 20px;
@@ -345,6 +345,30 @@ footer {
     height: 90px;
     background: radial-gradient(circle, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.15));
     margin-left: 10px;
+}
+.accueil_gauche {
+    display: flex;
+    align-self: flex-start;
+    margin-left: 10%;
+}
+.accueil_miniature_article_gd {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 50%;
+    height: 400px;
+}
+.accueil_miniature_overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: var(--parchemin);
+    font-size: 1.25em;
+    text-shadow: 2px 2px 5px var(--ecriture);
+    text-align: center;
+    padding: 10px 0;
 }
 
         /* FIN ACCUEIL */

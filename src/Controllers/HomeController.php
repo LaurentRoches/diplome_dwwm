@@ -2,6 +2,8 @@
 
 namespace src\Controllers;
 
+use src\Models\Database;
+use src\Repositories\UserRepository;
 use src\Services\Reponse;
 use src\Services\Securite;
 
@@ -30,14 +32,33 @@ class HomeController {
         $this->render("connexion", ["error"=>$error]);
     }
 
-    public function pageProfil():void {
+    public function pageProfil(?string $pseudo = NULL):void {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo($pseudo);
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+
         if(isset($_GET['error'])) {
             $error = htmlspecialchars($_GET['error']);
         } 
         else {
             $error = '';
         }
-        $this->render("profil", ["error"=>$error]);
+        $this->render("profil", [
+            "utilisateur" => $utilisateur,
+            "error" => $error
+        ]);
     }
 
     public function pageInscription():void {

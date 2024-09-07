@@ -13,7 +13,7 @@ class AvisArticle {
     private string $str_titre;
     private string $str_avis;
     private DateTime $dtm_creation;
-    private DateTime $dtm_maj;
+    private ?DateTime $dtm_maj = null;
 
     use Hydratation;
 
@@ -139,12 +139,13 @@ class AvisArticle {
     /**
      * Set the value of dtm_maj
      */
-    public function setDtmMaj(string|DateTime $dtm_maj): void
+    public function setDtmMaj(null|string|DateTime $dtm_maj): void
     {
-        if($dtm_maj instanceof DateTime) {
+        if (is_null($dtm_maj)) {
+            $this->dtm_maj = null;
+        } elseif ($dtm_maj instanceof DateTime) {
             $this->dtm_maj = $dtm_maj;
-        }
-        else {
+        } else {
             $this->dtm_maj = new DateTime($dtm_maj);
         }
     }
