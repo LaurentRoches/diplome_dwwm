@@ -2,6 +2,7 @@
 
 use src\Models\Database;
 use src\Repositories\ArticleRepository;
+use src\Repositories\GameRepository;
 use src\Repositories\UserRepository;
 
 include_once __DIR__ . '/Includes/header.php';
@@ -14,6 +15,7 @@ $_SESSION['succes'] = '';
 $database = new Database();
 $UserRepository = UserRepository::getInstance($database);
 $ArticleRepository = ArticleRepository::getInstance($database);
+$GameRepository = GameRepository::getInstance($database);
 
 $liste_user = $UserRepository->getAllUser();
 $liste_article = $ArticleRepository->getAllArticles();
@@ -100,11 +102,26 @@ $limiteur = 0;
                     <?php if($utilisateur['bln_mj'] == 1) { ?>
                         <img src="<?= HOME_URL ?>img/icons/valider_icon.png" alt="Validé">
                     <?php } else { ?>
-                        <img src="<?= HOME_URL ?>img/icons/croix_icon.jpg" alt="Non validé">
+                        <img src="<?= HOME_URL ?>img/icons/croix_icon.png" alt="Non validé">
                     <?php } ?>
                     </td>
                     <td><?= $utilisateur['aime'] ?></td>
                     <td><?= ($utilisateur['total_avis'] - $utilisateur['aime'])?></td>
+                    <td>
+                        <?php
+                        $tab_game = $GameRepository->getAllGameVoulu($utilisateur['id_user']);
+                        $int_game_voulu = count($tab_game);
+                        if($int_game_voulu === 0) {
+                            echo "Non renseigné.";
+                        }
+                        elseif($int_game_voulu >= 2) {
+                            echo "Plusieurs jeux souhaités.";
+                        }
+                        else {
+                            echo $tab_game[0]['str_nom'];
+                        }
+                        ?>
+                    </td>
                 </tr>
             <?php 
                 $limiteur ++;
