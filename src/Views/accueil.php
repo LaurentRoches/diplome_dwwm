@@ -1,25 +1,17 @@
 <?php
 
-use src\Models\Database;
 use src\Repositories\ArticleRepository;
 use src\Repositories\GameRepository;
 use src\Repositories\UserRepository;
 
 include_once __DIR__ . '/Includes/header.php';
 
-$erreur = isset($_SESSION['erreur']) ? $_SESSION['erreur'] : '';
-$_SESSION['erreur'] = '';
-$succes = isset($_SESSION['succes']) ? $_SESSION['succes'] : '';
-$_SESSION['succes'] = '';
-
-$database = new Database();
 $UserRepository = UserRepository::getInstance($database);
 $ArticleRepository = ArticleRepository::getInstance($database);
 $GameRepository = GameRepository::getInstance($database);
 
 $liste_user = $UserRepository->getAllUserLimit3();
 $liste_article = $ArticleRepository->getAllArticlesLimit3();
-$limiteur = 0;
 
 ?>
 <div class="accueil_centrer">

@@ -2,17 +2,10 @@
 
 include_once __DIR__ . '/Includes/header.php';
 
-use src\Models\Database;
 use src\Repositories\ExperienceRepository;
 use src\Repositories\UserRepository;
 use src\Repositories\ProfilImageRepository;
 
-$erreur = isset($_SESSION['erreur']) ? $_SESSION['erreur'] : '';
-$_SESSION['erreur'] = '';
-$succes = isset($_SESSION['succes']) ? $_SESSION['succes'] : '';
-$_SESSION['succes'] = '';
-
-$database = new Database;
 $UserRepository = UserRepository::getInstance($database);
 $ProfilImageRepository = ProfilImageRepository::getInstance($database);
 $ExperienceRepository = ExperienceRepository::getInstance($database);
@@ -25,9 +18,14 @@ else {
 }
 
 if(isset($utilisateur) && !empty($utilisateur)) { 
+
     $image_utilisateur = $ProfilImageRepository->getThisImage($utilisateur->getIdProfilImage()); 
-    $niveau_utilisateur = $ExperienceRepository->getThisExperience($utilisateur->getIdExperience()); 
-    $description = $utilisateur->getStrDescription();?>
+    $niveau_utilisateur = $ExperienceRepository->getThisExperience($utilisateur->getIdExperience());
+    $description = htmlspecialchars($utilisateur->getStrDescription());
+    $pseudo = htmlspecialchars($utilisateur->getStrPseudo());
+    
+    ?>
+
     <div class="profil_corps">
     <div class="profil_presentation">
         <img src="<?= HOME_URL . $image_utilisateur->getStrChemin() ?>" alt="miniature de l'image de profile" class="profil_image">
@@ -36,7 +34,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                         if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
                             <span>bonjour </span>
                         <?php }
-                        } ?><?= htmlspecialchars($utilisateur->getStrPseudo()); ?></h2>
+                        } ?><?= $pseudo ?></h2>
             <h3>
                 <?php
                 if($utilisateur->isBlnMj() === TRUE) { ?>
@@ -59,10 +57,10 @@ if(isset($utilisateur) && !empty($utilisateur)) {
     <?php } ?>
     <div class="profil_action">
         <div class="profil_btn_action">
-            <a href="<?= HOME_URL ?>message" class="btn_gd_utilisateur">Messages</a>
+            <a href="<?= HOME_URL ?>message/<?= $pseudo ?>" class="btn_gd_utilisateur">Messages</a>
         </div>
         <div class="profil_btn_action">
-            <a href="<?= HOME_URL ?>disponibilite" class="btn_gd_utilisateur">Disponibilité</a>
+            <a href="<?= HOME_URL ?>disponibilite/<?= $pseudo ?>" class="btn_gd_utilisateur">Disponibilité</a>
         </div>
         <div class="profil_btn_action">
             <a href="<?= HOME_URL ?>" class="btn_gd_utilisateur">Jeux connus</a>

@@ -2,9 +2,6 @@
 
 include_once __DIR__ . '/includes/header.php';
 
-$erreur = isset($_SESSION['erreur']) ? $_SESSION['erreur'] : '';
-$_SESSION['erreur'] = '';
-
 ?>
 <div class="form_bg">
     <div class="form_post_texte">

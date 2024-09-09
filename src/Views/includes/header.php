@@ -1,5 +1,21 @@
 <?php
-$user = isset($_SESSION['user']) ? unserialize($_SESSION['user']) : '';
+
+use src\Models\Database;
+
+$erreur = isset($_SESSION['erreur']) ? $_SESSION['erreur'] : '';
+$_SESSION['erreur'] = '';
+$succes = isset($_SESSION['succes']) ? $_SESSION['succes'] : '';
+$_SESSION['succes'] = '';
+
+if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+    $user = unserialize($_SESSION['user']);
+}
+else {
+    $user = NULL;
+}
+
+$database = new Database();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
