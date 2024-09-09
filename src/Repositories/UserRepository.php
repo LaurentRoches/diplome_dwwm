@@ -53,7 +53,7 @@ class UserRepository {
     }
 
     /**
-     * Récupère tout les utilisateur, trier par note descendante
+     * Récupère tout les utilisateurs, trier par note descendante
      *
      * @return  array   Un tableau listant tout les utilisateur
      */
@@ -69,6 +69,35 @@ class UserRepository {
                     LEFT JOIN profil_image ON user.id_profil_image = profil_image.id_profil_image
                     GROUP BY user.id_user
                     ORDER BY ratio DESC;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute();
+            $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $retour;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+
+    /**
+     * Récupère trois utilisateurs, trier par note descendante
+     *
+     * @return  array   Un tableau listant tout les utilisateur
+     */
+    public function getAllUserLimit3 (): array {
+        try {
+            $sql = "SELECT 
+                        user.*, profil_image.str_chemin,
+                        COALESCE(SUM(CASE WHEN avis_user.bln_aime = 1 THEN 1 ELSE 0 END),0) AS aime,
+                        COUNT(avis_user.id_avis_user) AS total_avis,
+                        COALESCE(SUM(CASE WHEN avis_user.bln_aime = 1 THEN 1 ELSE 0 END) / NULLIF(COUNT(avis_user.id_avis_user), 0), 0) AS ratio
+                    FROM user
+                    LEFT JOIN avis_user ON user.id_user = avis_user.id_evalue
+                    LEFT JOIN profil_image ON user.id_profil_image = profil_image.id_profil_image
+                    GROUP BY user.id_user
+                    ORDER BY ratio DESC
+                    LIMIT 3;";
             $statement = $this->DB->prepare($sql);
             $statement->execute();
             $retour = $statement->fetchAll(PDO::FETCH_ASSOC);

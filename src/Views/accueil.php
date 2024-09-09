@@ -17,8 +17,8 @@ $UserRepository = UserRepository::getInstance($database);
 $ArticleRepository = ArticleRepository::getInstance($database);
 $GameRepository = GameRepository::getInstance($database);
 
-$liste_user = $UserRepository->getAllUser();
-$liste_article = $ArticleRepository->getAllArticles();
+$liste_user = $UserRepository->getAllUserLimit3();
+$liste_article = $ArticleRepository->getAllArticlesLimit3();
 $limiteur = 0;
 
 ?>
@@ -80,7 +80,7 @@ $limiteur = 0;
         <?php } ?>
     </div>
     <h3 class="accueil_titre_section accueil_gauche">Les utilisateurs :</h3>
-    <table>
+    <table class="accueil_tableau">
         <thead>
             <tr>
                 <th></th>
@@ -93,16 +93,15 @@ $limiteur = 0;
         </thead>
         <tbody>
             <?php
-            foreach($liste_user as $utilisateur) {
-                if($limiteur < 3) { ?>
+            foreach($liste_user as $utilisateur) { ?>
                 <tr>
-                    <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><img src="" alt="" class="accueil_miniature_profil"></a></td>
+                    <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><img src="<?= $utilisateur['str_chemin'] ?>" alt="" class="accueil_miniature_profil"></a></td>
                     <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><?= $utilisateur['str_pseudo'] ?></a></td>
                     <td>
                     <?php if($utilisateur['bln_mj'] == 1) { ?>
-                        <img src="<?= HOME_URL ?>img/icons/valider_icon.png" alt="Validé">
+                        <img src="<?= HOME_URL ?>img/icons/valider_icon.png" alt="Validé" class="accueil_icon_mj">
                     <?php } else { ?>
-                        <img src="<?= HOME_URL ?>img/icons/croix_icon.png" alt="Non validé">
+                        <img src="<?= HOME_URL ?>img/icons/croix_icon.png" alt="Non validé" class="accueil_icon_mj">
                     <?php } ?>
                     </td>
                     <td><?= $utilisateur['aime'] ?></td>
@@ -123,9 +122,7 @@ $limiteur = 0;
                         ?>
                     </td>
                 </tr>
-            <?php 
-                $limiteur ++;
-                }
+            <?php
             } ?>
         </tbody>
     </table>

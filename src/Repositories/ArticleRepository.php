@@ -63,4 +63,21 @@ class ArticleRepository {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
+
+    public function getAllArticlesLimit3 (): array {
+        try {
+            $sql = "SELECT article.*, user.str_pseudo 
+                    FROM article
+                    LEFT JOIN user ON user.id_user = article.id_user
+                    ORDER BY COALESCE(article.dtm_maj, article.dtm_creation) DESC
+                    LIMIT 3;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute();
+            $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $retour;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
 }

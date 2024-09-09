@@ -370,6 +370,33 @@ footer {
     text-align: center;
     padding: 10px 0;
 }
+.accueil_tableau {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+.accueil_tableau th, .accueil_tableau td {
+    padding: 10px;
+    min-height: 55px;
+    border-bottom: 1px solid var(--ecriture);
+}
+.accueil_tableau tr {
+    height: 55px;
+}
+.accueil_miniature_profil {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.accueil_icon_mj {
+    width: 35px;
+    height: 35px;
+}
+.accueil_tableau th {
+    text-align: left;
+    font-weight: bold;
+}
 
         /* FIN ACCUEIL */
 
