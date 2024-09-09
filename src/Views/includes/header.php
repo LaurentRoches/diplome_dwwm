@@ -19,7 +19,7 @@ $user = isset($_SESSION['user']) ? unserialize($_SESSION['user']) : '';
 <nav class="navbar">
     <div class="header_flex">
         <a href="<?= HOME_URL ?>">
-            <img src="img/logo_site.png" alt="logo du site [Nom du site]" class="logo_header">
+            <img src="<?= HOME_URL ?>img/logo_site.png" alt="logo du site [Nom du site]" class="logo_header">
         </a>
         <a href="<?= HOME_URL ?>">
             <h1 class="logo">[Nom du site]</h1>

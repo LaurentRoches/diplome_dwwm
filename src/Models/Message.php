@@ -93,7 +93,7 @@ class Message {
      */
     public function getDtmEnvoi(): string
     {
-        return $this->dtm_envoi->format('Y-m-d H:i:s');
+        return $this->dtm_envoi->format('d-m-Y H:i:s');
     }
 
     /**

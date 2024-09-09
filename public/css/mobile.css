@@ -102,3 +102,10 @@ footer {
 .accueil_presentation_2 {
     flex-direction: column;
 }
+
+
+        /* PROFIL */
+.profil_image {
+    width: 150px;
+    height: 150px;
+}

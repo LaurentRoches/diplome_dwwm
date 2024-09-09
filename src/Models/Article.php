@@ -83,7 +83,7 @@ class Article {
      */
     public function getDtmCreation(): string
     {
-        return $this->dtm_creation->format('Y-m-d');
+        return $this->dtm_creation->format('d-m-Y');
     }
 
     /**
@@ -104,7 +104,7 @@ class Article {
      */
     public function getDtmMaj(): string
     {
-        return $this->dtm_maj->format('Y-m-d');
+        return $this->dtm_maj->format('d-m-Y');
     }
 
     /**

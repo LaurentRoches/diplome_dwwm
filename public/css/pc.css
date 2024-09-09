@@ -36,6 +36,9 @@ h1, h2, h3 {
     /* Définistion des assets */
 /* Bouton action */
 .btn_gd_utilisateur {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 150px;
     height: 50px;
     background-color:var(--utilisateur);
@@ -82,6 +85,9 @@ h1, h2, h3 {
 
 /* Bouton action */
 .btn_gd_article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 150px;
     height: 50px;
     background-color:var(--article);
@@ -351,6 +357,13 @@ footer {
     align-self: flex-start;
     margin-left: 10%;
 }
+.accueil_droite {
+    display: flex;
+    align-self: flex-end;
+    margin-right: 10%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
 .accueil_miniature_article_gd {
     background-size: cover;
     background-position: center;
@@ -371,7 +384,7 @@ footer {
     padding: 10px 0;
 }
 .accueil_tableau {
-    width: 80%;
+    width: 60%;
     border-collapse: collapse;
     margin: 0 auto;
 }
@@ -446,5 +459,112 @@ footer {
     margin: 20px 10px;
 }
         /* FIN DE CONNEXION */
+
+
+        /* PROFIL */
+.profil_corps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin: 15px 25px;
+}
+.profil_presentation {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: 50px 25px;
+}
+.profil_image {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-self: flex-start;
+}
+.profil_presentation_texte {
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.profil_description {
+    display: flex;
+    width: 80%;
+    margin: 15px 25px;
+}
+.profil_action {
+    display: flex;
+    width: 50%;
+    margin: 50px 25px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.profil_btn_action {
+    width: calc(50% - 10px);
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: center;
+}
+.profil_like {
+    width: 25px;
+    height: 25px;
+    color: var(--parchemin);
+}
+.btn_like {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 35px;
+    background-color:#3C8B28;
+    border: none;
+    border-radius: 15px;
+    color: var(--parchemin);
+    font-size: 1em;
+    font-weight: bold;
+    font-family: 'Merriweather', sans-serif;
+    cursor: pointer;
+    text-align: center;
+    line-height: 35px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn_like:hover {
+    transform: scale(1.05);
+    background-color: var(--hover);
+    box-shadow: 4px 4px 15px #3C8B28;
+}
+.profil_dislike {
+    width: 25px;
+    height: 25px;
+    color: var(--parchemin);
+    transform: rotate(180deg);
+}
+.btn_dislike {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 35px;
+    background-color:red;
+    border: none;
+    border-radius: 15px;
+    color: var(--parchemin);
+    font-size: 1em;
+    font-weight: bold;
+    font-family: 'Merriweather', sans-serif;
+    cursor: pointer;
+    text-align: center;
+    line-height: 35px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn_dislike:hover {
+    transform: scale(1.05);
+    background-color: var(--hover);
+    box-shadow: 4px 4px 15px red;
+}
+
 
 

@@ -2,12 +2,11 @@
 
 namespace src\Repositories;
 
-use PDO;
 use PDOException;
 use src\Models\Database;
-use src\Models\ProfilImage;
+use src\Models\Experience;
 
-class ProfilImageRepository { 
+class ExperienceRepository {
 
     private $DB;
 
@@ -21,14 +20,14 @@ class ProfilImageRepository {
         return new self($db);
     }
 
-    public function getThisImage(int $id_profil_image):?ProfilImage {
+    public function getThisExperience(int $id_experience):?Experience {
         try {
-            $sql = "SELECT * FROM profil_image WHERE id_profil_image = :id_profil_image LIMIT 1;";
+            $sql = "SELECT * FROM experience WHERE id_experience = :id_experience LIMIT 1;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
-                ":id_profil_image" => $id_profil_image
+                ":id_experience" => $id_experience
             ]);
-            $image = $statement->fetchObject(ProfilImage::class);
+            $image = $statement->fetchObject(Experience::class);
             return $image ?: null;
         } 
         catch (PDOException $error) {
