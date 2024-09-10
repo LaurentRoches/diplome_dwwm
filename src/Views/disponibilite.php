@@ -25,7 +25,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
         if($succes !== '') { ?>
         <p class="succes_texte"> <?= $succes ?> </p>
           <?php } ?>
-        <table class="accueil_tableau">
+        <table class="accueil_tableau dispo_marge_bas">
             <thead>
                 <tr>
                     <th>Jour</th>
@@ -50,18 +50,22 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                             <?php
                             if(isset($user)) {
                                 if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
-                                    <th><a href="<?= HOME_URL ?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo()) ?>/delete/<?= htmlspecialchars($dispo['id_disponibilite']) ?>"> X </a></th>
+                                    <th><a href="<?= HOME_URL ?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo()) ?>/delete/<?= htmlspecialchars($dispo['id_disponibilite']) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?');"> X </a></th>
                                 <?php }
                             } ?>
                         </tr>
                     <?php }
-                } ?>
+                }
+                else { ?>
+                    <tr><td colspan="4" class="erreur">Aucune disponibilité renseignée.</td></tr>
+                <?php } ?>
             </tbody>
         </table>
 
         <?php
         if(isset($user)) {
             if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
+                <h3>Ajouter des disponibilités :</h3>
                 <form class="connexion_form" action="<?=HOME_URL?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo()) ?>/add" method="POST">
                     <input type="hidden" id="id_user" name="id_user" value="<?= $id_user ?>">
                     <div id="disponibilite_container">

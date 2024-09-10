@@ -100,6 +100,10 @@ class HomeController {
         $this->render("inscription", ["error"=>$error]);
     }
 
+    public function pageUserListe():void {
+        $this->render('userliste');
+    }
+
     public function deconnexion():void {
         session_unset();
         session_destroy();

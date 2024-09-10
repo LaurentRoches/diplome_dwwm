@@ -69,7 +69,7 @@ switch ($route) {
             }
             if($routeComposee[2] == 'delete') {
                 if(isset($routeComposee[3]) && !empty($routeComposee[3])){
-                    $UserController->deleteThisDispo($routeComposee[1], $routeComposee[3]);
+                    $UserController->deleteThisDispo($routeComposee[3], $routeComposee[1]);
                     break;
                 }
                 else {
@@ -88,6 +88,9 @@ switch ($route) {
             $HomeController->index();
             break;
         }
+    case $routeComposee[0] == 'userliste':
+        $HomeController->pageUserListe();
+        break;
     case $routeComposee[0] == 'deconnexion' :
         $HomeController->deconnexion();
         break;

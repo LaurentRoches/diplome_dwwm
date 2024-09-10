@@ -53,12 +53,19 @@ class UserRepository {
     }
 
     /**
-     * Récupère tout les utilisateurs, trier par note descendante
+     * Récupère tous les utilisateur en fonction du trie, paginer et classer selon leur ratio de like
      *
-     * @return  array   Un tableau listant tout les utilisateur
+     * @param   int     $id_game     identifiant du jeu souhaité
+     * @param   string  $str_pseudo  pseudonyme du joueur rechecher
+     * @param   int     $bln_mj      booléen de Maître du Jeu
+     * @param   int     $page        numéro de la page souhaité
+     * @param   int     $perPage     nombre de résultat par page
+     *
+     * @return  array                Un tableau contenant la liste des utilisateurs trouvés
      */
-    public function getAllUser (): array {
+    public function getAllUser(int $id_game = null, string $str_pseudo = '', int $bln_mj = null, int $page = 1, int $perPage = 10): array {
         try {
+            $offset = ($page - 1) * $perPage;
             $sql = "SELECT 
                         user.*, profil_image.str_chemin,
                         COALESCE(SUM(CASE WHEN avis_user.bln_aime = 1 THEN 1 ELSE 0 END),0) AS aime,
@@ -67,14 +74,71 @@ class UserRepository {
                     FROM user
                     LEFT JOIN avis_user ON user.id_user = avis_user.id_evalue
                     LEFT JOIN profil_image ON user.id_profil_image = profil_image.id_profil_image
-                    GROUP BY user.id_user
-                    ORDER BY ratio DESC;";
+                    LEFT JOIN game_voulu ON game_voulu.id_user = user.id_user
+                    WHERE 1=1";
+    
+            $params = [];
+    
+            if ($id_game !== null) {
+                $sql .= " AND user.id_user IN (SELECT id_user FROM game_connu WHERE id_game = :id_game)";
+                $params['id_game'] = $id_game;
+            }
+    
+            if (!empty($str_pseudo)) {
+                $sql .= " AND str_pseudo LIKE :pseudo";
+                $params['pseudo'] = '%' . $str_pseudo . '%';
+            }
+    
+            if ($bln_mj !== null) {
+                $sql .= " AND bln_mj = :bln_mj";
+                $params['bln_mj'] = $bln_mj;
+            }
+
+            $sql .= " GROUP BY user.id_user ORDER BY ratio DESC LIMIT $perPage OFFSET $offset";
+    
             $statement = $this->DB->prepare($sql);
-            $statement->execute();
-            $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
-            return $retour;
+            $statement->execute($params);
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
         }
-        catch (PDOException $error) {
+    }
+    
+
+
+    /**
+     * Décompte de tous les utilisateurs trouvé selon les critères de recherche
+     *
+     * @param   int     $id_game     identifiant de jeu souhaité
+     * @param   string  $str_pseudo  pseudonyme du joueur rechercher
+     * @param   int     $bln_mj      booléen de Maître du Jeu
+     *
+     * @return  int                  La valeur numérique récupérer
+     */
+    public function countAllUser(int $id_game = null, string $str_pseudo = '', int $bln_mj = null): int {
+        try {
+            $sql = "SELECT COUNT(*) FROM user WHERE 1=1";
+            $params = [];
+    
+            if ($id_game !== null) {
+                $sql .= " AND id_user IN (SELECT id_evalue FROM avis_user WHERE id_jeu = :id_game)";
+                $params['id_game'] = $id_game;
+            }
+    
+            if (!empty($str_pseudo)) {
+                $sql .= " AND str_pseudo LIKE :pseudo";
+                $params['pseudo'] = '%' . $str_pseudo . '%';
+            }
+    
+            if ($bln_mj !== null) {
+                $sql .= " AND bln_mj = :bln_mj";
+                $params['bln_mj'] = $bln_mj;
+            }
+    
+            $statement = $this->DB->prepare($sql);
+            $statement->execute($params);
+            return $statement->fetchColumn();
+        } catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }

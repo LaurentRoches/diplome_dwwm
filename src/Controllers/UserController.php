@@ -183,7 +183,7 @@ class UserController {
         $this->render("profil", ["utilisateur" => $utilisateur]);
     }
 
-    public function deleteThisDispo(?string $pseudo = NULL, ?int $id_disponibilite) {
+    public function deleteThisDispo(?int $id_disponibilite, ?string $pseudo = NULL) {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);

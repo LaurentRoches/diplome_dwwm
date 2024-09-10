@@ -567,4 +567,28 @@ footer {
 }
 
 
+        /* DISPONIBILITE */
+.dispo_marge_bas {
+    margin-bottom: 75px;
+}
 
+
+        /* USERLISTE */
+.user_liste_filter {
+    margin: 50px auto;
+    width: 60%;
+    border-radius: 25px;
+    min-height: 300px;
+}
+.pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 50px auto;
+}
+.user_liste_tier {
+    width: 33%;
+    min-width: 30%;
+}
