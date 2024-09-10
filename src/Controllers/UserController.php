@@ -6,6 +6,7 @@ use DateTime;
 use Exception;
 use src\Models\Database;
 use src\Models\User;
+use src\Repositories\DisponibiliteRepository;
 use src\Repositories\UserRepository;
 use src\Services\Reponse;
 use src\Services\Securite;
@@ -132,5 +133,53 @@ class UserController {
             $_SESSION["erreur"] = "Echec de l'enregistrement";
             $this->render("inscription", ["erreur" => $_SESSION["erreur"]]);
         }
+    }
+
+    public function ajoutDisponibilite(?string $pseudo = NULL) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo($pseudo);
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+
+        parse_str(file_get_contents("php://input"), $data);
+        $data = $this->sanitize($data);
+
+        $tab_dispos = [];
+
+        foreach($data['str_jour'] as $key => $jour) {
+            if($data['time_debut'][$key] >= $data['time_fin'][$key]) {
+                $_SESSION['erreur'] = "L'heure de début ne peut pas être plus grande que l'heure de fin.";
+                $this->render("disponibilite", ["utilisateur" => $utilisateur]);
+                return;
+            }
+            $tab_dispos[] = [
+                'id_user'       => $data['id_user'],
+                'str_jour'      => $jour,
+                'time_debut'    => $data['time_debut'][$key],
+                'time_fin'      => $data['time_fin'][$key]
+            ];
+        }
+
+        $DisponibiliteRepository = DisponibiliteRepository::getInstance($database);
+        $result = $DisponibiliteRepository->createDisponibilite($tab_dispos);
+
+        if ($result) {
+            $_SESSION['succes'] = "Disponibilités ajoutées avec succès.";
+        } else {
+            $_SESSION['erreur'] = "Erreur lors de l'ajout des disponibilités.";
+        }
+
+        $this->render("profil", ["utilisateur" => $utilisateur]);
     }
 }

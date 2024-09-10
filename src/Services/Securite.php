@@ -12,8 +12,12 @@ trait Securite {
 
         $dataSanitized = [];
 
-        foreach($data as $key => $value) {
-            $dataSanitized[$key] = htmlspecialchars($value);
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $dataSanitized[$key] = self::sanitize($value);
+            } else {
+                $dataSanitized[$key] = htmlspecialchars($value);
+            }
         }
         return $dataSanitized;
     }

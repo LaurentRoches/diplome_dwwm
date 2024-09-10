@@ -2,9 +2,9 @@
 
 use src\Models\Database;
 
-$erreur = isset($_SESSION['erreur']) ? $_SESSION['erreur'] : '';
+$erreur = isset($_SESSION['erreur']) ? htmlspecialchars($_SESSION['erreur']) : '';
 $_SESSION['erreur'] = '';
-$succes = isset($_SESSION['succes']) ? $_SESSION['succes'] : '';
+$succes = isset($_SESSION['succes']) ? htmlspecialchars($_SESSION['succes']) : '';
 $_SESSION['succes'] = '';
 
 if(isset($_SESSION['user']) && !empty($_SESSION['user'])) {

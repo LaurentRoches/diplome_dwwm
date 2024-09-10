@@ -28,7 +28,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
 
     <div class="profil_corps">
     <div class="profil_presentation">
-        <img src="<?= HOME_URL . $image_utilisateur->getStrChemin() ?>" alt="miniature de l'image de profile" class="profil_image">
+        <img src="<?= HOME_URL . htmlspecialchars($image_utilisateur->getStrChemin()) ?>" alt="miniature de l'image de profile" class="profil_image">
         <div class="profil_presentation_texte">
             <h2><?php if(isset($user)) {
                         if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
@@ -50,7 +50,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
     <h3 class="profil_description">Description</h3>
     <?php
     if(isset($description) && !empty($description)) { ?>
-        <p class="profil_description"><?= htmlspecialchars($description) ?></p>
+        <p class="profil_description"><?= $description ?></p>
     <?php }
     else {?>
         <p class="profil_description"> Pas de description renseignée.</p>

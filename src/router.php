@@ -61,6 +61,22 @@ switch ($route) {
             $HomeController->index();
             break;
         }
+    case $routeComposee[0] == 'disponibilite':
+        if(isset($routeComposee[2]) && !empty($routeComposee[2])) {
+            if($routeComposee [2] == 'add' && $methode == 'POST') {
+                $UserController->ajoutDisponibilite($routeComposee[1]);
+                break;
+            }
+        }
+        if(isset($routeComposee[1]) && !empty($routeComposee[1])){
+            $HomeController->pageDisponibilite($routeComposee[1]);
+            break;
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur dans le chargement des disponibilités.";
+            $HomeController->index();
+            break;
+        }
     case $routeComposee[0] == 'deconnexion' :
         $HomeController->deconnexion();
         break;
