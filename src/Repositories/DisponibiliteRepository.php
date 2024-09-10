@@ -54,4 +54,23 @@ class DisponibiliteRepository {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
+
+    public function deleteThisDispo(int $id_disponibilite): bool {
+        try {
+            $sql = "DELETE FROM disponibilite WHERE id_disponibilite = :id_disponibilite;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ":id_disponibilite" => $id_disponibilite
+            ]);
+            if($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
 }

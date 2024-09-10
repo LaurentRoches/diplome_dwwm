@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/Includes/header.php';
+include_once __DIR__ . '/includes/header.php';
 
 ?>
 <div class="main">
@@ -11,4 +11,4 @@ include_once __DIR__ . '/Includes/header.php';
 </div>
 <?php
 
-include_once __DIR__ . '/Includes/footer.php';
+include_once __DIR__ . '/includes/footer.php';

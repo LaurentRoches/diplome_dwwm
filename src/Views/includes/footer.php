@@ -13,6 +13,6 @@
         <a href="<?= HOME_URL ?>cgu">Conditions Générale d'Utilisation</a>
         <p>Tout droits réservés. ©[Nom du site] <br> par ROCHES Laurent</p>
     </footer>
-    <script src="js/burger.js"></script>
+    <script src="<?= HOME_URL ?>js/burger.js"></script>
 </body>
 </html>

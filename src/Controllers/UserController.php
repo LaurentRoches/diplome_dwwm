@@ -139,7 +139,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo($pseudo);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -181,5 +181,36 @@ class UserController {
         }
 
         $this->render("profil", ["utilisateur" => $utilisateur]);
+    }
+
+    public function deleteThisDispo(?string $pseudo = NULL, ?int $id_disponibilite) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+        $DisponibiliteRepository = DisponibiliteRepository::getInstance($database);
+        $id_disponibilite = intval($id_disponibilite);
+        $delete = $DisponibiliteRepository->deleteThisDispo($id_disponibilite);
+        if ($delete) {
+            $_SESSION['succes'] = "Disponibilité éffacé avec succès.";
+            $this->render("disponibilite", ['utilisateur' => $utilisateur]);
+            return;
+        }
+        else {
+            $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+            $this->render("disponibilite", ['utilisateur' => $utilisateur]);
+            return;
+        }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/Includes/header.php';
+include_once __DIR__ . '/includes/header.php';
 
 use src\Repositories\ExperienceRepository;
 use src\Repositories\UserRepository;
@@ -87,7 +87,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
 else {
     // Renvoyer à l'accueil avec message erreur;
 }
-include_once __DIR__ . '/Includes/footer.php';
+include_once __DIR__ . '/includes/footer.php';
 
 
 

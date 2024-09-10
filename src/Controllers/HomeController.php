@@ -36,7 +36,7 @@ class HomeController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo($pseudo);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -65,7 +65,7 @@ class HomeController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo($pseudo);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");

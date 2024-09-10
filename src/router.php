@@ -67,6 +67,17 @@ switch ($route) {
                 $UserController->ajoutDisponibilite($routeComposee[1]);
                 break;
             }
+            if($routeComposee[2] == 'delete') {
+                if(isset($routeComposee[3]) && !empty($routeComposee[3])){
+                    $UserController->deleteThisDispo($routeComposee[1], $routeComposee[3]);
+                    break;
+                }
+                else {
+                    $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+                    $HomeController->pageDisponibilite($routeComposee[1]);
+                    break;
+                }
+            }
         }
         if(isset($routeComposee[1]) && !empty($routeComposee[1])){
             $HomeController->pageDisponibilite($routeComposee[1]);

@@ -3,7 +3,7 @@
 use src\Repositories\DisponibiliteRepository;
 use src\Repositories\UserRepository;
 
-include_once __DIR__ . '/Includes/header.php';
+include_once __DIR__ . '/includes/header.php';
 
 $UserRepository = UserRepository::getInstance($database);
 $DisponibiliteRepository = DisponibiliteRepository::getInstance($database);
@@ -50,7 +50,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                             <?php
                             if(isset($user)) {
                                 if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
-                                    <th><a href="<?= HOME_URL ?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo()) ?>/delete"> X </a></th>
+                                    <th><a href="<?= HOME_URL ?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo()) ?>/delete/<?= htmlspecialchars($dispo['id_disponibilite']) ?>"> X </a></th>
                                 <?php }
                             } ?>
                         </tr>
@@ -91,16 +91,18 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                     <button type="button" id="ajouter_dispo" class="btn_pt_utilisateur">Nouvelle dispo</button>
                     <button type="submit" class="btn_gd_utilisateur">Ajouter</button>
                 </form>
-            <?php }
+                <?php }
         } ?>
     </div>
 </div>
-
-<script src="<?= HOME_URL ?>js/form_dispo.js"></script>
-
-<?php
+    <?php
+    if(isset($user)) {
+        if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
+            <script src="<?= HOME_URL ?>js/form_dispo.js"></script>
+        <?php }
+    }
 }
 else {
     // Renvoyer à l'accueil avec message erreur;
 }
-include_once __DIR__ . '/Includes/footer.php';
+include_once __DIR__ . '/includes/footer.php';

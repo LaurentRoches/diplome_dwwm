@@ -2,8 +2,7 @@
 
 spl_autoload_register('chargerClasses');
 
-function chargerClasses($classe)
-{
+function chargerClasses($classe) {
   $classe = str_replace('src', '', $classe);
   $classe = str_replace('\\', '/', $classe);
   $fichier = $classe . '.php';

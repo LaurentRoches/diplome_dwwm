@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/Includes/header.php';
+include_once __DIR__ . '/includes/header.php';
 
 use src\Repositories\UserRepository;
 use src\Repositories\ProfilImageRepository;

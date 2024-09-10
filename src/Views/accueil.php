@@ -4,7 +4,7 @@ use src\Repositories\ArticleRepository;
 use src\Repositories\GameRepository;
 use src\Repositories\UserRepository;
 
-include_once __DIR__ . '/Includes/header.php';
+include_once __DIR__ . '/includes/header.php';
 
 $UserRepository = UserRepository::getInstance($database);
 $ArticleRepository = ArticleRepository::getInstance($database);
@@ -136,4 +136,4 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
 
 <?php
 
-include_once __DIR__ . '/Includes/footer.php';
+include_once __DIR__ . '/includes/footer.php';
