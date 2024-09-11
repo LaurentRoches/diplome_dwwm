@@ -13,8 +13,11 @@ $GameRepository = GameRepository::getInstance($database);
 $id_game = isset($_GET['id_game']) ? intval($_GET['id_game']) : null;
 $str_pseudo = isset($_GET['str_pseudo']) ? htmlspecialchars($_GET['str_pseudo']) : '';
 $bln_mj = isset($_GET['bln_mj']) ? intval($_GET['bln_mj']) : null;
+$str_jour = isset($_GET['str_jour']) ? htmlspecialchars($_GET['str_jour']) : '';
+$time_debut = isset($_GET['time_debut']) ? htmlspecialchars($_GET['time_debut']) : '';
+$time_fin = isset($_GET['time_fin']) ? htmlspecialchars($_GET['time_fin']) : '';
 
-$total_utilisateur = $UserRepository->countAllUser($id_game, $str_pseudo, $bln_mj);
+$total_utilisateur = $UserRepository->countAllUser($id_game, $str_pseudo, $bln_mj, $str_jour, $time_debut, $time_fin);
 $parPage = 10;
 $total_pages = ceil($total_utilisateur/$parPage);
 
@@ -24,7 +27,7 @@ if($page < 1 || $page > $total_pages) {
     $page = 1;
 }
 
-$liste_user = $UserRepository->getAllUser($id_game, $str_pseudo, $bln_mj, $page, $parPage);
+$liste_user = $UserRepository->getAllUser($id_game, $str_pseudo, $bln_mj, $str_jour, $time_debut, $time_fin, $page, $parPage);
 $liste_game = $GameRepository->getAllGame();
 
 ?>
@@ -55,7 +58,7 @@ $liste_game = $GameRepository->getAllGame();
                 </div>
                 <div class="connexion_champs">
                     <label for="str_pseudo" class="">Pseudonyme :</label>
-                    <input id="str_pseudo" name="str_pseudo" type="text" required class="">
+                    <input id="str_pseudo" name="str_pseudo" type="text" class="">
                 </div>
                 <div class="connexion_champs">
                     <label for="bln_mj" class="">Maître du Jeu :</label>
@@ -64,6 +67,27 @@ $liste_game = $GameRepository->getAllGame();
                         <option value="0">Joueur</option>
                         <option value="1">Maître du Jeu</option>
                     </select>
+                </div>
+                <div class="connexion_champs">
+                    <label for="str_jour"> Jour disponible :</label>
+                    <select name="str_jour" id="str_jour">
+                        <option value="">Choisir un jour</option>
+                        <option value="lundi">Lundi</option>
+                        <option value="mardi">Mardi</option>
+                        <option value="mercredi">Mercredi</option>
+                        <option value="jeudi">Jeudi</option>
+                        <option value="vendredi">Vendredi</option>
+                        <option value="samedi">Samedi</option>
+                        <option value="dimanche">Dimanche</option>
+                    </select>
+                </div>
+                <div class="disponibilte_champs">
+                    <label for="time_debut">Heure de début :</label>
+                    <input id="time_debut" name="time_debut" type="time">
+                </div>
+                <div class="disponibilte_champs">
+                    <label for="time_fin">Heure de fin :</label>
+                    <input id="time_fin" name="time_fin" type="time">
                 </div>
                 <button type="submit" class="btn_gd_utilisateur">Trier</button>
             </form>

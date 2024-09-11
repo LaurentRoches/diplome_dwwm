@@ -58,12 +58,15 @@ class UserRepository {
      * @param   int     $id_game     identifiant du jeu souhaité
      * @param   string  $str_pseudo  pseudonyme du joueur rechecher
      * @param   int     $bln_mj      booléen de Maître du Jeu
+     * @param   string  $str_jour    jour disponible
+     * @param   string  $time_debut  heure de debut
+     * @param   string  $time_fin    heure de fin
      * @param   int     $page        numéro de la page souhaité
      * @param   int     $perPage     nombre de résultat par page
      *
      * @return  array                Un tableau contenant la liste des utilisateurs trouvés
      */
-    public function getAllUser(int $id_game = null, string $str_pseudo = '', int $bln_mj = null, int $page = 1, int $perPage = 10): array {
+    public function getAllUser(int $id_game = null, string $str_pseudo = '', int $bln_mj = null, string $str_jour = '', string $time_debut = '', string $time_fin = '', int $page = 1, int $perPage = 10): array {
         try {
             $offset = ($page - 1) * $perPage;
             $sql = "SELECT 
@@ -75,23 +78,39 @@ class UserRepository {
                     LEFT JOIN avis_user ON user.id_user = avis_user.id_evalue
                     LEFT JOIN profil_image ON user.id_profil_image = profil_image.id_profil_image
                     LEFT JOIN game_voulu ON game_voulu.id_user = user.id_user
+                    LEFT JOIN disponibilite ON user.id_user = disponibilite.id_user
                     WHERE 1=1";
     
             $params = [];
     
-            if ($id_game !== null) {
+            if($id_game !== null) {
                 $sql .= " AND user.id_user IN (SELECT id_user FROM game_connu WHERE id_game = :id_game)";
-                $params['id_game'] = $id_game;
+                $params[':id_game'] = $id_game;
             }
     
-            if (!empty($str_pseudo)) {
-                $sql .= " AND str_pseudo LIKE :pseudo";
-                $params['pseudo'] = '%' . $str_pseudo . '%';
+            if(!empty($str_pseudo)) {
+                $sql .= " AND str_pseudo LIKE :str_pseudo";
+                $params[':str_pseudo'] = '%' . $str_pseudo . '%';
             }
     
-            if ($bln_mj !== null) {
+            if($bln_mj !== null) {
                 $sql .= " AND bln_mj = :bln_mj";
-                $params['bln_mj'] = $bln_mj;
+                $params[':bln_mj'] = $bln_mj;
+            }
+
+            if(!empty($str_jour)) {
+                $sql .= " AND disponibilite.str_jour LIKE :str_jour";
+                $params[':str_jour'] = '%' . $str_jour . '%';
+            }
+
+            if(!empty($time_debut)) {
+                $sql .= " AND time_debut <= :time_debut AND time_fin > :time_debut";
+                $params[':time_debut'] = $time_debut;
+            }
+
+            if(!empty($time_fin)) {
+                $sql .= " AND time_debut < :time_fin AND time_fin >= :time_fin";
+                $params[':time_fin'] = $time_fin;
             }
 
             $sql .= " GROUP BY user.id_user ORDER BY ratio DESC LIMIT $perPage OFFSET $offset";
@@ -112,29 +131,51 @@ class UserRepository {
      * @param   int     $id_game     identifiant de jeu souhaité
      * @param   string  $str_pseudo  pseudonyme du joueur rechercher
      * @param   int     $bln_mj      booléen de Maître du Jeu
+     * @param   string  $str_jour    jour disponible
+     * @param   string  $time_debut  heure de debut
+     * @param   string  $time_fin    heure de fin
      *
      * @return  int                  La valeur numérique récupérer
      */
-    public function countAllUser(int $id_game = null, string $str_pseudo = '', int $bln_mj = null): int {
+    public function countAllUser(int $id_game = null, string $str_pseudo = '', int $bln_mj = null, string $str_jour = '', string $time_debut = '', string $time_fin = ''): int {
         try {
-            $sql = "SELECT COUNT(*) FROM user WHERE 1=1";
+            $sql = "SELECT COUNT(*) 
+                    FROM user 
+                    LEFT JOIN game_voulu ON game_voulu.id_user = user.id_user
+                    LEFT JOIN disponibilite ON user.id_user = disponibilite.id_user
+                    WHERE 1=1";
             $params = [];
     
-            if ($id_game !== null) {
-                $sql .= " AND id_user IN (SELECT id_evalue FROM avis_user WHERE id_jeu = :id_game)";
-                $params['id_game'] = $id_game;
+            if($id_game !== null) {
+                $sql .= " AND user.id_user IN (SELECT id_user FROM game_connu WHERE id_game = :id_game)";
+                $params[':id_game'] = $id_game;
             }
     
-            if (!empty($str_pseudo)) {
-                $sql .= " AND str_pseudo LIKE :pseudo";
-                $params['pseudo'] = '%' . $str_pseudo . '%';
+            if(!empty($str_pseudo)) {
+                $sql .= " AND str_pseudo LIKE :str_pseudo";
+                $params[':str_pseudo'] = '%' . $str_pseudo . '%';
             }
     
-            if ($bln_mj !== null) {
+            if($bln_mj !== null) {
                 $sql .= " AND bln_mj = :bln_mj";
-                $params['bln_mj'] = $bln_mj;
+                $params[':bln_mj'] = $bln_mj;
             }
-    
+
+            if(!empty($str_jour)) {
+                $sql .= " AND disponibilite.str_jour LIKE :str_jour";
+                $params[':str_jour'] = '%' . $str_jour . '%';
+            }
+
+            if(!empty($time_debut)) {
+                $sql .= " AND time_debut <= :time_debut AND time_fin > :time_debut";
+                $params[':time_debut'] = $time_debut;
+            }
+
+            if(!empty($time_fin)) {
+                $sql .= " AND time_debut < :time_fin AND time_fin >= :time_fin";
+                $params[':time_fin'] = $time_fin;
+            }
+
             $statement = $this->DB->prepare($sql);
             $statement->execute($params);
             return $statement->fetchColumn();

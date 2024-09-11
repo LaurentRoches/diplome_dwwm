@@ -10,8 +10,8 @@ $DisponibiliteRepository = DisponibiliteRepository::getInstance($database);
 
 if(isset($utilisateur) && !empty($utilisateur)) {
 
-    $id_user = htmlspecialchars($utilisateur->getIdUser());
-    $tab_disponibilite = $DisponibiliteRepository->getAllDisponibiliteById($id_user);
+    $id_utilisateur = intval($utilisateur->getIdUser());
+    $tab_disponibilite = $DisponibiliteRepository->getAllDisponibiliteById($id_utilisateur);
 
 ?>
 
@@ -67,12 +67,13 @@ if(isset($utilisateur) && !empty($utilisateur)) {
             if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
                 <h3>Ajouter des disponibilités :</h3>
                 <form class="connexion_form" action="<?=HOME_URL?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo()) ?>/add" method="POST">
-                    <input type="hidden" id="id_user" name="id_user" value="<?= $id_user ?>">
+                    <input type="hidden" id="id_user" name="id_user" value="<?= $id_utilisateur ?>">
                     <div id="disponibilite_container">
                         <div class="disponibilite_item">
                             <div class="disponibilte_champs">
                                 <label for="str_jour_0">Jour disponible :</label>
                                 <select name="str_jour[]" id="str_jour_0">
+                                    <option value="">Choisir un jour</option>
                                     <option value="lundi">Lundi</option>
                                     <option value="mardi">Mardi</option>
                                     <option value="mercredi">Mercredi</option>

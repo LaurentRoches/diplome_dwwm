@@ -63,10 +63,10 @@ if(isset($utilisateur) && !empty($utilisateur)) {
             <a href="<?= HOME_URL ?>disponibilite/<?= $pseudo ?>" class="btn_gd_utilisateur">Disponibilité</a>
         </div>
         <div class="profil_btn_action">
-            <a href="<?= HOME_URL ?>" class="btn_gd_utilisateur">Jeux connus</a>
+            <a href="<?= HOME_URL ?>connu/<?= $pseudo ?>" class="btn_gd_utilisateur">Jeux connus</a>
         </div>
         <div class="profil_btn_action">
-            <a href="<?= HOME_URL ?>" class="btn_gd_utilisateur">Jeux voulu</a>
+            <a href="<?= HOME_URL ?>voulu/<?= $pseudo ?>" class="btn_gd_utilisateur">Jeux voulu</a>
         </div>
         <div class="profil_btn_action">
             <a href="<?= HOME_URL ?>" class="btn_like"><img src="<?= HOME_URL ?>img/Icons/like_icon.svg" alt="bouton j'aime" class="profil_like"></a>
