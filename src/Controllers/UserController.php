@@ -5,9 +5,11 @@ namespace src\Controllers;
 use DateTime;
 use Exception;
 use src\Models\Database;
+use src\Models\Message;
 use src\Models\User;
 use src\Repositories\DisponibiliteRepository;
 use src\Repositories\GameRepository;
+use src\Repositories\MessageRepository;
 use src\Repositories\UserRepository;
 use src\Services\Reponse;
 use src\Services\Securite;
@@ -242,7 +244,8 @@ class UserController {
 
         if ($resultat) {
             $_SESSION['succes'] = "Disponibilités ajoutées avec succès.";
-        } else {
+        } 
+        else {
             $_SESSION['erreur'] = "Erreur lors de l'ajout des disponibilités.";
         }
 
@@ -283,7 +286,7 @@ class UserController {
         $this->render("voulu", ["utilisateur" => $utilisateur]);
     }
 
-    public function deleteThisGameConnu( ?int $id_game, ?string $pseudo = NULL) {
+    public function deleteThisGameConnu(?int $id_game, ?string $pseudo = NULL) {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
@@ -314,7 +317,7 @@ class UserController {
         }
     }
 
-    public function deleteThisGameVoulu( ?int $id_game, ?string $pseudo = NULL) {
+    public function deleteThisGameVoulu(?int $id_game, ?string $pseudo = NULL) {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
@@ -344,4 +347,72 @@ class UserController {
             return;
         }
     }
+
+    public function envoyerMessage(?string $pseudo = NULL) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+
+        parse_str(file_get_contents("php:://input"), $data);
+        $data = $this->sanitize($data);
+
+        $message = new Message($data);
+        $MessageRepository = MessageRepository::getInstance($database);
+        $retour = $MessageRepository->createMessage($message);
+
+        if($retour) {
+            $_SESSION['succes'] = "Message envoyé avec succès.";
+        } 
+        else {
+            $_SESSION['erreur'] = "Erreur lors de l'envoi du message.";
+        }
+        $this->render("message", ["utilisateur" => $utilisateur]);
+    }
+
+    public function supprimerMessage(?int $id_message, ?string $pseudo = NULL) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+
+        $MessageRepository = MessageRepository::getInstance($database);
+        $id_message = intval($id_message);
+        $delete = $MessageRepository->deleteThisMessage($id_message);
+
+        if($delete) {
+            $_SESSION['succes'] = "Jeu éffacé avec succès de la liste.";
+            $this->render("message", ['utilisateur' => $utilisateur]);
+            return;
+        }
+        else {
+            $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+            $this->render("message", ['utilisateur' => $utilisateur]);
+            return;
+        }
+    }
+
+
 }

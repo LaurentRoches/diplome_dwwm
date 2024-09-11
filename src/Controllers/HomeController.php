@@ -162,6 +162,35 @@ class HomeController {
         $this->render('userliste');
     }
 
+    public function pageMessage(?string $pseudo = NULL):void {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+
+        if(isset($_GET['error'])) {
+            $error = htmlspecialchars($_GET['error']);
+        } 
+        else {
+            $error = '';
+        }
+        $this->render("message", [
+            "utilisateur" => $utilisateur,
+            "error" => $error
+        ]);
+    }
+
     public function deconnexion():void {
         session_unset();
         session_destroy();

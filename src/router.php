@@ -142,6 +142,31 @@ switch ($route) {
             $HomeController->index();
             break;
         }
+    case $routeComposee[0] == 'message':
+        if(isset($routeComposee[2]) && !empty($routeComposee[2]) && $routeComposee[2] == 'delete') {
+            $UserController->supprimerMessage($routeComposee[3], $routeComposee[1]);
+            break;
+        }
+        else {
+            $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+            $HomeController->pageMessage($routeComposee[1]);
+            break;
+        }
+        if(isset($routeComposee[1]) && !empty($routeComposee[1])){
+            switch ($methode) {
+                case 'GET':
+                    $HomeController->pageMessage($routeComposee[1]);
+                    break;
+                case 'POST':
+                    $UserController->envoyerMessage($routeComposee[1]);
+                    break;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur dans le chargement de la liste des messages.";
+            $HomeController->index();
+            break;
+        }
     case $routeComposee[0] == 'userliste':
         $HomeController->pageUserListe();
         break;

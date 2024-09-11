@@ -36,7 +36,7 @@ $liste_game = $GameRepository->getAllGame();
 
     <div class="form_bg user_liste_filter">
         <div class="form_post_texte">
-            <h3 class="connexion_titre">Filtre de trie</h3>
+            <h3 class="connexion_titre">Filtre de tri</h3>
             <?php
             if($erreur !== '') { ?>
             <p class="erreur_texte"> <?= $erreur ?> </p>
