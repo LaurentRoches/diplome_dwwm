@@ -88,6 +88,60 @@ switch ($route) {
             $HomeController->index();
             break;
         }
+    case $routeComposee[0] == 'connu':
+        if(isset($routeComposee[2]) && !empty($routeComposee[2])) {
+            if($routeComposee[2] == 'add' && $methode == 'POST') {
+                $UserController->ajoutGameConnu($routeComposee[1], $routeComposee[3]);
+                break;
+            }
+            if($routeComposee[2] == 'delete') {
+                if(isset($routeComposee[3]) && !empty($routeComposee[3])) {
+                    $UserController->deleteThisGameConnu($routeComposee[3], $routeComposee[1]);
+                    break;
+                }
+                else {
+                    $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+                    $HomeController->pageConnu($routeComposee[1]);
+                    break;
+                }
+            }
+        }
+        if(isset($routeComposee[1]) && !empty($routeComposee[1])){
+            $HomeController->pageConnu($routeComposee[1]);
+            break;
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur dans le chargement de la liste des jeux connus.";
+            $HomeController->index();
+            break;
+        }
+    case $routeComposee[0] == 'voulu':
+        if(isset($routeComposee[2]) && !empty($routeComposee[2])) {
+            if($routeComposee[2] == 'add' && $methode == 'POST') {
+                $UserController->ajoutGameVoulu($routeComposee[1], $routeComposee[3]);
+                break;
+            }
+            if($routeComposee[2] == 'delete') {
+                if(isset($routeComposee[3]) && !empty($routeComposee[3])) {
+                    $UserController->deleteThisGameVoulu($routeComposee[3], $routeComposee[1]);
+                    break;
+                }
+                else {
+                    $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+                    $HomeController->pageVoulu($routeComposee[1]);
+                    break;
+                }
+            }
+        }
+        if(isset($routeComposee[1]) && !empty($routeComposee[1])){
+            $HomeController->pageVoulu($routeComposee[1]);
+            break;
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur dans le chargement de la liste des jeux voulus.";
+            $HomeController->index();
+            break;
+        }
     case $routeComposee[0] == 'userliste':
         $HomeController->pageUserListe();
         break;

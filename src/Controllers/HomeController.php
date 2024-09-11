@@ -90,6 +90,64 @@ class HomeController {
         ]);
     }
 
+    public function pageConnu(?string $pseudo = NULL):void {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+
+        if(isset($_GET['error'])) {
+            $error = htmlspecialchars($_GET['error']);
+        } 
+        else {
+            $error = '';
+        }
+        $this->render("connu", [
+            "utilisateur" => $utilisateur,
+            "error" => $error
+        ]);
+    }
+
+    public function pageVoulu(?string $pseudo = NULL):void {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+
+        if(isset($_GET['error'])) {
+            $error = htmlspecialchars($_GET['error']);
+        } 
+        else {
+            $error = '';
+        }
+        $this->render("voulu", [
+            "utilisateur" => $utilisateur,
+            "error" => $error
+        ]);
+    }
+
     public function pageInscription():void {
         if(isset($_GET['error'])) {
             $error = htmlspecialchars($_GET['error']);

@@ -10,14 +10,14 @@ $GameRepository = GameRepository::getInstance($database);
 
 if(isset($utilisateur) && !empty($utilisateur)) {
     $id_utilisateur = intval($utilisateur->getIdUser());
-    $tab_connu = $GameRepository->getAllGameConnu($id_utilisateur);
+    $tab_voulu = $GameRepository->getAllGameVoulu($id_utilisateur);
     $pseudo = htmlspecialchars($utilisateur->getStrPseudo());
     $liste_game = $GameRepository->getAllGame();
 
 ?>
     <div class="form_bg">
         <div class="form_post_texte">
-            <h2 class="connexion_titre">Jeux connus</h2>
+            <h2 class="connexion_titre">Jeux voulus</h2>
             <?php
             if($erreur !== '') { ?>
                 <p class="erreur_texte"> <?= $erreur ?> </p>
@@ -41,8 +41,8 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                 </thead>
                 <tbody>
                     <?php
-                    if(!empty($tab_connu)) {
-                        foreach($tab_connu as $jeu) { ?>
+                    if(!empty($tab_voulu)) {
+                        foreach($tab_voulu as $jeu) { ?>
                             <tr>
                                 <td><?= htmlspecialchars($jeu['str_nom']) ?></td>
                                 <td><?= htmlspecialchars($jeu['categorie']) ?></td>
@@ -50,7 +50,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                                 <?php
                                 if(isset($user)) {
                                     if($pseudo === $user->getStrPseudo()){ ?>
-                                    <th><a href="<?= HOME_URL ?>connu/<?= $pseudo ?>/delete/<?= htmlspecialchars($jeu['id_game']) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu de votre liste ?');"> X </a></th>
+                                    <th><a href="<?= HOME_URL ?>voulu/<?= $pseudo ?>/delete/<?= htmlspecialchars($jeu['id_game']) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu de votre liste ?');"> X </a></th>
                                 <?php }
                             } ?>
                             </tr>
@@ -65,8 +65,8 @@ if(isset($utilisateur) && !empty($utilisateur)) {
             <?php
             if(isset($user)) {
                 if($pseudo === $user->getStrPseudo()) { ?>
-                    <h3>Ajouter un jeu connu :</h3>
-                    <form action="<?= HOME_URL ?>connu/<?= $pseudo ?>/add" method="POST" class="connexion_form">
+                    <h3>Ajouter un jeu voulu :</h3>
+                    <form action="<?= HOME_URL ?>voulu/<?= $pseudo ?>/add" method="POST" class="connexion_form">
                         <input type="hidden" name="id_user" id="id_user" value="<?= $id_utilisateur ?>">
                         <div class="connexion_champs">
                             <label for="id_game" class="">Jeu souhaité :</label>

@@ -15,7 +15,11 @@ trait Securite {
         foreach ($data as $key => $value) {
             if (is_array($value)) {
                 $dataSanitized[$key] = self::sanitize($value);
-            } else {
+            } 
+            elseif (is_int($value)) {
+                $dataSanitized[$key] = intval($value);
+            }
+            else {
                 $dataSanitized[$key] = htmlspecialchars($value);
             }
         }

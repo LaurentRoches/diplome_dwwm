@@ -285,62 +285,6 @@ class UserRepository {
     }
 
     /**
-     * Permet le trie des utilisateurs ayant déjà joué à ce jeu, trier par note descendante
-     *
-     * @param   int    $id_game  Identifiant unique du jeu sélectionné
-     *
-     * @return  array            Un tableau listant tout les utilisateurs trouver
-     */
-    public function trierByGameConnu (int $id_game) :array {
-        try {
-            $sql = "SELECT user.*, game_connu.id_game, AVG(avis_user.int_note) AS avg_score
-                    FROM user
-                    INNER JOIN game_connu ON user.id_user = game_connu.id_user
-                    LEFT JOIN avis_user ON user.id_user = avis_user.id_evalue
-                    WHERE game_connu.id_game = :id_game
-                    GROUP BY user.id_user
-                    ORDER BY avg_score DESC;";
-            $statement = $this->DB->prepare($sql);
-            $statement->execute([
-                ":id_game" => $id_game
-            ]);
-            $retour = $statement->fetchAll(PDO::FETCH_CLASS, User::class);
-            return $retour;
-        }
-        catch (PDOException $error) {
-            throw new \Exception("Database error: " . $error->getMessage());
-        }
-    }
-
-    /**
-     * Permet le trie des utilisateurs voulant joué à ce jeu, trier par note descendante
-     *
-     * @param   int    $id_game  Identifiant unique du jeu selectionné
-     *
-     * @return  array            Un tableau listant tous les utilisateurs trouver
-     */
-    public function trierByGameVoulu (int $id_game) :array {
-        try {
-            $sql = "SELECT user.*, game_voulu.id_game, AVG(avis_user.int_note) AS avg_score
-                    FROM user
-                    INNER JOIN game_voulu ON user.id_user = game_voulu.id_user
-                    LEFT JOIN avis_user ON user.id_user = avis_user.id_evalue
-                    WHERE game_voulu.id_game = :id_game
-                    GROUP BY user.id_user
-                    ORDER BY avg_score DESC;";
-            $statement = $this->DB->prepare($sql);
-            $statement->execute([
-                ":id_game" => $id_game
-            ]);
-            $retour = $statement->fetchAll(PDO::FETCH_CLASS, User::class);
-            return $retour;
-        }
-        catch (PDOException $error) {
-            throw new \Exception("Database error: " . $error->getMessage());
-        }
-    }
-
-    /**
      * Mettre à jour un utilisateur
      *
      * @param   User  $user  Objet user avec toutes les données nécessaire

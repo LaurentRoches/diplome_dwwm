@@ -7,6 +7,7 @@ use Exception;
 use src\Models\Database;
 use src\Models\User;
 use src\Repositories\DisponibiliteRepository;
+use src\Repositories\GameRepository;
 use src\Repositories\UserRepository;
 use src\Services\Reponse;
 use src\Services\Securite;
@@ -172,9 +173,9 @@ class UserController {
         }
 
         $DisponibiliteRepository = DisponibiliteRepository::getInstance($database);
-        $result = $DisponibiliteRepository->createDisponibilite($tab_dispos);
+        $resultat = $DisponibiliteRepository->createDisponibilite($tab_dispos);
 
-        if ($result) {
+        if ($resultat) {
             $_SESSION['succes'] = "Disponibilités ajoutées avec succès.";
         } else {
             $_SESSION['erreur'] = "Erreur lors de l'ajout des disponibilités.";
@@ -210,6 +211,136 @@ class UserController {
         else {
             $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
             $this->render("disponibilite", ['utilisateur' => $utilisateur]);
+            return;
+        }
+    }
+
+    public function ajoutGameConnu(?string $pseudo = NULL) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+
+        parse_str(file_get_contents("php:://input"), $data);
+        $data = $this->sanitize($data);
+        $id_user = $data['id_user'];
+        $id_game = $data['id_game'];
+
+        $GameRepository = GameRepository::getInstance($database);
+        $resultat = $GameRepository->createGameConnu($id_user, $id_game);
+
+        if ($resultat) {
+            $_SESSION['succes'] = "Disponibilités ajoutées avec succès.";
+        } else {
+            $_SESSION['erreur'] = "Erreur lors de l'ajout des disponibilités.";
+        }
+
+        $this->render("connu", ["utilisateur" => $utilisateur]);
+    }
+
+    public function ajoutGameVoulu(?string $pseudo = NULL) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+
+        parse_str(file_get_contents("php:://input"), $data);
+        $data = $this->sanitize($data);
+        $id_user = $data['id_user'];
+        $id_game = $data['id_game'];
+
+        $GameRepository = GameRepository::getInstance($database);
+        $resultat = $GameRepository->createGameVoulu($id_user, $id_game);
+
+        if ($resultat) {
+            $_SESSION['succes'] = "Disponibilités ajoutées avec succès.";
+        } else {
+            $_SESSION['erreur'] = "Erreur lors de l'ajout des disponibilités.";
+        }
+
+        $this->render("voulu", ["utilisateur" => $utilisateur]);
+    }
+
+    public function deleteThisGameConnu( ?int $id_game, ?string $pseudo = NULL) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+        $GameRepository = GameRepository::getInstance($database);
+        $id_game = intval($id_game);
+        $delete = $GameRepository->deleteThisGameConnu($id_game, $utilisateur->getIdUser());
+        if($delete) {
+            $_SESSION['succes'] = "Jeu éffacé avec succès de la liste.";
+            $this->render("connu", ['utilisateur' => $utilisateur]);
+            return;
+        }
+        else {
+            $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+            $this->render("connu", ['utilisateur' => $utilisateur]);
+            return;
+        }
+    }
+
+    public function deleteThisGameVoulu( ?int $id_game, ?string $pseudo = NULL) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+        $GameRepository = GameRepository::getInstance($database);
+        $id_game = intval($id_game);
+        $delete = $GameRepository->deleteThisGameVoulu($id_game, $utilisateur->getIdUser());
+        if($delete) {
+            $_SESSION['succes'] = "Jeu éffacé avec succès de la liste.";
+            $this->render("voulu", ['utilisateur' => $utilisateur]);
+            return;
+        }
+        else {
+            $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+            $this->render("voulu", ['utilisateur' => $utilisateur]);
             return;
         }
     }

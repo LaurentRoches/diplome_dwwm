@@ -48,7 +48,7 @@ class DisponibiliteRepository {
                     ':time_fin' => $disponibilite['time_fin']
                 ]);
             }
-            return true;
+            return TRUE;
         }
         catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());

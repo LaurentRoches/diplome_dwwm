@@ -72,4 +72,76 @@ class GameRepository {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
+
+    public function createGameConnu(int $id_user, int $id_game):bool {
+        try {
+            $sql = "INSERT INTO game_connu (id_user, id_game)
+                    VALUES (:id_user, :id_game);";
+            $statement = $this->DB->preprare($sql);
+            $statement->execute([
+                ':id_user' => $id_user,
+                ':id_game' => $id_game
+            ]);
+            return TRUE;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function createGameVoulu(int $id_user, int $id_game):bool {
+        try {
+            $sql = "INSERT INTO game_voulu (id_user, id_game)
+                    VALUES (:id_user, :id_game);";
+            $statement = $this->DB->preprare($sql);
+            $statement->execute([
+                ':id_user' => $id_user,
+                ':id_game' => $id_game
+            ]);
+            return TRUE;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function deleteThisGameConnu(int $id_game, int $id_user):bool {
+        try{
+            $sql = "DELETE FROM game_connu WHERE id_game = :id_game AND id_user = :id_user;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ':id_game' => $id_game,
+                ':id_user' => $id_user
+            ]);
+            if($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function deleteThisGameVoulu(int $id_game, int $id_user):bool {
+        try{
+            $sql = "DELETE FROM game_voulu WHERE id_game = :id_game AND id_user = :id_user;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ':id_game' => $id_game,
+                ':id_user' => $id_user
+            ]);
+            if($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
 }
