@@ -26,13 +26,13 @@ CREATE TABLE profil_image (
     str_chemin          VARCHAR(255) NOT NULL
 ) ENGINE=InnoDB;
 
-INSERT INTO profil_image (str_chemin) VALUES ('img/profil/clerc.jpg');
-INSERT INTO profil_image (str_chemin) VALUES ('img/profil/druid.jpg');
-INSERT INTO profil_image (str_chemin) VALUES ('img/profil/alchimiste.jpg');
-INSERT INTO profil_image (str_chemin) VALUES ('img/profil/ranger.jpg');
-INSERT INTO profil_image (str_chemin) VALUES ('img/profil/rogue.jpg');
-INSERT INTO profil_image (str_chemin) VALUES ('img/profil/warrior.jpg');
-INSERT INTO profil_image (str_chemin) VALUES ('img/profil/wizard.jpg');
+INSERT INTO profil_image (str_chemin) VALUES ('img/profil/clerc.png');
+INSERT INTO profil_image (str_chemin) VALUES ('img/profil/druid.png');
+INSERT INTO profil_image (str_chemin) VALUES ('img/profil/alchimiste.png');
+INSERT INTO profil_image (str_chemin) VALUES ('img/profil/ranger.png');
+INSERT INTO profil_image (str_chemin) VALUES ('img/profil/rogue.png');
+INSERT INTO profil_image (str_chemin) VALUES ('img/profil/warrior.png');
+INSERT INTO profil_image (str_chemin) VALUES ('img/profil/wizard.png');
 
 
 CREATE TABLE user (
