@@ -2,6 +2,7 @@
 
 namespace src\Repositories;
 
+use PDO;
 use PDOException;
 use src\Models\Database;
 use src\Models\Message;
@@ -55,4 +56,51 @@ class MessageRepository {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
+
+    public function getAllExpediteur(int $id_destinataire):array {
+        try {
+            $sql = "SELECT user.str_pseudo, profil_image.str_chemin, MIN(message.bln_lu) AS bln_lu, MAX(message.dtm_envoi) AS last_message_date
+                    FROM message
+                    LEFT JOIN user ON message.id_expediteur = user.id_user
+                    LEFT JOIN profil_image ON profil_image.id_profil_image = user.id_profil_image
+                    WHERE message.id_destinataire = :id_destinataire
+                    GROUP BY message.id_expediteur
+                    ORDER BY last_message_date DESC, bln_lu ASC;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ':id_destinataire' => $id_destinataire
+            ]);
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function getDiscution(int $id_destinataire, int $id_expediteur): array {
+        try {
+            $sql = "SELECT 
+                        message.*, 
+                        expediteur.str_pseudo AS expediteur_pseudo, 
+                        destinataire.str_pseudo AS destinataire_pseudo, 
+                        profil_image.str_chemin
+                    FROM message
+                    LEFT JOIN user AS expediteur ON message.id_expediteur = expediteur.id_user
+                    LEFT JOIN user AS destinataire ON message.id_destinataire = destinataire.id_user
+                    LEFT JOIN profil_image ON profil_image.id_profil_image = expediteur.id_profil_image
+                    WHERE (message.id_expediteur = :id_expediteur AND message.id_destinataire = :id_destinataire)
+                       OR (message.id_expediteur = :id_destinataire AND message.id_destinataire = :id_expediteur)
+                    ORDER BY dtm_envoi DESC;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ':id_destinataire' => $id_destinataire,
+                ':id_expediteur' => $id_expediteur
+            ]);
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+    
 }
