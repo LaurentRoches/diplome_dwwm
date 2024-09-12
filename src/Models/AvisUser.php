@@ -73,24 +73,6 @@ class AvisUser {
     }
 
     /**
-     * Get the value of bln_aime
-     */
-    public function getBlnAime(): Bool
-    {
-        return $this->bln_aime;
-    }
-
-    /**
-     * Set the value of bln_aime
-     */
-    public function setBlnAime(Bool $bln_aime): self
-    {
-        $this->bln_aime = $bln_aime;
-
-        return $this;
-    }
-
-    /**
      * Get the value of dtm_creation
      */
     public function getDtmCreation(): string
@@ -131,5 +113,23 @@ class AvisUser {
         } else {
             $this->dtm_maj = new DateTime($dtm_maj);
         }
+    }
+
+    /**
+     * Get the value of bln_aime
+     */
+    public function getBlnAime(): Bool
+    {
+        return $this->bln_aime;
+    }
+
+    /**
+     * Set the value of bln_aime
+     */
+    public function setBlnAime(Bool $bln_aime): self
+    {
+        $this->bln_aime = $bln_aime;
+
+        return $this;
     }
 }

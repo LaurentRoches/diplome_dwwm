@@ -2,8 +2,10 @@
 
 namespace src\Repositories;
 
+use DateTime;
 use PDO;
 use PDOException;
+use src\Models\AvisUser;
 use src\Models\Database;
 use src\Models\User;
 
@@ -118,7 +120,8 @@ class UserRepository {
             $statement = $this->DB->prepare($sql);
             $statement->execute($params);
             return $statement->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $error) {
+        } 
+        catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
@@ -179,7 +182,8 @@ class UserRepository {
             $statement = $this->DB->prepare($sql);
             $statement->execute($params);
             return $statement->fetchColumn();
-        } catch (PDOException $error) {
+        } 
+        catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
@@ -422,6 +426,102 @@ class UserRepository {
                 ":id_user" => $id_user
             ]);
             if($retour){
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    /**
+     * permet de connaitre le nombre de j'aime et le nombre total d'avis
+     *
+     * @param   int    $id_user  identifiant de l'utilisateur concerné
+     *
+     * @return  array            un table contenant le nombre de j'aime et le nombre d'avis total
+     */
+    public function getAvisUser(int $id_user):array {
+        try {
+            $sql = "SELECT 
+                        COUNT(*) AS total, 
+                        COALESCE(SUM(CASE WHEN avis_user.bln_aime = 1 THEN 1 ELSE 0 END),0) AS aime
+                    FROM avis_user
+                    WHERE id_observateur = :id_user;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ':id_user' => $id_user
+            ]);
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+
+    public function addVote(AvisUser $avis_user):bool {
+        try {
+            $sql = "INSERT INTO avis_user (id_observateur, id_evalue, bln_aime)
+                    VALUES (:id_observateur, :id_evalue, :bln_aime)";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ':id_observateur'   => $avis_user->getIdObservateur(),
+                ':id_evalue'        => $avis_user->getIdEvalue(),
+                ':bln_aime'         => $avis_user->getBlnAime()
+            ]);
+            if ($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function alreadyVote(int $id_observateur, int $id_evalue):bool {
+        try{
+            $sql = "SELECT * FROM avis_user 
+                    WHERE id_observateur = :id_observateur 
+                    AND id_evalue = :id_evalue;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ':id_observateur'   => $id_observateur,
+                ':id_evalue'        => $id_evalue
+            ]);
+            $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
+            if($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function UpdateVote(AvisUser $avis_user):bool {
+        try {
+            $sql = "UPDATE avis_user SET
+                        bln_aime = :bln_aime
+                        dtm_maj = NOW()
+                    WHERE id_observateur = :id_observateur 
+                    AND id_evalue = :id_evalue;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ':id_observateur'   => $avis_user->getIdObservateur(),
+                ':id_evalue'        => $avis_user->getIdEvalue(),
+                ':bln_aime'         => $avis_user->getBlnAime()
+            ]);
+            if ($retour) {
                 return TRUE;
             }
             else {

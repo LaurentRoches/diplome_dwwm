@@ -1,5 +1,6 @@
 <?php
 
+use src\Repositories\MessageRepository;
 use src\Repositories\UserRepository;
 
 include_once __DIR__ . '/includes/header.php';
@@ -9,6 +10,9 @@ $UserRepository = UserRepository::getInstance($database);
 if(isset($utilisateur) && !empty($utilisateur)) {
     $id_utilisateur = intval($utilisateur->getIdUser());
     $pseudo = htmlspecialchars($utilisateur->getStrPseudo());
+
+    $MessageRepository = MessageRepository::getInstance($database);
+    $tab_expediteur = $MessageRepository->getAllExpediteur($id_utilisateur);
 
 ?>
 
@@ -21,9 +25,36 @@ if(isset($utilisateur) && !empty($utilisateur)) {
         <p class="succes_texte"> <?= $succes ?> </p>
     <?php } 
     if(isset($user)) {
-        if($pseudo === $user->getStrPseudo()) { ?>
-            Ici la liste des messages, trie a voir !
-        <?php }
+        if($pseudo === $user->getStrPseudo()) { 
+            if(empty($tab_expediteur)){?>
+                <p class="erreur_texte">Vous n'avez pas de message.</p>
+            <?php }
+            else { ?>
+                <table class="accueil_tableau">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Pseudo</th>
+                            <th>Dernier message le:</th>
+                            <th>Nouveau message ?</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach($tab_expediteur as $expediteur) { ?>
+                            <tr>
+                                <td><a href="<?= HOME_URL ?>profil/<?= $expediteur['str_pseudo'] ?>"><img src="<?= HOME_URL ?><?= $expediteur['str_chemin'] ?>" alt="miniature de l'image de profile" class="accueil_miniature_profil"></a></td>
+                                <td><a href="<?= HOME_URL ?>profil/<?= $expediteur['str_pseudo'] ?>"><?= $expediteur['str_pseudo'] ?></a></td>
+                                <td><a href="<?= HOME_URL ?>message/<?= $pseudo ?>/conversation/<?= $expediteur['str_pseudo'] ?>"><?= $expediteur['last_message_date'] ?></a></td>
+                                <td> Ici le booléen si non lu</td>
+                                <td><a href="<?= HOME_URL ?>message/<?= $pseudo ?>/conversation/<?= $expediteur['str_pseudo'] ?>">Voir la conversation</a></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            <?php }
+        }
         else { ?>
             <form action="<?= HOME_URL ?>connu/<?= $pseudo ?>" method="POST" class="connexion_form">
                 <input type="hidden" name="id_expediteur" value="<?= intval($user->getIdUser()) ?>">

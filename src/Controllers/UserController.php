@@ -4,6 +4,7 @@ namespace src\Controllers;
 
 use DateTime;
 use Exception;
+use src\Models\AvisUser;
 use src\Models\Database;
 use src\Models\Message;
 use src\Models\User;
@@ -414,5 +415,41 @@ class UserController {
         }
     }
 
+    public function addVote(?string $pseudo = NULL) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+        parse_str(file_get_contents("php:://input"), $data);
+        $data = $this->sanitize($data);
+        $avis = new AvisUser($data);
+
+        $verif = $UserRepository->alreadyVote($avis->getIdObservateur(), $avis->getIdEvalue());
+        if($verif) {
+            $resultat = $UserRepository->UpdateVote($avis);
+        }
+        else {
+            $resultat = $UserRepository->addVote($avis);
+        }
+
+        if ($resultat) {
+            $_SESSION['succes'] = "Avis ajouté avec succès.";
+        } else {
+            $_SESSION['erreur'] = "Erreur lors de l'ajout de l'avis.";
+        }
+
+        $this->render("profil", ["utilisateur" => $utilisateur]);
+    }
 
 }

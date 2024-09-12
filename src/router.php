@@ -11,6 +11,7 @@ $HomeController = new HomeController;
 $UserController = new UserController;
 
 $routeComposee = Routing::routeComposee($route);
+var_dump($routeComposee);
 
 switch ($route) {
     case HOME_URL:
@@ -152,8 +153,15 @@ switch ($route) {
         }
         break;
     case $routeComposee[0] == 'message':
-        if(isset($routeComposee[2]) && !empty($routeComposee[2]) && $routeComposee[2] == 'delete') {
-            $UserController->supprimerMessage($routeComposee[3], $routeComposee[1]);
+        if(isset($routeComposee[2]) && !empty($routeComposee[2])) {
+            if($routeComposee[2] == 'delete') {
+                $UserController->supprimerMessage($routeComposee[3], $routeComposee[1]);
+                break;
+            }
+            elseif( $routeComposee[2] == 'conversation') {
+                $HomeController->pageConverstation($routeComposee[1], $routeComposee[3]);
+                break;
+            }
             break;
         }
         if(isset($routeComposee[1]) && !empty($routeComposee[1])){
@@ -177,6 +185,14 @@ switch ($route) {
         break;
     case $routeComposee[0] == 'userliste':
         $HomeController->pageUserListe();
+        break;
+    case $routeComposee[0] == 'vote':
+        if(!isset($routeComposee[1])) {
+            $_SESSION['erreur'] = "Utilisateur non trouvé.";
+            $HomeController->index();
+            break;
+        }
+        $UserController->addVote($routeComposee[1]);
         break;
     case $routeComposee[0] == 'deconnexion' :
         $HomeController->deconnexion();

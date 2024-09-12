@@ -211,4 +211,39 @@ class HomeController {
         }
         $this->render("cgu", ["error"=>$error]);
     }
+
+    public function pageConverstation(?string $pseudo_destinataire = NULL, ?string $pseudo_expediteur = NULL):void {
+        if($pseudo_destinataire) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $destinataire = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo_destinataire));
+            if(!$destinataire) {
+                $_SESSION['erreur'] = "destinataire non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun destinataire trouvé.";
+            $this->render("accueil");
+            return;
+        }
+        if($pseudo_expediteur) {
+            $expediteur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo_expediteur));
+            if(!$expediteur) {
+                $_SESSION['erreur'] = "expediteur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun expediteur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+        $this->render('conversation', [
+            'destinataire' => $destinataire,
+            'expediteur' => $expediteur
+        ]);
+    }
 }
