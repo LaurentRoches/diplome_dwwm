@@ -511,7 +511,7 @@ class UserRepository {
     public function UpdateVote(AvisUser $avis_user):bool {
         try {
             $sql = "UPDATE avis_user SET
-                        bln_aime = :bln_aime
+                        bln_aime = :bln_aime,
                         dtm_maj = NOW()
                     WHERE id_observateur = :id_observateur 
                     AND id_evalue = :id_evalue;";

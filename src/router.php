@@ -11,7 +11,6 @@ $HomeController = new HomeController;
 $UserController = new UserController;
 
 $routeComposee = Routing::routeComposee($route);
-var_dump($routeComposee);
 
 switch ($route) {
     case HOME_URL:

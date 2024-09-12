@@ -56,7 +56,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
             <?php }
         }
         else { ?>
-            <form action="<?= HOME_URL ?>connu/<?= $pseudo ?>" method="POST" class="connexion_form">
+            <form action="<?= HOME_URL ?>message/<?= $pseudo ?>" method="POST" class="connexion_form">
                 <input type="hidden" name="id_expediteur" value="<?= intval($user->getIdUser()) ?>">
                 <input type="hidden" name="id_destinataire" value="<?= $id_utilisateur ?>">
                 <label for="str_message">Votre message: <em>(255 caractères maximum)</em></label>

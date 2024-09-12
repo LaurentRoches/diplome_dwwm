@@ -366,7 +366,7 @@ class UserController {
             return;
         }
 
-        parse_str(file_get_contents("php:://input"), $data);
+        $data = $_POST;
         $data = $this->sanitize($data);
 
         $message = new Message($data);
@@ -431,7 +431,7 @@ class UserController {
             $this->render("accueil");
             return;
         }
-        parse_str(file_get_contents("php:://input"), $data);
+        $data = $_POST;
         $data = $this->sanitize($data);
         $avis = new AvisUser($data);
 

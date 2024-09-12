@@ -26,7 +26,7 @@ class MessageRepository {
             $sql = "INSERT INTO message (id_expediteur, id_destinataire, str_message)
                     VALUES (:id_expediteur, :id_destinataire, :str_message);";
             $Statement = $this->DB->prepare($sql);
-            $retour = $Statement->eecute([
+            $retour = $Statement->execute([
                 ':id_expediteur'    => $message->getIdExpediteur(),
                 ':id_destinataire'  => $message->getIdDestinataire(),
                 ':str_message'      => $message->getStrMessage()
