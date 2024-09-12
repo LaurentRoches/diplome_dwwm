@@ -49,6 +49,17 @@ switch ($route) {
         }
         break;
     case $routeComposee[0] == 'profil' :
+        if(isset($routeComposee[2]) && $routeComposee[2] == 'update'){
+            if($methode == 'GET') {
+                $HomeController->pageUpdateProfil($routeComposee[1]);
+                break;
+            }
+            elseif($methode == 'POST') {
+                $UserController->updateUser($routeComposee[1]);
+                break;
+            }
+            break;
+        }
         if(isset($routeComposee[1]) && !empty($routeComposee[1])){
             $HomeController->pageProfil($routeComposee[1]);
             break;

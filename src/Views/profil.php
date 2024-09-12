@@ -111,7 +111,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
     </div>
     <?php
     if($temoin) { ?>
-        <a href="<?= HOME_URL ?>" class="btn_gd_utilisateur">Modifier</a>
+        <a href="<?= HOME_URL ?>profil/<?= $pseudo ?>/update" class="btn_gd_utilisateur">Modifier</a>
     <?php } ?>
 </div>
 <?php
