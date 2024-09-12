@@ -27,6 +27,7 @@ $database = new Database();
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= HOME_URL ?>css/pc.css">
     <link rel="stylesheet" href="<?= HOME_URL ?>css/mobile.css" media="only screen and (max-width: 768px)">
+    <link rel="icon" type="image/png" href="<?= HOME_URL ?>img/logo_site.png" />
 </head>
 <body>
 

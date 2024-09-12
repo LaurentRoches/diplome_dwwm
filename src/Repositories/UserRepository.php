@@ -104,12 +104,12 @@ class UserRepository {
             }
 
             if(!empty($time_debut)) {
-                $sql .= " AND time_debut <= :time_debut AND time_fin > :time_debut";
+                $sql .= " AND time_fin > :time_debut";
                 $params[':time_debut'] = $time_debut;
             }
 
             if(!empty($time_fin)) {
-                $sql .= " AND time_debut < :time_fin AND time_fin >= :time_fin";
+                $sql .= " AND time_debut < :time_fin";
                 $params[':time_fin'] = $time_fin;
             }
 

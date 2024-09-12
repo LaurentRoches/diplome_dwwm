@@ -89,7 +89,7 @@ class MessageRepository {
                     LEFT JOIN user AS destinataire ON message.id_destinataire = destinataire.id_user
                     LEFT JOIN profil_image ON profil_image.id_profil_image = expediteur.id_profil_image
                     WHERE (message.id_expediteur = :id_expediteur AND message.id_destinataire = :id_destinataire)
-                       OR (message.id_expediteur = :id_destinataire AND message.id_destinataire = :id_expediteur)
+                    OR (message.id_expediteur = :id_destinataire AND message.id_destinataire = :id_expediteur)
                     ORDER BY dtm_envoi DESC;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
@@ -102,5 +102,5 @@ class MessageRepository {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
-    
+
 }

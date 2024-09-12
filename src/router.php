@@ -31,6 +31,7 @@ switch ($route) {
             $UserController->connexion();
             break;
         }
+        break;
     case $routeComposee[0] == 'inscription' :
         if($methode == "GET") {
             if(isset($_SESSION['connecte'])) {
@@ -46,6 +47,7 @@ switch ($route) {
             $UserController->inscription();
             break;
         }
+        break;
     case $routeComposee[0] == 'profil' :
         if(isset($routeComposee[1]) && !empty($routeComposee[1])){
             $HomeController->pageProfil($routeComposee[1]);
@@ -61,6 +63,7 @@ switch ($route) {
             $HomeController->index();
             break;
         }
+        break;
     case $routeComposee[0] == 'disponibilite':
         if(isset($routeComposee[2]) && !empty($routeComposee[2])) {
             if($routeComposee [2] == 'add' && $methode == 'POST') {
@@ -78,6 +81,7 @@ switch ($route) {
                     break;
                 }
             }
+            break;
         }
         if(isset($routeComposee[1]) && !empty($routeComposee[1])){
             $HomeController->pageDisponibilite($routeComposee[1]);
@@ -88,6 +92,7 @@ switch ($route) {
             $HomeController->index();
             break;
         }
+        break;
     case $routeComposee[0] == 'connu':
         if(isset($routeComposee[2]) && !empty($routeComposee[2])) {
             if($routeComposee[2] == 'add' && $methode == 'POST') {
@@ -105,6 +110,7 @@ switch ($route) {
                     break;
                 }
             }
+            break;
         }
         if(isset($routeComposee[1]) && !empty($routeComposee[1])){
             $HomeController->pageConnu($routeComposee[1]);
@@ -115,6 +121,7 @@ switch ($route) {
             $HomeController->index();
             break;
         }
+        break;
     case $routeComposee[0] == 'voulu':
         if(isset($routeComposee[2]) && !empty($routeComposee[2])) {
             if($routeComposee[2] == 'add' && $methode == 'POST') {
@@ -132,6 +139,7 @@ switch ($route) {
                     break;
                 }
             }
+            break;
         }
         if(isset($routeComposee[1]) && !empty($routeComposee[1])){
             $HomeController->pageVoulu($routeComposee[1]);
@@ -142,14 +150,10 @@ switch ($route) {
             $HomeController->index();
             break;
         }
+        break;
     case $routeComposee[0] == 'message':
         if(isset($routeComposee[2]) && !empty($routeComposee[2]) && $routeComposee[2] == 'delete') {
             $UserController->supprimerMessage($routeComposee[3], $routeComposee[1]);
-            break;
-        }
-        else {
-            $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
-            $HomeController->pageMessage($routeComposee[1]);
             break;
         }
         if(isset($routeComposee[1]) && !empty($routeComposee[1])){
@@ -160,6 +164,9 @@ switch ($route) {
                 case 'POST':
                     $UserController->envoyerMessage($routeComposee[1]);
                     break;
+                default:
+                    $HomeController->pageMessage($routeComposee[1]);
+                    break;
             }
         }
         else {
@@ -167,6 +174,7 @@ switch ($route) {
             $HomeController->index();
             break;
         }
+        break;
     case $routeComposee[0] == 'userliste':
         $HomeController->pageUserListe();
         break;
