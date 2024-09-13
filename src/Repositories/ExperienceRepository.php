@@ -2,6 +2,7 @@
 
 namespace src\Repositories;
 
+use PDO;
 use PDOException;
 use src\Models\Database;
 use src\Models\Experience;
@@ -30,6 +31,18 @@ class ExperienceRepository {
             $image = $statement->fetchObject(Experience::class);
             return $image ?: null;
         } 
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function getAllExperience():array {
+        try {
+            $sql = "SELECT * FROM experience;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
         catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }

@@ -35,4 +35,16 @@ class ProfilImageRepository {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
+
+    public function getAllImage():array {
+        try {
+            $sql = "SELECT * FROM profil_image;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
 }
