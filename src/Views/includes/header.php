@@ -25,9 +25,10 @@ $database = new Database();
     <title>[Nom du site]</title>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= HOME_URL ?>css/pc.css">
-    <link rel="stylesheet" href="<?= HOME_URL ?>css/mobile.css" media="only screen and (max-width: 768px)">
     <link rel="icon" type="image/png" href="<?= HOME_URL ?>img/logo_site.png" />
+    <link rel="stylesheet" href="<?= HOME_URL ?>css/commun.css">  
+    <link rel="stylesheet" href="<?= HOME_URL ?>css/mobile.css" media="only screen and (max-width: 768px)">
+    <link rel="stylesheet" href="<?= HOME_URL ?>css/pc.css" media="only screen and (min-width: 769px)">
 </head>
 <body>
 
@@ -41,6 +42,12 @@ $database = new Database();
         </a>
     </div>
     <ul class="nav-links">
+        <?php
+        if(isset($_SESSION['connecte'])){
+            if($user->getIdRole() === 2 || $user->getIdRole() === 3) { ?>
+                <li><a href="<?= HOME_URL ?>admin">Administration</a></li>
+            <?php }
+        } ?>
         <li><a href="<?= HOME_URL ?>userliste">Utilisateurs</a></li>
         <li><a href="<?= HOME_URL ?>articleliste">Articles</a></li>
         <?php

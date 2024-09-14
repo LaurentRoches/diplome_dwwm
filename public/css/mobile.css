@@ -1,14 +1,18 @@
-    /* Couleur de la charte graphique */
-:root {
-    --blanc: #f2f2f2;
-    --parchemin: #F2EFBD;
-    --ecriture: #8C3842;
-    --violet: #86388C;
-    --hover: #5F558C;
-    --bleu: #38718C;
-    --noir: #292929;
-}
+        /* Couleur de la charte graphique */
+    :root {
+        --blanc: #f2f2f2;
+        --parchemin: #f2efbd;
+        --ecriture: #8C3842;
+        --utilisateur: #86388C;
+        --hover: #5F558C;
+        --article: #38718C;
+        --noir: #292929;
+        --succes: #286D22;
+        --erreur: #DB0000;
+    }
 
+
+        /* FORMULAIRE */
 /* fond des formulaire */
 .form_bg {
     min-height: 500px;
@@ -17,7 +21,10 @@
     width: 75%;
 }
 
+        /* FIN DU FORMULAIRE */
 
+
+        /* HEADER */
 /* nav_bar et menu burger */
 .header_flex {
     width: 65%;
@@ -26,7 +33,6 @@
     width: 100px;
     height: 100px;
 }
-
 .navbar .nav-links {
     position: absolute;
     right: 0;
@@ -40,36 +46,30 @@
     transition: transform 0.3s ease-in;
     z-index: -1;
 }
-
 .navbar .nav-links li {
     margin: 20px 0;
 }
-
 .navbar .burger {
     display: flex;
 }
-
 .navbar .nav-links.active {
     transform: translateX(0%);
     background-color: var(--ecriture);
     z-index: 3;
 }
-
 .burger.toggle .line1 {
     transform: rotate(-45deg) translate(-5px, 6px);
 }
-
 .burger.toggle .line2 {
     opacity: 0;
 }
-
 .burger.toggle .line3 {
     transform: rotate(45deg) translate(-5px, -6px);
 }
 
+        /* FIN DU HEADER */
 
         /*  FOOTER */
-
 footer {
     flex-direction: column;
 }
@@ -89,6 +89,14 @@ footer {
         /* FIN DU FOOTER */
 
 
+        /* ACCUEIL */
+.accueil_presentation_2 {
+    flex-direction: column;
+}
+
+        /* FIN ACCUEIL */
+
+
         /* CONNEXION */
 .connexion_titre {
     font-size: 1.5em;
@@ -97,12 +105,7 @@ footer {
     margin: 20px 10px;
 }
 
-
-        /* ACCUEIL */
-.accueil_presentation_2 {
-    flex-direction: column;
-}
-
+        /* FIN DE CONNEXION */
 
         /* PROFIL */
 .profil_image {
