@@ -8,9 +8,9 @@ include_once __DIR__.'/includes/header.php';
 
 if(isset($utilisateur) && !empty($utilisateur)) { 
 
-    $UserRepository = UserRepository::getInstance($databse);
+    $UserRepository = UserRepository::getInstance($database);
     $ExperienceRepository = ExperienceRepository::getInstance($database);
-    $ProfilImageRepository = ProfilImageRepository::getInstance($databse);
+    $ProfilImageRepository = ProfilImageRepository::getInstance($database);
 
     $tab_image = $ProfilImageRepository->getAllImage();
     $tab_experience = $ExperienceRepository->getAllExperience();
@@ -26,17 +26,38 @@ if(isset($utilisateur) && !empty($utilisateur)) {
         <?php } ?>
         <form class="connexion_form" action="<?= HOME_URL ?>profil/<?= $pseudo ?>/update" method="POST">
             <input type="hidden" name="dtm_maj" value="<?= date('Y-m-d H:i:s') ?>">
+            <input type="hidden" name="id_user" value="<?= intval($utilisateur->getIdUser()) ?>">
+            <div class="connexion_champs">
+                <label for="str_nom"> Votre nom :</label>
+                <input type="text" name="str_nom" id="str_nom" value="<?= htmlspecialchars($utilisateur->getStrNom()) ?>">
+            </div>
+            <div class="connexion_champs">
+                <label for="str_prenom"> Votre prénom:</label>
+                <input type="text" name="str_prenom" id="str_prenom" value="<?= htmlspecialchars($utilisateur->getStrPrenom()) ?>">
+            </div>
             <div class="connexion_champs">
                 <label for="str_pseudo"> Votre pseudonyme :</label>
                 <input type="text" name="str_pseudo" id="str_pseudo" value="<?= $pseudo ?>">
+            </div>
+            <div class="connexion_champs">
+                <label for="str_email"> Votre adresse mail :</label>
+                <input type="email" name="str_email" id="str_email" value="<?= htmlspecialchars($utilisateur->getStrEmail()) ?>">
+            </div>
+            <div class="connexion_champs">
+                <label for="str_mdp"> Votre mot de passe :</label>
+                <input type="password" name="str_mdp" id="str_mdp">
+            </div>
+            <div class="connexion_champs">
+                <label for="str_mdp_2"> Confirmez votre mot de passe :</label>
+                <input type="password" name="str_mdp_2" id="str_mdp_2">
             </div>
             <div class="connexion_champs">
                 <label for="id_profil_image">Choisissez votre image de profil :</label>
                     <div class="profile_image_selection">
                         <?php foreach ($tab_image as $image) { ?>
                             <label>
-                                <input type="radio" name="id_profil_image" value="<?= $image['id_profil_image'] ?>" <?= $image['id_profil_image'] == intval($utilisateur->getIdProfileImage()) ? 'checked' : '' ?>>
-                                <img src="<?= $image['str_chemin'] ?>" alt="Image de profil" class="profile_image_thumb">
+                                <input type="radio" name="id_profil_image" value="<?= $image['id_profil_image'] ?>" <?= $image['id_profil_image'] == intval($utilisateur->getIdProfilImage()) ? 'checked' : '' ?>>
+                                <img src="<?=HOME_URL . $image['str_chemin'] ?>" alt="Image de profil" class="profile_image_miniature">
                             </label>
                         <?php } ?>
                 </div>

@@ -1,37 +1,36 @@
         /* Couleur de la charte graphique */
-    :root {
-        --blanc: #f2f2f2;
-        --parchemin: #f2efbd;
-        --ecriture: #8C3842;
-        --utilisateur: #86388C;
-        --hover: #5F558C;
-        --article: #38718C;
-        --noir: #292929;
-        --succes: #286D22;
-        --erreur: #DB0000;
-    }
+:root {
+    --blanc: #f2f2f2;
+    --parchemin: #f2efbd;
+    --ecriture: #8C3842;
+    --utilisateur: #86388C;
+    --hover: #5F558C;
+    --article: #38718C;
+    --noir: #292929;
+    --succes: #286D22;
+    --erreur: #DB0000;
+}
     
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
     
-    body {
-        font-family: 'Merriweather', sans-serif;
-        background-color: #f2efbd !important;
-        color: #8C3842 !important;
-    }
-    a {
-        text-decoration: none;
-    }
-    p {
-        font-size: 1.25em;
-    }
-    
-    h1, h2, h3 {
-        font-family: 'Cinzel';
-    }
+body {
+    font-family: 'Merriweather', sans-serif;
+    background-color: #f2efbd !important;
+    color: #8C3842 !important;
+}
+a {
+    text-decoration: none;
+}
+p {
+    font-size: 1.25em;
+}
+h1, h2, h3 {
+    font-family: 'Cinzel';
+}
 
         /* Définistion des assets */
 /* Bouton action */
@@ -435,3 +434,13 @@ footer {
 
 
         /* PROFIL */
+    /* Update */
+.profile_image_selection{
+    display: flex;
+    flex-wrap: wrap;
+}
+.profile_image_miniature{
+    width: 100px;
+    height: 100px;
+    margin: 25px;
+}

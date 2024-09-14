@@ -452,4 +452,61 @@ class UserController {
         $this->render("profil", ["utilisateur" => $utilisateur]);
     }
 
+    public function updateUser(?string $pseudo = NULL) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+        $data = $_POST;
+        $data = $this->sanitize($data);
+
+        if(!empty($data['str_mdp']) && $data['str_mdp'] !== $data['str_mdp_2']) {
+            $_SESSION['erreur'] = "Les mots de passe ne sont pas identiques.";
+            $this->render("updateProfil", ["utilisateur" => $utilisateur]);
+            return;
+        }
+        if(empty($data['str_mdp'])) {
+            unset($data['str_mdp']);
+        } else {
+            $data['str_mdp'] = password_hash($data['str_mdp'], PASSWORD_DEFAULT);
+        }
+        unset($data['str_mdp_2']);
+
+        $user = new User($data);
+
+        $test_pseudo = $UserRepository->getThisUserByPseudo($user->getStrPseudo());
+        if(intval($test_pseudo->getIdUser()) !== intval($utilisateur->getIdUser())) {
+            $_SESSION['erreur'] = "Un utilisateur utilise déjà ce pseudonyme.";
+            $this->render("updateProfil", ["utilisateur"=>$utilisateur]);
+            return;
+        }
+
+        $test_email =$UserRepository->getThisUserByEmail($user->getStrEmail());
+        if(htmlspecialchars($test_email->getStrEmail()) !== htmlspecialchars($utilisateur->getStrEmail())) {
+            $_SESSION['erreur'] = "Un utilisateur utilise déjà cet email.";
+            $this->render("updateProfil", ["utilisateur"=>$utilisateur]);
+            return;
+        }
+
+        $verif = $UserRepository->updateThisUser($user);
+        if($verif) {
+            $_SESSION['succes'] = "Profil mis à jour avec succès.";
+        } else {
+            $_SESSION['erreur'] = "Erreur lors de la mise à jour du profil.";
+        }
+
+        $this->render("profil", ["utilisateur"=>$verif]);
+    }
+
 }

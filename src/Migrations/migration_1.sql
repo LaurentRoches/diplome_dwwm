@@ -17,7 +17,7 @@ INSERT INTO experience (str_niveau) VALUES ("Non renseigné");
 INSERT INTO experience (str_niveau) VALUES ("Découverte");
 INSERT INTO experience (str_niveau) VALUES ("Débutant");
 INSERT INTO experience (str_niveau) VALUES ("Amateur");
-INSERT INTO experience (str_niveau) VALUES ("Confirmer");
+INSERT INTO experience (str_niveau) VALUES ("Confirmé");
 INSERT INTO experience (str_niveau) VALUES ("Expert");
 
 

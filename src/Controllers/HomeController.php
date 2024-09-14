@@ -246,4 +246,25 @@ class HomeController {
             'expediteur' => $expediteur
         ]);
     }
+
+    public function pageUpdateProfil(?string $pseudo = NULL):void {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+        $this->render("updateProfil", [
+            "utilisateur" => $utilisateur
+        ]);
+    }
 }

@@ -231,8 +231,11 @@ class UserRepository {
             $statement->execute([
                 ":id_user" => $id_user
             ]);
-            $user = $statement->fetch(PDO::FETCH_CLASS, User::class);
-            return $user;
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+            if($user) {
+                return new User($user);
+            }
+            return null;
         } 
         catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
@@ -301,40 +304,42 @@ class UserRepository {
                       str_email = :str_email, 
                       str_nom = :str_nom, 
                       str_prenom = :str_prenom, 
-                      dtm_naissance = :dtm_naissance, 
-                      str_mdp = :str_mdp, 
-                      str_mdp = :str_mdp, 
-                      bln_notif = :bln_notif, 
                       str_pseudo = :str_pseudo, 
                       str_description = :str_description, 
                       id_experience = :id_experience, 
-                      id_role = :id_role, 
                       id_profil_image = :id_profil_image, 
-                      dtm_maj = :dtm_maj
-                      WHERE id_user = :id_user;";
-            $statement = $this->DB->prepare($sql);
-            $statement->execute([
+                      dtm_maj = :dtm_maj";
+
+            $params = [
                 ":str_email" => $user->getStrEmail(),
                 ":str_nom" => $user->getStrNom(),
                 ":str_prenom" => $user->getStrPrenom(),
-                ":dtm_naissance" => $user->getDtmNaissance(),
-                ":str_mdp" => $user->getStrMdp(),
-                ":str_mdp" => $user->getStrMdp(),
-                ":bln_notif" => $user->isBlnNotif(),
                 ":str_pseudo" => $user->getStrPseudo(),
                 ":str_description" => $user->getStrDescription(),
                 ":id_experience" => $user->getIdExperience(),
-                ":id_role" => $user->getIdRole(),
                 ":id_profil_image" => $user->getIdProfilImage(),
                 ":dtm_maj" => $user->getDtmMaj(),
-                ":id_user" => $user->getIdUser(),
-            ]);
+                ":id_user" => $user->getIdUser()
+            ];
+    
+            if (!empty($user->getStrMdp())) {
+                $sql .= ", str_mdp = :str_mdp";
+                $params[":str_mdp"] = $user->getStrMdp();
+            }
+    
+            $sql .= " WHERE id_user = :id_user;";
+    
+            $statement = $this->DB->prepare($sql);
+            $statement->execute($params);
+    
             return $this->getThisUserById($user->getIdUser());
         } 
         catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
+    
+
     /**
      * Supprime un utilisateur selectionné
      *
