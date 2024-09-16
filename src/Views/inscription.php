@@ -3,6 +3,9 @@
 include_once __DIR__ . '/includes/header.php';
 
 ?>
+<head>
+    <meta name="description" content="Inscris-toi sur JDRConnexion pour rejoindre une communauté de passionnés de jeux de rôle. Trouve des partenaires de jeu et participe à des aventures épiques.">
+</head>
 <div class="form_bg">
     <div class="form_post_texte">
         <h2 class="connexion_titre">Inscription</h2>

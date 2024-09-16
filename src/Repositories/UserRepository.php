@@ -305,6 +305,7 @@ class UserRepository {
                       str_nom = :str_nom, 
                       str_prenom = :str_prenom, 
                       str_pseudo = :str_pseudo, 
+                      bln_mj = :bln_mj,
                       str_description = :str_description, 
                       id_experience = :id_experience, 
                       id_profil_image = :id_profil_image, 
@@ -315,6 +316,7 @@ class UserRepository {
                 ":str_nom" => $user->getStrNom(),
                 ":str_prenom" => $user->getStrPrenom(),
                 ":str_pseudo" => $user->getStrPseudo(),
+                ":bln_mj" => $user->isBlnMj(),
                 ":str_description" => $user->getStrDescription(),
                 ":id_experience" => $user->getIdExperience(),
                 ":id_profil_image" => $user->getIdProfilImage(),
@@ -455,7 +457,7 @@ class UserRepository {
                         COUNT(*) AS total, 
                         COALESCE(SUM(CASE WHEN avis_user.bln_aime = 1 THEN 1 ELSE 0 END),0) AS aime
                     FROM avis_user
-                    WHERE id_observateur = :id_user;";
+                    WHERE id_evalue = :id_user;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
                 ':id_user' => $id_user

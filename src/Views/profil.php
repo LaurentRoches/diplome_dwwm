@@ -25,9 +25,8 @@ if(isset($utilisateur) && !empty($utilisateur)) {
     $pseudo = htmlspecialchars($utilisateur->getStrPseudo());
     $id_utilisateur = intval($utilisateur->getIdUser());
     $tab_avis = $UserRepository->getAvisUser($id_utilisateur);
-    ?>
-
-    <div class="profil_corps">
+?>
+<div class="profil_corps">
     <div class="profil_presentation">
         <img src="<?= HOME_URL . htmlspecialchars($image_utilisateur->getStrChemin()) ?>" alt="miniature de l'image de profile" class="profil_image">
         <div class="profil_presentation_texte">

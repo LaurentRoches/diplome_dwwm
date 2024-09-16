@@ -31,8 +31,10 @@ $liste_user = $UserRepository->getAllUser($id_game, $str_pseudo, $bln_mj, $str_j
 $liste_game = $GameRepository->getAllGame();
 
 ?>
+<head>
+    <meta name="description" content="Trouvez des joueurs et maîtres de jeu sur JDRConnexion. Explorez la liste des utilisateurs, triez selon vos préférences, vos disponibilités, et formez le groupe parfait pour vos prochaines aventures de Jeu de Rôle.">
+</head>
 <h2 class="accueil_titre_section">Les utilisateurs :</h2>
-
 
     <div class="form_bg user_liste_filter">
         <div class="form_post_texte">

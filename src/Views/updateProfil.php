@@ -65,8 +65,8 @@ if(isset($utilisateur) && !empty($utilisateur)) {
             <div class="connexion_champs">
                 <label for="bln_mj">Etes-vous un Maître du Jeu ?</label>
                 <select name="bln_mj" id="bln_mj">
-                    <option value="o">Joueur</option>
-                    <option value="1">Maître du Jeu</option>
+                    <option value="0" <?php echo ($utilisateur->isBlnMj() == 0) ? "selected" : "" ?>>Joueur</option>
+                    <option value="1" <?php echo ($utilisateur->isBlnMj() == 1) ? "selected" : "" ?>>Maître du Jeu</option>
                 </select>
             </div>
             <div class="connexion_champs">
@@ -74,7 +74,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                 <select name="id_experience" id="id_experience">
                     <?php
                     foreach($tab_experience as $experience) { ?>
-                        <option value="<?= $experience['id_experience'] ?>"><?= $experience['str_niveau'] ?></option>
+                        <option value="<?= $experience['id_experience'] ?>" <?php echo ($experience['id_experience'] == $utilisateur->getIdExperience()) ? "selected" : ""?>><?= $experience['str_niveau'] ?></option>
                     <?php } ?>
                 </select>
             </div>

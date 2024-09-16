@@ -14,6 +14,9 @@ $liste_user = $UserRepository->getAllUserLimit3();
 $liste_article = $ArticleRepository->getAllArticlesLimit3();
 
 ?>
+<head>
+    <meta name="description" content="JDRConnexion, le site idéal pour trouver des partenaires et former un groupe pour vos parties de Jeu de Rôle. Rejoignez-nous pour vivre des aventures épiques!">
+</head>
 <div class="accueil_centrer">
     <?php
     if(!empty($erreur)){ ?>
@@ -27,22 +30,22 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
         <p class="texte_banner">Le site de référence pour trouver tes prochains partenaires de jeu!</p>
     </div>
     <div class="accueil_presentation">
-        <h2 class="accueil_titre">Bienvenue sur [Nom du site] - Le Portail des Aventuriers</h2>
-        <p>Vous êtes un passionné de jeux de rôle, toujours à la recherche de nouvelles aventures et de compagnons pour partager des quêtes épiques? [Nom du site] est là pour vous! Notre plateforme est spécialement conçue pour vous aider à trouver d'autres joueurs qui partagent vos envies, vos horaires, et votre passion pour l'univers du jeu de rôle. Que vous soyez un maître du jeu chevronné ou un novice en quête de votre première campagne, vous trouverez ici une communauté accueillante prête à explorer ensemble les contrées les plus fantastiques.</p>
+        <h2 class="accueil_titre">Bienvenue sur JDRConnexion - Le Portail des Aventuriers</h2>
+        <p>Vous êtes un passionné de jeux de rôle, toujours à la recherche de nouvelles aventures et de compagnons pour partager des quêtes épiques? JDRConnexion est là pour vous! Notre plateforme est spécialement conçue pour vous aider à trouver d'autres joueurs qui partagent vos envies, vos horaires, et votre passion pour l'univers du jeu de rôle. Que vous soyez un maître du jeu chevronné ou un novice en quête de votre première campagne, vous trouverez ici une communauté accueillante prête à explorer ensemble les contrées les plus fantastiques.</p>
         <div class="accueil_presentation_2">
-            <img src="<?= HOME_URL ?>img/accueil_social.jpg" alt="Image symbolisant la sociabilité du site [Nom du site]" class="accueil_image_social">
+            <img src="<?= HOME_URL ?>img/accueil_social.jpg" alt="Image symbolisant la sociabilité du site JDRConnexion" class="accueil_image_social">
             <div class="accueil_texte_social">
-                <h3 class="accueil_titre_section">Grâce à [Nom du site], vous pouvez facilement entrer en contact avec des joueurs partageant vos goûts et votre disponibilité.</h3>
+                <h3 class="accueil_titre_section">Grâce à JDRConnexion, vous pouvez facilement entrer en contact avec des joueurs partageant vos goûts et votre disponibilité.</h3>
                 <p>Que vous préfériez les aventures médiévales fantastiques, les explorations spatiales, ou les intrigues mystérieuses, notre système de recherche vous permet de trouver des partenaires de jeu en quelques clics. Plus besoin de chercher pendant des heures, le groupe parfait est à portée de main.
                 Plongez dans l'univers du jeu de rôle</p>
             </div>
         </div>
         <div class="accueil_presentation_2">
-            <p>En plus de vous connecter avec d'autres joueurs, [Nom du site] vous propose également une sélection d'articles dédiés à l'univers des jeux de rôle. Des conseils pour les maîtres de jeu, des astuces pour les joueurs, des analyses des meilleurs systèmes de jeu, et des idées pour enrichir vos campagnes vous attendent sur notre blog. Que vous cherchiez à perfectionner vos techniques ou à découvrir de nouvelles idées, notre contenu est là pour nourrir votre imagination.</p>
+            <p>En plus de vous connecter avec d'autres joueurs, JDRConnexion vous propose également une sélection d'articles dédiés à l'univers des jeux de rôle. Des conseils pour les maîtres de jeu, des astuces pour les joueurs, des analyses des meilleurs systèmes de jeu, et des idées pour enrichir vos campagnes vous attendent sur notre blog. Que vous cherchiez à perfectionner vos techniques ou à découvrir de nouvelles idées, notre contenu est là pour nourrir votre imagination.</p>
             <div class="accueil_liste_jeu">
-                <img src="<?= HOME_URL ?>img/cyberpunk_logo.png" alt="Logo du jeu Cyberpunk77 pour le site [Nom du site]" class="accueil_miniature_jeu">
-                <img src="<?= HOME_URL ?>img/dnd_logo.png" alt="Logo du jeu Donjon & Dragon pour le site [Nom du site]">
-                <img src="<?= HOME_URL ?>img/wh40k_logo" alt="Logo du jeu Warhammer 40k Dark Heresy pour le site [Nom du site]">
+                <img src="<?= HOME_URL ?>img/cyberpunk_logo.png" alt="Logo du jeu Cyberpunk77 pour le site JDRConnexion" class="accueil_miniature_jeu">
+                <img src="<?= HOME_URL ?>img/dnd_logo.png" alt="Logo du jeu Donjon & Dragon pour le site JDRConnexion">
+                <img src="<?= HOME_URL ?>img/wh40k_logo" alt="Logo du jeu Warhammer 40k Dark Heresy pour le site JDRConnexion">
             </div>
         </div>
     </div>

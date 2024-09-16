@@ -10,13 +10,12 @@
     --succes: #286D22;
     --erreur: #DB0000;
 }
-    
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-    
 body {
     font-family: 'Merriweather', sans-serif;
     background-color: #f2efbd !important;
@@ -32,7 +31,7 @@ h1, h2, h3 {
     font-family: 'Cinzel';
 }
 
-        /* Définistion des assets */
+     /* Définistion des assets */
 /* Bouton action */
 .btn_gd_utilisateur {
     display: flex;
@@ -58,7 +57,6 @@ h1, h2, h3 {
     background-color: var(--hover);
     box-shadow: 4px 4px 15px var(--utilisateur);
 }
-
 /* Bouton action */
 .btn_pt_utilisateur {
     width: 125px;
@@ -81,7 +79,6 @@ h1, h2, h3 {
     background-color: var(--hover);
     box-shadow: 4px 4px 15px var(--utilisateur);
 }
-
 /* Bouton action */
 .btn_gd_article {
     display: flex;
@@ -107,7 +104,6 @@ h1, h2, h3 {
     background-color: var(--hover);
     box-shadow: 4px 4px 15px var(--article);
 }
-
 /* Bouton action */
 .btn_pt_article {
     width: 125px;
@@ -142,6 +138,7 @@ h1, h2, h3 {
 
 
         /* FORMULAIRE */
+
 .form_bg {
     position: relative;
     background-image: url('/../img/form_bg_img.jpg');
@@ -237,8 +234,9 @@ footer {
 
         /* FIN DU FOOTER */
 
-        
+
         /* ACCUEIL */
+
 .accueil_centrer {
     display: flex;
     justify-content: center;
@@ -388,6 +386,7 @@ footer {
 
 
         /* CONNEXION */
+
 .connexion_titre {
     display: flex;
     width: 80%;
@@ -443,4 +442,14 @@ footer {
     width: 100px;
     height: 100px;
     margin: 25px;
+}
+
+
+        /* USER LISTE */
+
+.pagination-number {
+    display: none;
+}
+.active {
+    display: block;
 }
