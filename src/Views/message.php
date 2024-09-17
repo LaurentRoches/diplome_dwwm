@@ -65,7 +65,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
             </form>
         <?php }
     } ?>
-
+    <p class="erreur_texte">Vous devez être connecté pour envoyé un message.</p>
 <?php }
 else {
     // Renvoyer à l'accueil avec message erreur;
