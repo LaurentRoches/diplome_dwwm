@@ -25,6 +25,10 @@ if(isset($utilisateur) && !empty($utilisateur)) {
     $pseudo = htmlspecialchars($utilisateur->getStrPseudo());
     $id_utilisateur = intval($utilisateur->getIdUser());
     $tab_avis = $UserRepository->getAvisUser($id_utilisateur);
+    $dtm_naissance = $utilisateur->getDtmNaissance();
+    $dtm_naissance = new DateTime($dtm_naissance);
+    $dtm_actuelle = new DateTime();
+    $age = $dtm_actuelle->diff($dtm_naissance)->y;
 ?>
 <div class="profil_corps">
     <div class="profil_presentation">
@@ -43,7 +47,15 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                     Joueur
                 <?php } ?>
             </h3>
-            <p>Créer le <?= $utilisateur->getDtmCreation() ?> ,  niveau de joueur : <?= $niveau_utilisateur->getStrNiveau() ?></p>
+            <p>Compte créer le <?= $utilisateur->getDtmCreation() ?>,  niveau de joueur : <?= $niveau_utilisateur->getStrNiveau() ?></p>
+            <p><?php
+            if($age < 18) {
+                echo "Ce joueur est mineur";
+            }
+            else {
+                echo "Ce joueur est majeur";
+            }
+            ?></p>
         </div>
     </div>
     <h3 class="profil_description">Description</h3>
