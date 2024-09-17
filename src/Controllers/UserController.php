@@ -11,6 +11,7 @@ use src\Models\User;
 use src\Repositories\DisponibiliteRepository;
 use src\Repositories\GameRepository;
 use src\Repositories\MessageRepository;
+use src\Repositories\TabouRepository;
 use src\Repositories\UserRepository;
 use src\Services\Reponse;
 use src\Services\Securite;
@@ -368,6 +369,14 @@ class UserController {
 
         $data = $_POST;
         $data = $this->sanitize($data);
+
+        $texte = $data['str_message'];
+        $TabouRepository = TabouRepository::getInstance($database);
+        $tab_tabou = $TabouRepository->getAllTabou();
+        foreach($tab_tabou as $tabou) {
+            $texte = str_ireplace($tabou['str_mot'], "***", $texte);
+        }
+        $data['str_message'] = $texte;
 
         $message = new Message($data);
         $MessageRepository = MessageRepository::getInstance($database);
