@@ -1,0 +1,10 @@
+Summary
+
+As part of my training at Simplon Grenoble from January 8, 2024, to November 23, 2024, and in order to obtain the Web and Mobile Web Developer diploma, RNCP title 37674 level 5, equivalent to a 2-year degree, I am required to create a website and a project report.
+
+It is within this context that I developed this project around the JDRConnexion website.
+
+It is a site within the world of Role-Playing Games, and its purpose is to help role-players find their next adventure partners through a sorting system based on the availability provided by these players. Other options will accompany this feature, such as searching for a Game Master, searching for players for a specific game, etc. 
+Additionally, part of the site will be dedicated to presenting certain aspects of Role-Playing Games and their universe through articles.
+
+This project is carried out solely by me, from the conception of the idea to its launch, and it has allowed me to develop all the skills necessary for the developer profession.

@@ -13,6 +13,7 @@ use src\Repositories\GameRepository;
 use src\Repositories\MessageRepository;
 use src\Repositories\TabouRepository;
 use src\Repositories\UserRepository;
+use src\Services\Censure;
 use src\Services\Reponse;
 use src\Services\Securite;
 
@@ -20,6 +21,7 @@ class UserController {
 
     use Reponse;
     use Securite;
+    use Censure;
 
     public function connexion():void {
         $data = file_get_contents("php://input");
@@ -94,6 +96,7 @@ class UserController {
             $this->render("inscription", ["erreur" => $_SESSION["erreur"]]);
             return;
         }
+        $data['str_pseudo'] = $this->filtrer($data['str_pseudo']);
 
         if (!isset($data['dtm_naissance']) || $data['dtm_naissance'] == '') {
             $_SESSION["erreur"] = "Le champ 'date de naissance' est obligatoire et n'a pas été rempli.";
@@ -371,11 +374,7 @@ class UserController {
         $data = $this->sanitize($data);
 
         $texte = $data['str_message'];
-        $TabouRepository = TabouRepository::getInstance($database);
-        $tab_tabou = $TabouRepository->getAllTabou();
-        foreach($tab_tabou as $tabou) {
-            $texte = str_ireplace($tabou['str_mot'], "***", $texte);
-        }
+        $texte = $this->filtrer($texte);
         $data['str_message'] = $texte;
 
         $message = new Message($data);
@@ -479,6 +478,7 @@ class UserController {
         }
         $data = $_POST;
         $data = $this->sanitize($data);
+        $data['str_pseudo'] = $this->filtrer($data['str_pseudo']);
 
         if(!empty($data['str_mdp']) && $data['str_mdp'] !== $data['str_mdp_2']) {
             $_SESSION['erreur'] = "Les mots de passe ne sont pas identiques.";
