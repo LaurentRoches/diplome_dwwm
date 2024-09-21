@@ -212,6 +212,10 @@ class HomeController {
         $this->render("cgu", ["error"=>$error]);
     }
 
+    public function pageValidation() {
+        $this->render("validation");
+    }
+
     public function pageConverstation(?string $pseudo_destinataire = NULL, ?string $pseudo_expediteur = NULL):void {
         if($pseudo_destinataire) {
             $database = new Database();

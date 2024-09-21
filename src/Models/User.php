@@ -14,7 +14,8 @@ class User {
     private DateTime $dtm_naissance;
     private bool $bln_active = FALSE;
     private string $str_mdp = '';
-    private bool $bln_notif = FALSE;
+    private string $str_token;
+    private ?DateTime $dtm_token_expiration = null;
     private string $str_pseudo;
     private string $str_description = '';
     private bool $bln_mj = FALSE;
@@ -155,22 +156,44 @@ class User {
         return $this;
     }
 
-    /**
-     * Get the value of bln_notif
+        /**
+     * Get the value of str_token
      */
-    public function isBlnNotif(): bool
+    public function getStrToken(): string
     {
-        return $this->bln_notif;
+        return $this->str_token;
     }
 
     /**
-     * Set the value of bln_notif
+     * Set the value of str_token
      */
-    public function setBlnNotif(bool $bln_notif): self
+    public function setStrToken(string $str_token): self
     {
-        $this->bln_notif = $bln_notif;
+        $this->str_token = $str_token;
 
         return $this;
+    }
+
+        /**
+     * Get the value of dtm_token_expiration
+     */
+    public function getDtmTokenExpiration(): string
+    {
+        return $this->dtm_token_expiration->format('d-m-Y H:i:s');
+    }
+
+    /**
+     * Set the value of dtm_token_expiration
+     */
+    public function setDtmTokenExpiration(null|string|DateTime $dtm_token_expiration): void
+    {
+        if (is_null($dtm_token_expiration)) {
+            $this->dtm_token_expiration = null;
+        } elseif ($dtm_token_expiration instanceof DateTime) {
+            $this->dtm_token_expiration = $dtm_token_expiration;
+        } else {
+            $this->dtm_token_expiration = new DateTime($dtm_token_expiration);
+        }
     }
 
     /**

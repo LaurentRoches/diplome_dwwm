@@ -32,15 +32,17 @@ class UserRepository {
      */
     public function createUser(User $user): bool {
         try {
-            $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo) 
-                    VALUES (:str_email, :str_nom, :str_prenom, :dtm_naissance, :str_pseudo)";
+            $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo, str_token, dtm_token_expiration) 
+                    VALUES (:str_email, :str_nom, :str_prenom, :dtm_naissance, :str_pseudo, :str_token, :dtm_token_expiration)";
             $statement = $this->DB->prepare($sql);
              $retour = $statement->execute([
                 ":str_email"     => $user->getStrEmail(),
                 ":str_nom"       => $user->getStrNom(),
                 ":str_prenom"    => $user->getStrPrenom(),
                 ":dtm_naissance" => $user->getDtmNaissance(),
-                ":str_pseudo"    => $user->getStrPseudo()
+                ":str_pseudo"    => $user->getStrPseudo(),
+                ":str_token"     => $user->getStrToken(),
+                ":dtm_token_expiration" => $user->getDtmTokenExpiration()
             ]);
             if ($retour) {
                 return TRUE;
@@ -369,7 +371,7 @@ class UserRepository {
      * @param   string  $str_email  Email donné par l'utilisateur
      * @param   string  $mdp   Mdp donné par l'utilisateur
      *
-     * @return  User                Retourne l'utilisateur si les données sont correctes
+     * @return  User    Retourne l'utilisateur si les données sont correctes
      */
     public function login(string $str_email, string $mdp): ?User {
         try {
@@ -390,7 +392,6 @@ class UserRepository {
                 $user->setIdUser($result['id_user']);
                 $user->isBlnActive($result['bln_active']);
                 $user->setStrMdp($result['str_mdp']);
-                $user->isBlnNotif($result['bln_notif']);
                 $user->setStrPseudo($result['str_pseudo']);
                 $user->setStrDescription($result['str_description'] ?? '');
                 $user->setIdExperience($result['id_experience']);
@@ -415,22 +416,26 @@ class UserRepository {
     /**
      * Fonction pour l'activation d'un compte
      *
-     * @param   int     $id_user  identifiant unique de l'utilisateru
-     * @param   string  $str_mdp  Nouveau mot de passe donné par l'utilisateur
+     * @param   string  $str_pseudo pseudonyme unique de l'utilisateur
+     * @param   string  $str_mdp    Nouveau mot de passe donné par l'utilisateur
      *
      * @return  bool              Retourne vrai si tout s'est bien passé
      */
-    public function activateThisUser(int $id_user, string $str_mdp):bool {
+    public function activateThisUser(string $str_pseudo, string $str_mdp):bool {
         try {
             $sql = "UPDATE user SET
                     str_mdp = :str_mdp,
-                    bln_active = :bln_active
-                    WHERE id_user = :id_user;";
+                    bln_active = :bln_active,
+                    str_token = :str_token,
+                    dtm_token_expiration = :dtm_token_expiration
+                    WHERE str_pseudo = :str_pseudo;";
             $statement = $this->DB->prepare($sql);
             $retour = $statement->execute([
                 ":str_mdp" => $str_mdp,
                 ":bln_active" => 1,
-                ":id_user" => $id_user
+                ":str_token" => "",
+                ":dtm_token_expiration" => NULL,
+                ":str_pseudo" => $str_pseudo
             ]);
             if($retour){
                 return TRUE;
@@ -529,6 +534,27 @@ class UserRepository {
                 ':bln_aime'         => $avis_user->getBlnAime()
             ]);
             if ($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function verificationToken(string $str_token, string $str_pseudo):bool {
+        try {
+            $sql = "SELECT * FROM user WHERE str_token = :str_token AND str_pseudo = :str_pseudo LIMIT 1;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ":str_token" => $str_token,
+                "str_pseudo" => $str_pseudo
+            ]);
+            $retour = $statement->fetch(PDO::FETCH_ASSOC);
+            if($retour) {
                 return TRUE;
             }
             else {

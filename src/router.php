@@ -210,6 +210,15 @@ switch ($route) {
     case $routeComposee[0] == 'cgu' :
         $HomeController->pageCgu();
         break;
+    case $routeComposee[0] == 'validation':
+        if($methode == 'GET') {
+            $HomeController->pageValidation();
+            break;
+        }
+        else {
+            $UserController->validation();
+            break;
+        }
     default :
         $HomeController->page404();
         break;

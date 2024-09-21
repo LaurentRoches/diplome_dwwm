@@ -50,7 +50,7 @@ class UserController {
     }
 
     public function inscription() {
-        parse_str(file_get_contents("php://input"), $data);
+        $data = $_POST;
         $data = $this->sanitize($data);
 
         $nullFields = array_diff(array_keys($data), array_filter(array_keys($data)));
@@ -130,14 +130,40 @@ class UserController {
             return;
         }
 
+        $str_token = bin2hex(random_bytes(50));
+        $dtm_token_expiration = (new DateTime())->modify('+24 hours')->format('Y-m-d H:i:s');
+        $data['str_token'] = $str_token;
+        $data['dtm_token_expiration'] = $dtm_token_expiration;
+
         $obj = new User($data);
 
         $enregistrement = $UserRepository->createUser($obj);
 
         if ($enregistrement) {
-            $_SESSION['succes'] = "Enregistrement réussi, un email vous a été envoyé.";
-            $this->render("accueil", ["user"=>$enregistrement, "succes" => $_SESSION['succes']]);
-        } else {
+
+            $lien_validation = HOME_URL."validation?token=".$str_token."&pseudo=".urlencode($data['str_pseudo']);
+
+            $to = $data['str_email'];
+            $subject = "Validez votre compte";
+            $message = "Bonjour ".$data['str_pseudo'].",\n\n";
+            $message .= "Cliquez sur le lien suivant pour définir votre mot de passe et valider votre compte : \n";
+            $message .= $lien_validation . "\n\n";
+            $message .= "Ce lien est valable 24h. \n";
+            $message .= "Cordialement, \nL'équipe de JDRConnexion";
+            $headers = "From: adresse@jdrconnexion.fr\r\n";
+            $headers .= "Reply-To: adresse@jdrconnexion.fr\r\n";
+            $headers .= "Content-type: text/plain; charset=UTF-8";
+
+            if (mail($to, $subject, $message, $headers)) {
+                $_SESSION['succes'] = "Enregistrement réussi, un email vous a été envoyé.";
+                $this->render("accueil", ["user"=>$enregistrement, "succes" => $_SESSION['succes']]);
+            } 
+            else {
+                $_SESSION["erreur"] = "Echec de l'envoi de l'email. Contactez l'administrateur.";
+                $this->render("inscription", ["erreur" => $_SESSION["erreur"]]);
+            }
+        } 
+        else {
             $_SESSION["erreur"] = "Echec de l'enregistrement";
             $this->render("inscription", ["erreur" => $_SESSION["erreur"]]);
         }
@@ -516,6 +542,30 @@ class UserController {
         }
 
         $this->render("profil", ["utilisateur"=>$verif]);
+    }
+
+    public function validation() {
+        $data = $_POST;
+        $data = $this->sanitize($data);
+
+        if(!empty($data['str_mdp']) && $data['str_mdp'] !== $data['str_mdp_2']) {
+            $_SESSION['erreur'] = "Les mots de passe ne sont pas identiques.";
+            $this->render("validation", ["erreur" => $_SESSION['erreur']]);
+            return;
+        }
+        $database = new Database();
+        $UserRepository = UserRepository::getInstance($database);
+        $validation = $UserRepository->activateThisUser($data['str_pseudo'], $data['str_mdp']);
+        if($validation) {
+            $_SESSION['succes'] = "Votre compte a été validé avec succès!";
+            $this->render("accueil", ["succes" => $_SESSION['succes']]);
+            return;
+        }
+        else {
+            $_SESSION['erreur'] = "Echec de la validation du compte.";
+            $this->render("accueil", ["erreur" => $_SESSION['erreur']]);
+            return;
+        }
     }
 
 }
