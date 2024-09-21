@@ -326,7 +326,6 @@ INSERT INTO tabou (str_mot) VALUES ("partouze");
 INSERT INTO tabou (str_mot) VALUES ("boucake");
 INSERT INTO tabou (str_mot) VALUES ("boukak");
 INSERT INTO tabou (str_mot) VALUES ("boucaque");
-INSERT INTO tabou (str_mot) VALUES ("boucaque");
 INSERT INTO tabou (str_mot) VALUES ("branlette");
 INSERT INTO tabou (str_mot) VALUES ("branleur");
 INSERT INTO tabou (str_mot) VALUES ("gang bang");
