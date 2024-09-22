@@ -32,7 +32,7 @@ class UserRepository {
      */
     public function createUser(User $user): bool {
         try {
-            $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo, str_token, ) 
+            $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo, str_token) 
                     VALUES (:str_email, :str_nom, :str_prenom, :dtm_naissance, :str_pseudo, :str_token)";
             $statement = $this->DB->prepare($sql);
              $retour = $statement->execute([

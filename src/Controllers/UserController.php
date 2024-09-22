@@ -550,9 +550,10 @@ class UserController {
             $this->render("validation", ["erreur" => $_SESSION['erreur']]);
             return;
         }
+        $mdp = password_hash( $data['str_mdp'], PASSWORD_DEFAULT);
         $database = new Database();
         $UserRepository = UserRepository::getInstance($database);
-        $validation = $UserRepository->activateThisUser($data['str_pseudo'], $data['str_mdp']);
+        $validation = $UserRepository->activateThisUser($data['str_pseudo'], $mdp);
         if($validation) {
             $_SESSION['succes'] = "Votre compte a été validé avec succès!";
             $this->render("accueil", ["succes" => $_SESSION['succes']]);
