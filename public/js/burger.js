@@ -5,3 +5,4 @@ burger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
     burger.classList.toggle('toggle');
 });
+

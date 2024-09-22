@@ -131,12 +131,9 @@ class UserController {
         }
 
         $str_token = bin2hex(random_bytes(50));
-        $dtm_token_expiration = (new DateTime())->modify('+24 hours')->format('Y-m-d H:i:s');
         $data['str_token'] = $str_token;
-        $data['dtm_token_expiration'] = $dtm_token_expiration;
 
         $obj = new User($data);
-
         $enregistrement = $UserRepository->createUser($obj);
 
         if ($enregistrement) {

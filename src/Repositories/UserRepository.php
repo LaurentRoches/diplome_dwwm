@@ -32,8 +32,8 @@ class UserRepository {
      */
     public function createUser(User $user): bool {
         try {
-            $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo, str_token, dtm_token_expiration) 
-                    VALUES (:str_email, :str_nom, :str_prenom, :dtm_naissance, :str_pseudo, :str_token, :dtm_token_expiration)";
+            $sql = "INSERT INTO user (str_email, str_nom, str_prenom, dtm_naissance, str_pseudo, str_token, ) 
+                    VALUES (:str_email, :str_nom, :str_prenom, :dtm_naissance, :str_pseudo, :str_token)";
             $statement = $this->DB->prepare($sql);
              $retour = $statement->execute([
                 ":str_email"     => $user->getStrEmail(),
@@ -41,8 +41,7 @@ class UserRepository {
                 ":str_prenom"    => $user->getStrPrenom(),
                 ":dtm_naissance" => $user->getDtmNaissance(),
                 ":str_pseudo"    => $user->getStrPseudo(),
-                ":str_token"     => $user->getStrToken(),
-                ":dtm_token_expiration" => $user->getDtmTokenExpiration()
+                ":str_token"     => $user->getStrToken()
             ]);
             if ($retour) {
                 return TRUE;
@@ -426,15 +425,13 @@ class UserRepository {
             $sql = "UPDATE user SET
                     str_mdp = :str_mdp,
                     bln_active = :bln_active,
-                    str_token = :str_token,
-                    dtm_token_expiration = :dtm_token_expiration
+                    str_token = :str_token
                     WHERE str_pseudo = :str_pseudo;";
             $statement = $this->DB->prepare($sql);
             $retour = $statement->execute([
                 ":str_mdp" => $str_mdp,
                 ":bln_active" => 1,
                 ":str_token" => "",
-                ":dtm_token_expiration" => NULL,
                 ":str_pseudo" => $str_pseudo
             ]);
             if($retour){

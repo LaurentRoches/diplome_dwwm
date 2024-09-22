@@ -18,8 +18,8 @@
 }
 body {
     font-family: 'Merriweather', sans-serif;
-    background-color: #f2efbd !important;
-    color: #8C3842 !important;
+    background-color: var(--parchemin) !important;
+    color: var(--ecriture) !important;
 }
 a {
     text-decoration: none;
