@@ -219,6 +219,16 @@ switch ($route) {
             $UserController->validation();
             break;
         }
+    case $routeComposee[0] == 'deleteProfil':
+        if(isset($routeComposee[1]) && !empty($routeComposee[1])){
+            $UserController->deleteProfil($routeComposee[1]);
+            break;
+        }
+        else {
+            $_SESSION['erreur'] = 'Une erreur lors de la suppression est survenue.';
+            $HomeController->index();
+            break;
+        }
     default :
         $HomeController->page404();
         break;

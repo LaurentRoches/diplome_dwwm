@@ -123,6 +123,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
     <?php
     if($temoin) { ?>
         <a href="<?= HOME_URL ?>profil/<?= $pseudo ?>/update" class="btn_gd_utilisateur">Modifier</a>
+        <a href="<?= HOME_URL ?>deleteProfil/<?= $pseudo ?>" class="btn_gd_utilisateur" onclick="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible!');">Supprimer</a>
     <?php } ?>
 </div>
 <?php

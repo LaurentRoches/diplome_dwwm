@@ -566,4 +566,33 @@ class UserController {
         }
     }
 
+    public function deleteProfil(?string $pseudo = NULL) {
+        if($pseudo) {
+            $database = new Database();
+            $UserRepository = UserRepository::getInstance($database);
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            if(!$utilisateur) {
+                $_SESSION['erreur'] = "Utilisateur non trouvé.";
+                $this->render("accueil");
+                return;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Erreur : Aucun utilisateur trouvé.";
+            $this->render("accueil");
+            return;
+        }
+        $suppression = $UserRepository->deleteThisUser($utilisateur->getIdUser());
+        if($suppression) {
+            session_unset();
+            session_destroy();
+            $_SESSION['succes'] = "Votre profil a été supprimé avec succès.";
+            $this->render("accueil");
+        }
+        else {
+            $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression";
+            $this->render("profil", ['utilisateur' => $utilisateur]);
+        }
+    }
+
 }

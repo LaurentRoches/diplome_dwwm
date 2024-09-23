@@ -15,7 +15,6 @@ class User {
     private bool $bln_active = FALSE;
     private string $str_mdp = '';
     private string $str_token;
-    private ?DateTime $dtm_token_expiration = null;
     private string $str_pseudo;
     private string $str_description = '';
     private bool $bln_mj = FALSE;
@@ -172,28 +171,6 @@ class User {
         $this->str_token = $str_token;
 
         return $this;
-    }
-
-        /**
-     * Get the value of dtm_token_expiration
-     */
-    public function getDtmTokenExpiration(): string
-    {
-        return $this->dtm_token_expiration->format('d-m-Y H:i:s');
-    }
-
-    /**
-     * Set the value of dtm_token_expiration
-     */
-    public function setDtmTokenExpiration(null|string|DateTime $dtm_token_expiration): void
-    {
-        if (is_null($dtm_token_expiration)) {
-            $this->dtm_token_expiration = null;
-        } elseif ($dtm_token_expiration instanceof DateTime) {
-            $this->dtm_token_expiration = $dtm_token_expiration;
-        } else {
-            $this->dtm_token_expiration = new DateTime($dtm_token_expiration);
-        }
     }
 
     /**

@@ -83,41 +83,32 @@ class UserRepository {
                     LEFT JOIN game_voulu ON game_voulu.id_user = user.id_user
                     LEFT JOIN disponibilite ON user.id_user = disponibilite.id_user
                     WHERE 1=1";
-    
             $params = [];
-    
             if($id_game !== null) {
                 $sql .= " AND user.id_user IN (SELECT id_user FROM game_connu WHERE id_game = :id_game)";
                 $params[':id_game'] = $id_game;
             }
-    
             if(!empty($str_pseudo)) {
                 $sql .= " AND str_pseudo LIKE :str_pseudo";
                 $params[':str_pseudo'] = '%' . $str_pseudo . '%';
             }
-    
             if($bln_mj !== null) {
                 $sql .= " AND bln_mj = :bln_mj";
                 $params[':bln_mj'] = $bln_mj;
             }
-
             if(!empty($str_jour)) {
                 $sql .= " AND disponibilite.str_jour LIKE :str_jour";
                 $params[':str_jour'] = '%' . $str_jour . '%';
             }
-
             if(!empty($time_debut)) {
                 $sql .= " AND time_fin > :time_debut";
                 $params[':time_debut'] = $time_debut;
             }
-
             if(!empty($time_fin)) {
                 $sql .= " AND time_debut < :time_fin";
                 $params[':time_fin'] = $time_fin;
             }
-
             $sql .= " GROUP BY user.id_user ORDER BY ratio DESC LIMIT $perPage OFFSET $offset";
-    
             $statement = $this->DB->prepare($sql);
             $statement->execute($params);
             return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -352,14 +343,37 @@ class UserRepository {
      */
     public function deleteThisUser(int $id_user): bool {
         try {
+            $this->DB->beginTransaction();
+
+            $sql_message = "UPDATE message SET id_destinataire = 2 WHERE id_destinataire = :id_user;";
+            $statement_message = $this->DB->prepare($sql_message);
+            $statement_message->execute([":id_user" => $id_user]);
+
+            $sql_message_2 = "UPDATE message SET id_expediteur = 2 WHERE id_expediteur = :id_user;";
+            $statement_message_2 = $this->DB->prepare($sql_message_2);
+            $statement_message_2->execute([":id_user" => $id_user]);
+
+            $sql_avis = "UPDATE avis_user SET id_observateur = 2 WHERE id_observateur = :id_user;";
+            $statement_avis = $this->DB->prepare($sql_avis);
+            $statement_avis->execute([":id_user" => $id_user]);
+
+            $sql_avis_2 = "UPDATE avis_user SET id_evalue = 2 WHERE id_evalue = :id_user;";
+            $statement_avis_2 = $this->DB->prepare($sql_avis_2);
+            $statement_avis_2->execute([":id_user" => $id_user]);
+
+            $sql_avis_article = "UPDATE avis_article SET id_user = 2 WHERE id_user = :id_user;";
+            $statement_avis_article = $this->DB->prepare($sql_avis_article);
+            $statement_avis_article->execute([":id_user" => $id_user]);
+
             $sql = "DELETE FROM user WHERE id_user = :id_user;";
             $statement = $this->DB->prepare($sql);
-            $statement->execute([
-                ":id_user" => $id_user
-            ]);
+            $statement->execute([":id_user" => $id_user]);
+
+            $this->DB->commit();
+
             return true;
-        }
-        catch (PDOException $error) {
+        } catch (PDOException $error) {
+            $this->DB->rollBack();
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }

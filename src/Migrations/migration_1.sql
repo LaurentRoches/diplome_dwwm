@@ -93,6 +93,40 @@ VALUES (
     '2024-08-26 14:30:43', 
     NULL
 );
+INSERT INTO user (
+    id_user, 
+    str_email, 
+    str_nom, 
+    str_prenom, 
+    dtm_naissance, 
+    bln_active, 
+    str_mdp, 
+    str_token,
+    str_pseudo, 
+    str_description, 
+    id_experience, 
+    id_role, 
+    id_profil_image, 
+    dtm_creation, 
+    dtm_maj
+) 
+VALUES (
+    2, 
+    'archived@user.fr', 
+    'Utilisateur supprimer', 
+    'Utilisateur supprimer', 
+    '1989-05-29 00:00:00', 
+    1, 
+    '$2y$10$ATuiYOkLwkNxB2fdb.ipaOcdu/zwPWpBw83enKXGBgwuM67ED9WD.', 
+    '',
+    'Utilisateur supprimer', 
+    'Utilisateur supprimer', 
+    1, 
+    2, 
+    5, 
+    '2024-08-26 14:30:44', 
+    NULL
+);
 
 
 CREATE TABLE message (
