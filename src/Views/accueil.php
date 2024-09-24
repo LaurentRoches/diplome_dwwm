@@ -82,57 +82,57 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
     </div>
     <a href="<?= HOME_URL ?>articleliste" class="btn_gd_article accueil_droite">En savoir plus</a>
     <h3 class="accueil_titre_section accueil_gauche">Les utilisateurs :</h3>
-    <table class="accueil_tableau">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Pseudo</th>
-                <th>M.J.</th>
-                <th>j'aime</th>
-                <th>non aimé</th>
-                <th>jeux souhaités</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if(!empty($liste_user)){
-                foreach($liste_user as $utilisateur) { ?>
+    <div class="tableau_containeur">
+        <table class="accueil_tableau">
+            <thead>
                 <tr>
-                    <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><img src="<?= HOME_URL ?><?= $utilisateur['str_chemin'] ?>" alt="miniature de l'image de profile" class="accueil_miniature_profil"></a></td>
-                    <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><?= $utilisateur['str_pseudo'] ?></a></td>
-                    <td>
-                    <?php if($utilisateur['bln_mj'] == 1) { ?>
-                        <img src="<?= HOME_URL ?>img/icons/valider_icon.png" alt="Validé" class="accueil_icon_mj">
-                    <?php } else { ?>
-                        <img src="<?= HOME_URL ?>img/icons/croix_icon.png" alt="Non validé" class="accueil_icon_mj">
-                    <?php } ?>
-                    </td>
-                    <td><?= $utilisateur['aime'] ?></td>
-                    <td><?= ($utilisateur['total_avis'] - $utilisateur['aime'])?></td>
-                    <td>
-                        <?php
-                        $tab_game = $GameRepository->getAllGameVoulu($utilisateur['id_user']);
-                        $int_game_voulu = count($tab_game);
-                        if($int_game_voulu === 0) {
-                            echo "Non renseigné.";
-                        }
-                        elseif($int_game_voulu >= 2) {
-                            echo "Plusieurs jeux souhaités.";
-                        }
-                        else {
-                            echo $tab_game[0]['str_nom'];
-                        }
-                        ?>
-                    </td>
+                    <th></th>
+                    <th>Pseudo</th>
+                    <th>M.J.</th>
+                    <th>Recommandé</th>
+                    <th>jeux souhaités</th>
                 </tr>
+            </thead>
+            <tbody>
                 <?php
-                } 
-            }
-            else { ?>
-                <p class="erreur_texte">Aucun Utilisateur enregistré</p>
-            <?php } ?>
-        </tbody>
-    </table>
+                if(!empty($liste_user)){
+                    foreach($liste_user as $utilisateur) { ?>
+                    <tr>
+                        <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><img src="<?= HOME_URL ?><?= $utilisateur['str_chemin'] ?>" alt="miniature de l'image de profile" class="accueil_miniature_profil"></a></td>
+                        <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><?= $utilisateur['str_pseudo'] ?></a></td>
+                        <td>
+                        <?php if($utilisateur['bln_mj'] == 1) { ?>
+                            <img src="<?= HOME_URL ?>img/icons/valider_icon.png" alt="Validé" class="accueil_icon_mj">
+                        <?php } else { ?>
+                            <img src="<?= HOME_URL ?>img/icons/croix_icon.png" alt="Non validé" class="accueil_icon_mj">
+                        <?php } ?>
+                        </td>
+                        <td><?= round(($utilisateur['ratio']*100), 1) ?> %</td>
+                        <td>
+                            <?php
+                            $tab_game = $GameRepository->getAllGameVoulu($utilisateur['id_user']);
+                            $int_game_voulu = count($tab_game);
+                            if($int_game_voulu === 0) {
+                                echo "Non renseigné.";
+                            }
+                            elseif($int_game_voulu >= 2) {
+                                echo "Plusieurs jeux souhaités.";
+                            }
+                            else {
+                                echo $tab_game[0]['str_nom'];
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <?php
+                    } 
+                }
+                else { ?>
+                    <p class="erreur_texte">Aucun Utilisateur enregistré</p>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
     <a href="<?= HOME_URL ?>userliste" class="btn_gd_utilisateur accueil_droite">En voir plus</a>
 </div>
 

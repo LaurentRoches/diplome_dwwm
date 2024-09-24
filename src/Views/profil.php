@@ -47,7 +47,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                     Joueur
                 <?php } ?>
             </h3>
-            <p>Compte créer le <?= $utilisateur->getDtmCreation() ?>,  niveau de joueur : <?= $niveau_utilisateur->getStrNiveau() ?></p>
+            <p>Compte créer le <?= $utilisateur->getDtmCreation() ?>,<br>  niveau de joueur : <?= $niveau_utilisateur->getStrNiveau() ?></p>
             <p><?php
             if($age < 18) {
                 echo "Ce joueur est mineur";

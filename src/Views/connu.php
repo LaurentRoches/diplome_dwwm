@@ -71,6 +71,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                         <div class="connexion_champs">
                             <label for="id_game" class="">Jeu souhaité :</label>
                             <select name="id_game" id="id_game">
+                                <option value="">Choisissez un jeu que vous connaissez</option>
                             <?php
                             if(!empty($liste_game)) {
                                 foreach($liste_game as $game) { ?>

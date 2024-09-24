@@ -26,8 +26,7 @@ $database = new Database();
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="<?= HOME_URL ?>img/logo_site.png" />
-    <link rel="stylesheet" href="<?= HOME_URL ?>css/commun.css">  
-    <link rel="stylesheet" href="<?= HOME_URL ?>css/mobile.css" media="only screen and (max-width: 768px)">
+    <link rel="stylesheet" href="<?= HOME_URL ?>css/mobile.css">
     <link rel="stylesheet" href="<?= HOME_URL ?>css/pc.css" media="only screen and (min-width: 769px)">
 </head>
 <body>
@@ -38,7 +37,7 @@ $database = new Database();
             <img src="<?= HOME_URL ?>img/logo_site.png" alt="logo du site JDRConnexion" class="logo_header">
         </a>
         <a href="<?= HOME_URL ?>">
-            <h1 class="logo">JDRConnexion</h1>
+            <h1 class="header_titre">JDRConnexion</h1>
         </a>
     </div>
     <ul class="nav-links">

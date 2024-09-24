@@ -33,8 +33,18 @@
     width: 150px;
     height: 150px;
 }
+.navbar .header_titre {
+    font-size: 24px;
+}
 .navbar .nav-links {
+    display: flex;
+    flex-direction: row;
     width: 60%;
+    max-width: none;
+    transform: none;
+    transition: none;
+    z-index: 0;
+    position: inherit;
 }
 .navbar .nav-links li {
     margin-left: 20px;
@@ -66,6 +76,15 @@ footer {
 .accueil_presentation_2 {
     flex-direction: row;
 }
+.accueil_liste_jeu {
+    flex-direction: row;
+}
+.accueil_liste_jeu img {
+    flex-basis: calc(30% - 20px);
+}
+.accueil_tableau {
+    font-size: 1em;
+}
 
         /* FIN ACCUEIL */
 
@@ -81,109 +100,16 @@ footer {
 
 
         /* PROFIL */
-.profil_corps {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-    margin: 15px 25px;
-}
-.profil_presentation {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: space-between;
-    width: 80%;
-    margin: 50px 25px;
-}
+
 .profil_image {
     width: 250px;
     height: 250px;
-    display: flex;
-    align-self: flex-start;
 }
 .profil_presentation_texte {
-    display: flex;
-    width: 60%;
-    flex-direction: column;
-    justify-content: space-between;
+    font-size: 1.25em;
 }
 .profil_description {
-    display: flex;
-    width: 80%;
-    margin: 15px 25px;
-}
-.profil_action {
-    display: flex;
-    width: 50%;
-    margin: 50px 25px;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-.profil_btn_action {
-    width: calc(50% - 10px);
-    margin-bottom: 35px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-.profil_like {
-    width: 25px;
-    height: 25px;
-    color: var(--parchemin);
-}
-.btn_like {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 35px;
-    background-color:#3C8B28;
-    border: none;
-    border-radius: 15px;
-    color: var(--parchemin);
-    font-size: 1em;
-    font-weight: bold;
-    font-family: 'Merriweather', sans-serif;
-    cursor: pointer;
-    text-align: center;
-    line-height: 35px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.btn_like:hover {
-    transform: scale(1.05);
-    background-color: var(--hover);
-    box-shadow: 4px 4px 15px #3C8B28;
-}
-.profil_dislike {
-    width: 25px;
-    height: 25px;
-    color: var(--parchemin);
-    transform: rotate(180deg);
-}
-.btn_dislike {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 35px;
-    background-color:red;
-    border: none;
-    border-radius: 15px;
-    color: var(--parchemin);
-    font-size: 1em;
-    font-weight: bold;
-    font-family: 'Merriweather', sans-serif;
-    cursor: pointer;
-    text-align: center;
-    line-height: 35px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.btn_dislike:hover {
-    transform: scale(1.05);
-    background-color: var(--hover);
-    box-shadow: 4px 4px 15px red;
+    font-size: 1.25em;
 }
 
 
@@ -194,21 +120,4 @@ footer {
 
 
         /* USERLISTE */
-.user_liste_filter {
-    margin: 50px auto;
-    width: 60%;
-    border-radius: 25px;
-    min-height: 300px;
-}
-.pagination {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin: 50px auto;
-}
-.user_liste_tier {
-    width: 33%;
-    min-width: 30%;
-}
+

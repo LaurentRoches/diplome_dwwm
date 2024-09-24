@@ -11,7 +11,6 @@ use src\Models\User;
 use src\Repositories\DisponibiliteRepository;
 use src\Repositories\GameRepository;
 use src\Repositories\MessageRepository;
-use src\Repositories\TabouRepository;
 use src\Repositories\UserRepository;
 use src\Services\Censure;
 use src\Services\Reponse;
@@ -97,6 +96,11 @@ class UserController {
             return;
         }
         $data['str_pseudo'] = $this->filtrer($data['str_pseudo']);
+        if($data['str_pseudo'] == "***") {
+            $_SESSION["erreur"] = "Ce pseudonyme est un terme censuré.";
+            $this->render("inscription", ["erreur" => $_SESSION["erreur"]]);
+            return;
+        }
 
         if (!isset($data['dtm_naissance']) || $data['dtm_naissance'] == '') {
             $_SESSION["erreur"] = "Le champ 'date de naissance' est obligatoire et n'a pas été rempli.";
@@ -502,6 +506,11 @@ class UserController {
         $data = $_POST;
         $data = $this->sanitize($data);
         $data['str_pseudo'] = $this->filtrer($data['str_pseudo']);
+        if($data['str_pseudo'] == "***") {
+            $_SESSION['erreur'] = "Ce pseudonyme est un terme censuré.";
+            $this->render("updateProfil", ["utilisateur" => $utilisateur]);
+            return;
+        }
 
         if(!empty($data['str_mdp']) && $data['str_mdp'] !== $data['str_mdp_2']) {
             $_SESSION['erreur'] = "Les mots de passe ne sont pas identiques.";

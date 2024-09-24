@@ -22,7 +22,7 @@ class GameRepository {
 
     public function getAllGame():array {
         try {
-            $sql = "SELECT game.*, categorie_game.str_nom 
+            $sql = "SELECT game.*, categorie_game.str_nom AS categorie
                     FROM game
                     LEFT JOIN categorie_game USING (id_categorie_game);";
             $statement = $this->DB->prepare($sql);
@@ -37,7 +37,7 @@ class GameRepository {
 
     public function getAllGameConnu(int $id_user):array {
         try {
-            $sql = "SELECT game.*, categorie_game.str_nom
+            $sql = "SELECT game.*, categorie_game.str_nom AS categorie
                     FROM game
                     LEFT JOIN categorie_game USING (id_categorie_game)
                     LEFT JOIN game_connu USING (id_game)
