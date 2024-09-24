@@ -1,13 +1,13 @@
 <?php
 
 use src\Controllers\HomeController;
-use src\Controllers\UserController;
+use src\Controllers\AdminController;
 use src\Services\Routing;
 
 $methode = $_SERVER['REQUEST_METHOD'];
 
 $HomeController = new HomeController;
-$UserController = new UserController;
+$AdminController = new AdminController;
 
 $routeComposee = Routing::routeComposee($route);
 
@@ -20,125 +20,125 @@ switch ($routeComposee[1]) {
             switch($routeComposee[2]) {
                 case 'create':
                     if($methode == 'POST') {
-                        $UserController->ajouterArticle();
+                        $AdminController->ajouterArticle();
                         break;
                     }
-                    $HomeController->pageAjouterArticle();
+                    $AdminController->pageAjouterArticle();
                     break;
                 case 'update':
                     if($methode == 'POST') {
-                        $UserController->updateThisArticle($routeComposee[3]);
+                        $AdminController->updateThisArticle($routeComposee[3]);
                         break;
                     }
-                    $HomeController->pageAjouterArticle($routeComposee[3]);
+                    $AdminController->pageAjouterArticle($routeComposee[3]);
                     break;
                 case 'delete':
-                    $UserController->deleteThisArticle($routeComposee[3]);
+                    $AdminController->deleteThisArticle($routeComposee[3]);
                     break;
                 default:
                     $HomeController->pageAdmin();
                     break;
             }
         }
-        $HomeController->pageAdminArticle();
+        $AdminController->pageAdminArticle();
         break;
     case 'jeu':
         if(isset($routeComposee[2])) {
             switch($routeComposee[2]) {
                 case 'create':
                     if($methode == 'POST') {
-                        $UserController->ajouterJeu();
+                        $AdminController->ajouterJeu();
                         break;
                     }
-                    $HomeController->pageAjouterJeu();
+                    $AdminController->pageAjouterJeu();
                     break;
                 case 'update':
                     if($methode == 'POST') {
-                        $UserController->updateThisJeu($routeComposee[3]);
+                        $AdminController->updateThisJeu($routeComposee[3]);
                         break;
                     }
-                    $HomeController->pageAjouterJeu($routeComposee[3]);
+                    $AdminController->pageAjouterJeu($routeComposee[3]);
                     break;
                 case 'delete':
-                    $UserController->deleteThisJeu($routeComposee[3]);
+                    $AdminController->deleteThisJeu($routeComposee[3]);
                     break;
                 default:
                     $HomeController->pageAdmin();
                     break;
             }
         }
-        $HomeController->pageAdminJeu();
+        $AdminController->pageAdminJeu();
         break;
     case 'categorieArticle':
         if(isset($routeComposee[2])) {
             switch($routeComposee[2]) {
                 case 'create':
                     if($methode == 'POST') {
-                        $UserController->ajouterCategorieArticle();
+                        $AdminController->ajouterCategorieArticle();
                         break;
                     }
-                    $HomeController->pageAjouterCategorieArticle();
+                    $AdminController->pageAjouterCategorieArticle();
                     break;
                 case 'update':
                     if($methode == 'POST') {
-                        $UserController->updateThisCategorieArticle($routeComposee[3]);
+                        $AdminController->updateThisCategorieArticle($routeComposee[3]);
                         break;
                     }
-                    $HomeController->pageAjouterCategorieArticle($routeComposee[3]);
+                    $AdminController->pageAjouterCategorieArticle($routeComposee[3]);
                     break;
                 case 'delete':
-                    $UserController->deleteThisCategorieArticle($routeComposee[3]);
+                    $AdminController->deleteThisCategorieArticle($routeComposee[3]);
                     break;
                 default:
                     $HomeController->pageAdmin();
                     break;
             }
         }
-        $HomeController->pageAdminCategorieArticle();
+        $AdminController->pageAdminCategorieArticle();
         break;
     case 'categorieJeu':
         if(isset($routeComposee[2])) {
             switch($routeComposee[2]) {
                 case 'create':
                     if($methode == 'POST') {
-                        $UserController->ajouterCategorieJeu();
+                        $AdminController->ajouterCategorieJeu();
                         break;
                     }
-                    $HomeController->pageAjouterCategorieJeu();
+                    $AdminController->pageAjouterCategorieJeu();
                     break;
                 case 'update':
                     if($methode == 'POST') {
-                        $UserController->updateThisCategorieJeu($routeComposee[3]);
+                        $AdminController->updateThisCategorieJeu($routeComposee[3]);
                         break;
                     }
-                    $HomeController->pageAjouterCategorieJeu($routeComposee[3]);
+                    $AdminController->pageAjouterCategorieJeu($routeComposee[3]);
                     break;
                 default:
                     $HomeController->pageAdmin();
                     break;
             }
         }
-        $HomeController->pageAdminCategorieJeu();
+        $AdminController->pageAdminCategorieJeu();
         break;
     case 'user':
         if(isset($routeComposee[2])) {
             switch($routeComposee[2]) {
                 case 'update':
                     if($methode == 'POST') {
-                        $UserController->updateThisUser($routeComposee[3]);
+                        $AdminController->updateThisUser($routeComposee[3]);
                         break;
                     }
-                    $HomeController->pageAjouterUser($routeComposee[3]);
+                    $AdminController->pageAjouterUser($routeComposee[3]);
                     break;
                 case 'delete':
-                    $UserController->deleteThisUser($routeComposee[3]);
+                    $AdminController->deleteThisUser($routeComposee[3]);
                     break;
                 default:
                     $HomeController->pageAdmin();
                     break;
             }
         }
-        $HomeController->pageAdminUser();
+        $AdminController->pageAdminUser();
         break;
     default :
         $HomeController->page404();
