@@ -45,7 +45,7 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
             <div class="accueil_liste_jeu">
                 <img src="<?= HOME_URL ?>img/cyberpunk_logo.png" alt="Logo du jeu Cyberpunk77 pour le site JDRConnexion" class="accueil_miniature_jeu">
                 <img src="<?= HOME_URL ?>img/dnd_logo.png" alt="Logo du jeu Donjon & Dragon pour le site JDRConnexion">
-                <img src="<?= HOME_URL ?>img/wh40k_logo" alt="Logo du jeu Warhammer 40k Dark Heresy pour le site JDRConnexion">
+                <img src="<?= HOME_URL ?>img/wh40k_logo.png" alt="Logo du jeu Warhammer 40k Dark Heresy pour le site JDRConnexion">
             </div>
         </div>
     </div>
@@ -102,9 +102,9 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
                         <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><?= $utilisateur['str_pseudo'] ?></a></td>
                         <td>
                         <?php if($utilisateur['bln_mj'] == 1) { ?>
-                            <img src="<?= HOME_URL ?>img/icons/valider_icon.png" alt="Validé" class="accueil_icon_mj">
+                            <img src="<?= HOME_URL ?>img/Icons/valider_icon.png" alt="Est un Maître du Jeu" class="accueil_icon_mj">
                         <?php } else { ?>
-                            <img src="<?= HOME_URL ?>img/icons/croix_icon.png" alt="Non validé" class="accueil_icon_mj">
+                            <img src="<?= HOME_URL ?>img/Icons/croix_icon.png" alt="N'est pas un Maître du Jeu" class="accueil_icon_mj">
                         <?php } ?>
                         </td>
                         <td><?= round(($utilisateur['ratio']*100), 1) ?> %</td>
