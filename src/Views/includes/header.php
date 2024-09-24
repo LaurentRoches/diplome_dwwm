@@ -44,7 +44,7 @@ $database = new Database();
         <?php
         if(isset($_SESSION['connecte'])){
             if($user->getIdRole() === 2 || $user->getIdRole() === 3) { ?>
-                <li><a href="<?= HOME_URL ?>admin">Administration</a></li>
+                <li><a href="<?= HOME_URL ?>admin/dashboard">Administration</a></li>
             <?php }
         } ?>
         <li><a href="<?= HOME_URL ?>userliste">Utilisateurs</a></li>

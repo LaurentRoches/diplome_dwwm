@@ -229,6 +229,24 @@ switch ($route) {
             $HomeController->index();
             break;
         }
+    case $routeComposee[0] == 'admin':
+        if(isset($_SESSION['connecte'])) {
+            $user = unserialize($_SESSION['user']);
+            if($user->getIdRole() == 2 || $user->getIdRole() == 2) {
+                include __DIR__.'/routerAdmin.php';
+                break;
+            }
+            else {
+                $_SESSION['erreur'] = "Vous n'avez pas les droits suffisant.";
+                $HomeController->index();
+                break;
+            }
+        }
+        else {
+            $_SESSION['erreur'] = "Vous devez être connecté.";
+            $HomeController->index();
+            break;
+        }
     default :
         $HomeController->page404();
         break;

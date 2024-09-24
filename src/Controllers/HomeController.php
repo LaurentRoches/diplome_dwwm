@@ -271,4 +271,8 @@ class HomeController {
             "utilisateur" => $utilisateur
         ]);
     }
+
+    public function pageAdmin() {
+        $this->render("dashboard");
+    }
 }
