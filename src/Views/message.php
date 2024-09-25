@@ -47,7 +47,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                                 <td><a href="<?= HOME_URL ?>profil/<?= $expediteur['str_pseudo'] ?>"><img src="<?= HOME_URL ?><?= $expediteur['str_chemin'] ?>" alt="miniature de l'image de profile" class="accueil_miniature_profil"></a></td>
                                 <td><a href="<?= HOME_URL ?>profil/<?= $expediteur['str_pseudo'] ?>"><?= $expediteur['str_pseudo'] ?></a></td>
                                 <td><a href="<?= HOME_URL ?>message/<?= $pseudo ?>/conversation/<?= $expediteur['str_pseudo'] ?>"><?= $expediteur['last_message_date'] ?></a></td>
-                                <td> Ici le booléen si non lu</td>
+                                <td><a href="<?= HOME_URL ?>message/<?= $pseudo ?>/conversation/<?= $expediteur['str_pseudo'] ?>"><?= ($expediteur['bln_lu'] == 0) ? 'Messages non lu' : 'Pas de nouveau message' ?></a></td>
                                 <td><a href="<?= HOME_URL ?>message/<?= $pseudo ?>/conversation/<?= $expediteur['str_pseudo'] ?>">Voir la conversation</a></td>
                             </tr>
                         <?php } ?>
@@ -64,9 +64,11 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                 <button type="submit" class="btn_gd_utilisateur">Envoyer</button>
             </form>
         <?php }
-    } ?>
+    }
+    else {?>
     <p class="erreur_texte">Vous devez être connecté pour envoyé un message.</p>
 <?php }
+}
 else {
     // Renvoyer à l'accueil avec message erreur;
 }

@@ -22,6 +22,7 @@ body {
 }
 a {
     text-decoration: none;
+    color: var(--ecriture);
 }
 p {
     font-size: 1.25em;
@@ -660,4 +661,34 @@ footer p {
 }
 .active {
     display: block;
+}
+
+
+        /* CONVERSATION */
+.conversation_centrer {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 50px auto;
+}
+.conversation_gch {
+    align-self: flex-start;
+    margin: 50px 0px;
+    padding: 10px;
+    border: 2px solid var(--ecriture);
+    border-radius: 25px 25px 0px 25px;
+}
+.conversation_dt {
+    align-self: flex-end;
+    margin: 50px 0px;
+    padding: 10px;
+    border: 2px solid var(--ecriture);
+    border-radius: 25px 25px 25px 0px;
+    text-align: end;
+}
+.conversation_message {
+    margin: 10px 0px;
+}
+.conversation_mini_texte {
+    font-size: small;
 }

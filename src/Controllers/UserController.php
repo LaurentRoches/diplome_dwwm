@@ -266,7 +266,7 @@ class UserController {
             return;
         }
 
-        parse_str(file_get_contents("php:://input"), $data);
+        $data = $_POST;
         $data = $this->sanitize($data);
         $id_user = $data['id_user'];
         $id_game = $data['id_game'];
@@ -415,6 +415,31 @@ class UserController {
             $_SESSION['erreur'] = "Erreur lors de l'envoi du message.";
         }
         $this->render("message", ["utilisateur" => $utilisateur]);
+    }
+
+    public function envoyerMessageConversation() {
+        $data = $_POST;
+        $data = $this->sanitize($data);
+
+        $texte = $data['str_message'];
+        $texte = $this->filtrer($texte);
+        $data['str_message'] = $texte;
+
+        $message = new Message($data);
+        $database = new Database();
+        $MessageRepository = MessageRepository::getInstance($database);
+        $UserRepository = UserRepository::getInstance($database);
+
+        $destinataire = $UserRepository->getThisUserById($message->getIdDestinataire());
+        $expediteur = $UserRepository->getThisUserById($message->getIdExpediteur());
+        $retour = $MessageRepository->createMessage($message);
+        if($retour) {
+            $_SESSION['succes'] = "Message envoyé avec succès.";
+        } 
+        else {
+            $_SESSION['erreur'] = "Erreur lors de l'envoi du message.";
+        }
+        $this->render("conversation", ["destinataire" => $destinataire, "expediteur" => $expediteur]);
     }
 
     public function supprimerMessage(?int $id_message, ?string $pseudo = NULL) {

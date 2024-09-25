@@ -169,6 +169,10 @@ switch ($route) {
                 break;
             }
             elseif( $routeComposee[2] == 'conversation') {
+                if($methode == 'POST') {
+                    $UserController->envoyerMessageConversation();
+                    break;
+                }
                 $HomeController->pageConverstation($routeComposee[1], $routeComposee[3]);
                 break;
             }

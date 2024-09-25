@@ -103,4 +103,21 @@ class MessageRepository {
         }
     }
 
+    public function marquerCommeLu(int $id_destinataire, int $id_expediteur):void {
+        try {
+            $sql = "UPDATE message SET bln_lu = 1
+                    WHERE id_expediteur = :id_expediteur 
+                    AND id_destinataire = :id_destinataire
+                    AND bln_lu = 0;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ':id_destinataire' => $id_destinataire,
+                ':id_expediteur' => $id_expediteur
+            ]);
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
 }
