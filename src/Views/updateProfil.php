@@ -74,7 +74,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                 <select name="id_experience" id="id_experience">
                     <?php
                     foreach($tab_experience as $experience) { ?>
-                        <option value="<?= $experience['id_experience'] ?>" <?php echo ($experience['id_experience'] == $utilisateur->getIdExperience()) ? "selected" : ""?>><?= $experience['str_niveau'] ?></option>
+                        <option value="<?= $experience['id_experience'] ?>" <?= ($experience['id_experience'] == $utilisateur->getIdExperience()) ? "selected" : ""?>><?= $experience['str_niveau'] ?></option>
                     <?php } ?>
                 </select>
             </div>

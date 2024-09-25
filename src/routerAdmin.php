@@ -27,7 +27,7 @@ switch ($routeComposee[1]) {
                     break;
                 case 'update':
                     if($methode == 'POST') {
-                        $AdminController->updateThisArticle($routeComposee[3]);
+                        $AdminController->updateThisArticle();
                         break;
                     }
                     $AdminController->pageAjouterArticle($routeComposee[3]);
@@ -39,6 +39,7 @@ switch ($routeComposee[1]) {
                     $HomeController->pageAdmin();
                     break;
             }
+            break;
         }
         $AdminController->pageAdminArticle();
         break;
@@ -54,7 +55,7 @@ switch ($routeComposee[1]) {
                     break;
                 case 'update':
                     if($methode == 'POST') {
-                        $AdminController->updateThisJeu($routeComposee[3]);
+                        $AdminController->updateThisJeu();
                         break;
                     }
                     $AdminController->pageAjouterJeu($routeComposee[3]);
@@ -66,6 +67,7 @@ switch ($routeComposee[1]) {
                     $HomeController->pageAdmin();
                     break;
             }
+            break;
         }
         $AdminController->pageAdminJeu();
         break;
@@ -93,6 +95,7 @@ switch ($routeComposee[1]) {
                     $HomeController->pageAdmin();
                     break;
             }
+            break;
         }
         $AdminController->pageAdminCategorieArticle();
         break;
@@ -117,6 +120,7 @@ switch ($routeComposee[1]) {
                     $HomeController->pageAdmin();
                     break;
             }
+            break;
         }
         $AdminController->pageAdminCategorieJeu();
         break;
@@ -137,6 +141,7 @@ switch ($routeComposee[1]) {
                     $HomeController->pageAdmin();
                     break;
             }
+            break;
         }
         $AdminController->pageAdminUser();
         break;

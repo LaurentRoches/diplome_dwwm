@@ -275,10 +275,10 @@ class UserController {
         $resultat = $GameRepository->createGameConnu($id_user, $id_game);
 
         if ($resultat) {
-            $_SESSION['succes'] = "Disponibilités ajoutées avec succès.";
+            $_SESSION['succes'] = "Jeu ajoutées avec succès.";
         } 
         else {
-            $_SESSION['erreur'] = "Erreur lors de l'ajout des disponibilités.";
+            $_SESSION['erreur'] = "Erreur lors de l'ajout du jeu.";
         }
 
         $this->render("connu", ["utilisateur" => $utilisateur]);
@@ -301,7 +301,7 @@ class UserController {
             return;
         }
 
-        parse_str(file_get_contents("php:://input"), $data);
+        $data = $_POST;
         $data = $this->sanitize($data);
         $id_user = $data['id_user'];
         $id_game = $data['id_game'];
@@ -310,9 +310,9 @@ class UserController {
         $resultat = $GameRepository->createGameVoulu($id_user, $id_game);
 
         if ($resultat) {
-            $_SESSION['succes'] = "Disponibilités ajoutées avec succès.";
+            $_SESSION['succes'] = "Jeu ajoutées avec succès.";
         } else {
-            $_SESSION['erreur'] = "Erreur lors de l'ajout des disponibilités.";
+            $_SESSION['erreur'] = "Erreur lors de l'ajout du jeu.";
         }
 
         $this->render("voulu", ["utilisateur" => $utilisateur]);
@@ -543,7 +543,8 @@ class UserController {
         $verif = $UserRepository->updateThisUser($user);
         if($verif) {
             $_SESSION['succes'] = "Profil mis à jour avec succès.";
-        } else {
+        } 
+        else {
             $_SESSION['erreur'] = "Erreur lors de la mise à jour du profil.";
         }
 
