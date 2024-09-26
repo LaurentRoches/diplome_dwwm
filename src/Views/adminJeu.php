@@ -9,10 +9,10 @@ $tab_categorie = $GameRepository->getAllCategorie();
 
 if(isset($game)) {
     $id_game = intval($game['id_game']);
-    $str_nom = htmlspecialchars($game['str_nom']);
-    $str_resume = htmlspecialchars($game['str_resume']);
-    $txt_description = htmlspecialchars($game['txt_description']);
-    $str_categorie = htmlspecialchars($game['categorie']);
+    $str_nom = htmlspecialchars($game['str_nom'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
+    $str_resume = htmlspecialchars($game['str_resume'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
+    $txt_description = htmlspecialchars($game['txt_description'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
+    $str_categorie = htmlspecialchars($game['categorie'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
 }
 else {
     $game = NULL;
@@ -53,7 +53,7 @@ else {
                     <?php
                     if(!empty($tab_categorie)) {
                         foreach($tab_categorie as $categorie) { ?>
-                            <option value="<?= intval($categorie['id_categorie_game']) ?>" <?= ($categorie['str_nom'] == $str_categorie) ? 'selected' : '' ?>><?= htmlspecialchars($categorie['str_nom']) ?></option>
+                            <option value="<?= intval($categorie['id_categorie_game']) ?>" <?= ($categorie['str_nom'] == $str_categorie) ? 'selected' : '' ?>><?= htmlspecialchars($categorie['str_nom'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></option>
                         <?php } 
                     }?>
                 </select>

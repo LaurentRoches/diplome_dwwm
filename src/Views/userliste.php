@@ -11,11 +11,11 @@ $ProfilImageRepository = ProfilImageRepository::getInstance($database);
 $GameRepository = GameRepository::getInstance($database);
 
 $id_game = isset($_GET['id_game']) ? intval($_GET['id_game']) : null;
-$str_pseudo = isset($_GET['str_pseudo']) ? htmlspecialchars($_GET['str_pseudo']) : '';
+$str_pseudo = isset($_GET['str_pseudo']) ? htmlspecialchars($_GET['str_pseudo'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) : '';
 $bln_mj = isset($_GET['bln_mj']) ? intval($_GET['bln_mj']) : null;
-$str_jour = isset($_GET['str_jour']) ? htmlspecialchars($_GET['str_jour']) : '';
-$time_debut = isset($_GET['time_debut']) ? htmlspecialchars($_GET['time_debut']) : '';
-$time_fin = isset($_GET['time_fin']) ? htmlspecialchars($_GET['time_fin']) : '';
+$str_jour = isset($_GET['str_jour']) ? htmlspecialchars($_GET['str_jour'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) : '';
+$time_debut = isset($_GET['time_debut']) ? htmlspecialchars($_GET['time_debut'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) : '';
+$time_fin = isset($_GET['time_fin']) ? htmlspecialchars($_GET['time_fin'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) : '';
 
 $total_utilisateur = $UserRepository->countAllUser($id_game, $str_pseudo, $bln_mj, $str_jour, $time_debut, $time_fin);
 $parPage = 10;
@@ -54,7 +54,7 @@ $liste_game = $GameRepository->getAllGame();
                         <?php
                         if(!empty($liste_game)) {
                             foreach($liste_game as $game) { ?>
-                                <option value="<?= intval($game['id_game']) ?>"><?= htmlspecialchars($game['str_nom']) ?></option>
+                                <option value="<?= intval($game['id_game']) ?>"><?= htmlspecialchars($game['str_nom'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></option>
                             <?php }
                         } ?>
                     </select>

@@ -6,8 +6,8 @@ include_once __DIR__ . '/includes/header.php';
 
 if(isset($_GET['token']) && isset($_GET['pseudo'])) {
 
-    $str_token = htmlspecialchars($_GET['token']);
-    $str_pseudo = htmlspecialchars($_GET['pseudo']);
+    $str_token = htmlspecialchars($_GET['token'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
+    $str_pseudo = htmlspecialchars($_GET['pseudo'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
 
     $UserRepository = UserRepository::getInstance($database);
     $verification = $UserRepository->verificationToken($str_token, $str_pseudo);

@@ -9,7 +9,7 @@ $UserRepository = UserRepository::getInstance($database);
 
 if(isset($utilisateur) && !empty($utilisateur)) {
     $id_utilisateur = intval($utilisateur->getIdUser());
-    $pseudo = htmlspecialchars($utilisateur->getStrPseudo());
+    $pseudo = htmlspecialchars($utilisateur->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
 
     $MessageRepository = MessageRepository::getInstance($database);
     $tab_expediteur = $MessageRepository->getAllExpediteur($id_utilisateur);

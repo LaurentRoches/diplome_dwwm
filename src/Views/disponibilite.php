@@ -44,13 +44,13 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                 if(!empty($tab_disponibilite)) {
                     foreach($tab_disponibilite as $dispo) { ?>
                         <tr>
-                            <td><?= htmlspecialchars($dispo['str_jour']) ?></td>
-                            <td><?= htmlspecialchars($dispo['time_debut']) ?></td>
-                            <td><?= htmlspecialchars($dispo['time_fin']) ?></td>
+                            <td><?= htmlspecialchars($dispo['str_jour'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                            <td><?= htmlspecialchars($dispo['time_debut'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                            <td><?= htmlspecialchars($dispo['time_fin'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
                             <?php
                             if(isset($user)) {
                                 if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
-                                    <th><a href="<?= HOME_URL ?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo()) ?>/delete/<?= htmlspecialchars($dispo['id_disponibilite']) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?');"> X </a></th>
+                                    <th><a href="<?= HOME_URL ?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>/delete/<?= htmlspecialchars($dispo['id_disponibilite'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?');"> X </a></th>
                                 <?php }
                             } ?>
                         </tr>
@@ -66,7 +66,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
         if(isset($user)) {
             if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
                 <h3>Ajouter des disponibilités :</h3>
-                <form class="connexion_form" action="<?=HOME_URL?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo()) ?>/add" method="POST">
+                <form class="connexion_form" action="<?=HOME_URL?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>/add" method="POST">
                     <input type="hidden" id="id_user" name="id_user" value="<?= $id_utilisateur ?>">
                     <div id="disponibilite_container">
                         <div class="disponibilite_item">

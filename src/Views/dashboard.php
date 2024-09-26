@@ -15,7 +15,7 @@ include_once __DIR__ . '/includes/header.php';
     if(!empty($succes)){ ?>
     <p class="succes_texte"> <?= $succes ?> </p>
     <?php } ?>
-    <h2>Bonjour <?= htmlspecialchars($user->getStrPseudo()) ?></h2>
+    <h2>Bonjour <?= htmlspecialchars($user->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></h2>
     <h3>Qu'allons nous faire aujourd'hui ?</h3>
     <div class="profil_action">
         <div class="profil_btn_action">

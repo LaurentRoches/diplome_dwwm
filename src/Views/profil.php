@@ -21,8 +21,8 @@ if(isset($utilisateur) && !empty($utilisateur)) {
 
     $image_utilisateur = $ProfilImageRepository->getThisImage($utilisateur->getIdProfilImage()); 
     $niveau_utilisateur = $ExperienceRepository->getThisExperience($utilisateur->getIdExperience());
-    $description = htmlspecialchars($utilisateur->getStrDescription());
-    $pseudo = htmlspecialchars($utilisateur->getStrPseudo());
+    $description = htmlspecialchars($utilisateur->getStrDescription(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
+    $pseudo = htmlspecialchars($utilisateur->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
     $id_utilisateur = intval($utilisateur->getIdUser());
     $tab_avis = $UserRepository->getAvisUser($id_utilisateur);
     $dtm_naissance = $utilisateur->getDtmNaissance();
@@ -32,7 +32,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
 ?>
 <div class="profil_corps">
     <div class="profil_presentation">
-        <img src="<?= HOME_URL . htmlspecialchars($image_utilisateur->getStrChemin()) ?>" alt="miniature de l'image de profile" class="profil_image">
+        <img src="<?= HOME_URL . htmlspecialchars($image_utilisateur->getStrChemin(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" alt="miniature de l'image de profile" class="profil_image">
         <div class="profil_presentation_texte">
             <h2><?php 
             if($temoin) { ?>

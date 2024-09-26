@@ -20,7 +20,7 @@ trait Securite {
                 $dataSanitized[$key] = intval($value);
             }
             else {
-                $dataSanitized[$key] = htmlspecialchars($value);
+                $dataSanitized[$key] = htmlspecialchars($value, ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
             }
         }
         return $dataSanitized;

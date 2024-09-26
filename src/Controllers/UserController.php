@@ -173,7 +173,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -221,7 +221,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -252,7 +252,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -287,7 +287,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -321,7 +321,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -352,7 +352,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -383,7 +383,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -445,7 +445,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -478,7 +478,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -515,7 +515,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");
@@ -558,7 +558,7 @@ class UserController {
         }
 
         $test_email =$UserRepository->getThisUserByEmail($user->getStrEmail());
-        if(htmlspecialchars($test_email->getStrEmail()) !== htmlspecialchars($utilisateur->getStrEmail())) {
+        if(htmlspecialchars($test_email->getStrEmail(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) !== htmlspecialchars($utilisateur->getStrEmail(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false)) {
             $_SESSION['erreur'] = "Un utilisateur utilise déjà cet email.";
             $this->render("updateProfil", ["utilisateur"=>$utilisateur]);
             return;
@@ -604,7 +604,7 @@ class UserController {
         if($pseudo) {
             $database = new Database();
             $UserRepository = UserRepository::getInstance($database);
-            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo));
+            $utilisateur = $UserRepository->getThisUserByPseudo(htmlspecialchars($pseudo, ENT_QUOTES | ENT_HTML401, 'UTF-8', false));
             if(!$utilisateur) {
                 $_SESSION['erreur'] = "Utilisateur non trouvé.";
                 $this->render("accueil");

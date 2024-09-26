@@ -29,9 +29,9 @@ $tab_game = $GameRepository->getAllGame();
                 if(!empty($tab_game)){
                     foreach($tab_game as $game) { ?>
                         <tr>
-                            <td><a href="<?= HOME_URL ?>admin/jeu/update/<?= intval($game['id_game']) ?>"><?= htmlspecialchars($game['str_nom']) ?></a></td>
-                            <td><?= htmlspecialchars($game['str_resume']) ?></td>
-                            <td><?= htmlspecialchars($game['categorie']) ?></td>
+                            <td><a href="<?= HOME_URL ?>admin/jeu/update/<?= intval($game['id_game']) ?>"><?= htmlspecialchars($game['str_nom'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></a></td>
+                            <td><?= htmlspecialchars($game['str_resume'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                            <td><?= htmlspecialchars($game['categorie'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
                             <td><a href="<?= HOME_URL ?>admin/jeu/update/<?= intval($game['id_game']) ?>">Cliquez ici</a></td>
                             <td><a href="<?= HOME_URL ?>admin/jeu/delete/<?= intval($game['id_game']) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu ?');"> X </a></td>
                         </tr>

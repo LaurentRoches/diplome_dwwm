@@ -11,7 +11,7 @@ $GameRepository = GameRepository::getInstance($database);
 if(isset($utilisateur) && !empty($utilisateur)) {
     $id_utilisateur = intval($utilisateur->getIdUser());
     $tab_connu = $GameRepository->getAllGameConnu($id_utilisateur);
-    $pseudo = htmlspecialchars($utilisateur->getStrPseudo());
+    $pseudo = htmlspecialchars($utilisateur->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
     $liste_game = $GameRepository->getAllGame();
 
 ?>
@@ -44,13 +44,13 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                     if(!empty($tab_connu)) {
                         foreach($tab_connu as $jeu) { ?>
                             <tr>
-                                <td><?= htmlspecialchars($jeu['str_nom']) ?></td>
-                                <td><?= htmlspecialchars($jeu['categorie']) ?></td>
-                                <td><?= htmlspecialchars($jeu['str_resume']) ?></td>
+                                <td><?= htmlspecialchars($jeu['str_nom'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                                <td><?= htmlspecialchars($jeu['categorie'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                                <td><?= htmlspecialchars($jeu['str_resume'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
                                 <?php
                                 if(isset($user)) {
                                     if($pseudo === $user->getStrPseudo()){ ?>
-                                    <th><a href="<?= HOME_URL ?>connu/<?= $pseudo ?>/delete/<?= htmlspecialchars($jeu['id_game']) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu de votre liste ?');"> X </a></th>
+                                    <th><a href="<?= HOME_URL ?>connu/<?= $pseudo ?>/delete/<?= htmlspecialchars($jeu['id_game'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu de votre liste ?');"> X </a></th>
                                 <?php }
                             } ?>
                             </tr>
@@ -75,7 +75,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                             <?php
                             if(!empty($liste_game)) {
                                 foreach($liste_game as $game) { ?>
-                                    <option value="<?= intval($game['id_game']) ?>"><?= htmlspecialchars($game['str_nom']) ?></option>
+                                    <option value="<?= intval($game['id_game']) ?>"><?= htmlspecialchars($game['str_nom'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></option>
                                 <?php }
                             } ?>
                             </select>

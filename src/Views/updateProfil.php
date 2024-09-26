@@ -14,7 +14,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
 
     $tab_image = $ProfilImageRepository->getAllImage();
     $tab_experience = $ExperienceRepository->getAllExperience();
-    $pseudo = htmlspecialchars($utilisateur->getStrPseudo());
+    $pseudo = htmlspecialchars($utilisateur->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
 
 ?>
 <div class="form_bg">
@@ -29,11 +29,11 @@ if(isset($utilisateur) && !empty($utilisateur)) {
             <input type="hidden" name="id_user" value="<?= intval($utilisateur->getIdUser()) ?>">
             <div class="connexion_champs">
                 <label for="str_nom"> Votre nom :</label>
-                <input type="text" name="str_nom" id="str_nom" value="<?= htmlspecialchars($utilisateur->getStrNom()) ?>">
+                <input type="text" name="str_nom" id="str_nom" value="<?= htmlspecialchars($utilisateur->getStrNom(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>">
             </div>
             <div class="connexion_champs">
                 <label for="str_prenom"> Votre prénom:</label>
-                <input type="text" name="str_prenom" id="str_prenom" value="<?= htmlspecialchars($utilisateur->getStrPrenom()) ?>">
+                <input type="text" name="str_prenom" id="str_prenom" value="<?= htmlspecialchars($utilisateur->getStrPrenom(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>">
             </div>
             <div class="connexion_champs">
                 <label for="str_pseudo"> Votre pseudonyme :</label>
@@ -41,7 +41,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
             </div>
             <div class="connexion_champs">
                 <label for="str_email"> Votre adresse mail :</label>
-                <input type="email" name="str_email" id="str_email" value="<?= htmlspecialchars($utilisateur->getStrEmail()) ?>">
+                <input type="email" name="str_email" id="str_email" value="<?= htmlspecialchars($utilisateur->getStrEmail(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>">
             </div>
             <div class="connexion_champs">
                 <label for="str_mdp"> Votre mot de passe :</label>
@@ -80,7 +80,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
             </div>
             <div class="connexion_champs">
                 <label for="str_description">Une courte description de vous ou de votre alter ego: <em>(255 caractères)</em></label>
-                <textarea name="str_description" id="str_description" maxlength="255"><?= htmlspecialchars($utilisateur->getStrDescription()) ?></textarea>
+                <textarea name="str_description" id="str_description" maxlength="255"><?= htmlspecialchars($utilisateur->getStrDescription(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></textarea>
             </div>
             <button type="submit" class="btn_gd_utilisateur">Enregistrer</button>
         </form>
