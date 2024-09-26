@@ -82,7 +82,7 @@ class UserRepository {
                     LEFT JOIN profil_image ON user.id_profil_image = profil_image.id_profil_image
                     LEFT JOIN game_voulu ON game_voulu.id_user = user.id_user
                     LEFT JOIN disponibilite ON user.id_user = disponibilite.id_user
-                    WHERE 1=1";
+                    WHERE user.id_user <> 2";
             $params = [];
             if($id_game !== null) {
                 $sql .= " AND user.id_user IN (SELECT id_user FROM game_connu WHERE id_game = :id_game)";
@@ -138,7 +138,7 @@ class UserRepository {
                     FROM user 
                     LEFT JOIN game_voulu ON game_voulu.id_user = user.id_user
                     LEFT JOIN disponibilite ON user.id_user = disponibilite.id_user
-                    WHERE 1=1";
+                    WHERE user.id_user <> 2";
             $params = [];
     
             if($id_game !== null) {
@@ -196,6 +196,7 @@ class UserRepository {
                     FROM user
                     LEFT JOIN avis_user ON user.id_user = avis_user.id_evalue
                     LEFT JOIN profil_image ON user.id_profil_image = profil_image.id_profil_image
+                    WHERE user.id_user <> 2
                     GROUP BY user.id_user
                     ORDER BY ratio DESC
                     LIMIT 3;";
