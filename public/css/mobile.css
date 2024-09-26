@@ -168,6 +168,27 @@ h1, h2, h3 {
         /* FIN DU FORMULAIRE */
 
 
+        /* 404 */
+
+.main_404 {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+.titre_404 {
+    align-self: center;
+}
+.image_404 {
+    width: 80%;
+    align-self: center;
+    border-radius: 25px;
+}
+
+        /* FIN DU 404 */
+
+        
         /* HEADER */
 /* nav_bar et menu burger */
 .header_flex {

@@ -23,8 +23,7 @@ class UserController {
     use Censure;
 
     public function connexion():void {
-        $data = file_get_contents("php://input");
-        parse_str($data, $user);
+        $user = $_POST;
 
         if(!empty($user)) {
             $user = $this->sanitize($user);
@@ -187,7 +186,7 @@ class UserController {
             return;
         }
 
-        parse_str(file_get_contents("php://input"), $data);
+        $data = $_POST;
         $data = $this->sanitize($data);
 
         $tab_dispos = [];

@@ -96,7 +96,10 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
             <tbody>
                 <?php
                 if(!empty($liste_user)){
-                    foreach($liste_user as $utilisateur) { ?>
+                    foreach($liste_user as $utilisateur) { 
+                        if($utilisateur['id_user'] == 2) {
+                            continue;
+                        }?>
                     <tr>
                         <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><img src="<?= HOME_URL ?><?= $utilisateur['str_chemin'] ?>" alt="miniature de l'image de profile" class="accueil_miniature_profil"></a></td>
                         <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><?= $utilisateur['str_pseudo'] ?></a></td>
