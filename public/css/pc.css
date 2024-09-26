@@ -94,6 +94,9 @@ footer {
 .accueil_tableau {
     font-size: 1em;
 }
+.accueil_image_social {
+    width: 70%;
+}
 
         /* FIN ACCUEIL */
 
@@ -113,6 +116,7 @@ footer {
 .profil_image {
     width: 250px;
     height: 250px;
+    margin-left: auto;
 }
 .profil_presentation_texte {
     font-size: 1.25em;
@@ -128,5 +132,9 @@ footer {
 }
 
 
-        /* USERLISTE */
+        /* CONVERSATION */
+
+.conversation_bordure_gch, .conversation_bordure_dt {
+    max-width: 40%;
+}
 

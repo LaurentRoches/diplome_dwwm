@@ -84,11 +84,11 @@ $liste_game = $GameRepository->getAllGame();
                         <option value="dimanche">Dimanche</option>
                     </select>
                 </div>
-                <div class="disponibilte_champs">
+                <div class="connexion_champs max_haut">
                     <label for="time_debut">Heure de début :</label>
                     <input id="time_debut" name="time_debut" type="time">
                 </div>
-                <div class="disponibilte_champs">
+                <div class="connexion_champs max_haut">
                     <label for="time_fin">Heure de fin :</label>
                     <input id="time_fin" name="time_fin" type="time">
                 </div>

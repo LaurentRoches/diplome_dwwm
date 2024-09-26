@@ -25,47 +25,48 @@ if(isset($utilisateur) && !empty($utilisateur)) {
         if($succes !== '') { ?>
         <p class="succes_texte"> <?= $succes ?> </p>
           <?php } ?>
-        <table class="accueil_tableau dispo_marge_bas">
-            <thead>
-                <tr>
-                    <th>Jour</th>
-                    <th>Heure de début</th>
-                    <th>Heure de fin</th>
+        <div class="tableau_containeur">
+            <table class="accueil_tableau dispo_marge_bas">
+                <thead>
+                    <tr>
+                        <th>Jour</th>
+                        <th>Heure de début</th>
+                        <th>Heure de fin</th>
+                        <?php
+                        if(isset($user)) {
+                            if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
+                                <th>Supprimer ?</th>
+                            <?php }
+                        } ?>
+                    </tr>
+                </thead>
+                <tbody>
                     <?php
-                    if(isset($user)) {
-                        if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
-                            <th>Supprimer ?</th>
+                    if(!empty($tab_disponibilite)) {
+                        foreach($tab_disponibilite as $dispo) { ?>
+                            <tr>
+                                <td><?= htmlspecialchars($dispo['str_jour'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                                <td><?= htmlspecialchars($dispo['time_debut'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                                <td><?= htmlspecialchars($dispo['time_fin'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                                <?php
+                                if(isset($user)) {
+                                    if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
+                                        <th><a href="<?= HOME_URL ?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>/delete/<?= htmlspecialchars($dispo['id_disponibilite'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?');"> X </a></th>
+                                    <?php }
+                                } ?>
+                            </tr>
                         <?php }
-                    } ?>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if(!empty($tab_disponibilite)) {
-                    foreach($tab_disponibilite as $dispo) { ?>
-                        <tr>
-                            <td><?= htmlspecialchars($dispo['str_jour'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
-                            <td><?= htmlspecialchars($dispo['time_debut'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
-                            <td><?= htmlspecialchars($dispo['time_fin'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
-                            <?php
-                            if(isset($user)) {
-                                if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
-                                    <th><a href="<?= HOME_URL ?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>/delete/<?= htmlspecialchars($dispo['id_disponibilite'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette disponibilité ?');"> X </a></th>
-                                <?php }
-                            } ?>
-                        </tr>
-                    <?php }
-                }
-                else { ?>
-                    <tr><td colspan="4" class="erreur">Aucune disponibilité renseignée.</td></tr>
-                <?php } ?>
-            </tbody>
-        </table>
-
+                    }
+                    else { ?>
+                        <tr><td colspan="4" class="erreur">Aucune disponibilité renseignée.</td></tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
         <?php
         if(isset($user)) {
             if($utilisateur->getStrPseudo() === $user->getStrPseudo()){ ?>
-                <h3>Ajouter des disponibilités :</h3>
+                <h3 class="message_titre">Ajouter des disponibilités :</h3>
                 <form class="connexion_form" action="<?=HOME_URL?>disponibilite/<?= htmlspecialchars($utilisateur->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>/add" method="POST">
                     <input type="hidden" id="id_user" name="id_user" value="<?= $id_utilisateur ?>">
                     <div id="disponibilite_container">

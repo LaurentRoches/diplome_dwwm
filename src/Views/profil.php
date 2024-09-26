@@ -36,26 +36,27 @@ if(isset($utilisateur) && !empty($utilisateur)) {
         <div class="profil_presentation_texte">
             <h2><?php 
             if($temoin) { ?>
-                <span>bonjour </span>
-            <?php } ?><?= $pseudo ?></h2>
+                <span>bonjour </span><strong>
+            <?php } ?><?= $pseudo ?></strong></h2>
             <h3>
                 <?php
                 if($utilisateur->isBlnMj() === TRUE) { ?>
-                    Maître du Jeu
+                    <strong>Maître du Jeu</strong>
                 <?php }
                 else { ?>
-                    Joueur
+                    <strong>Joueur</strong>
                 <?php } ?>
             </h3>
-            <p>Compte créer le <?= $utilisateur->getDtmCreation() ?>,<br>  niveau de joueur : <?= $niveau_utilisateur->getStrNiveau() ?></p>
+            <p>Niveau de joueur : <strong><?= $niveau_utilisateur->getStrNiveau() ?></strong></p>
             <p><?php
             if($age < 18) {
-                echo "Ce joueur est mineur";
+                echo "Ce joueur est <strong>mineur</strong>";
             }
             else {
-                echo "Ce joueur est majeur";
+                echo "Ce joueur est <strong>majeur</strong>";
             }
             ?></p>
+            <p class="conversation_mini_texte">Compte créer le <?= $utilisateur->getDtmCreation() ?></p>
         </div>
     </div>
     <h3 class="profil_description">Description</h3>

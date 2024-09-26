@@ -142,18 +142,31 @@ class UserController {
         if ($enregistrement) {
 
             $lien_validation = HOME_URL."validation?token=".$str_token."&pseudo=".urlencode($data['str_pseudo']);
-
+        
             $to = $data['str_email'];
             $subject = "Validez votre compte";
-            $message = "Bonjour ".$data['str_pseudo'].",\n\n";
-            $message .= "Cliquez sur le lien suivant pour définir votre mot de passe et valider votre compte : \n";
-            $message .= $lien_validation . "\n\n";
-            $message .= "Ce lien est valable 24h. \n";
-            $message .= "Cordialement, \nL'équipe de JDRConnexion";
-            $headers = "From: adresse@jdrconnexion.fr\r\n";
-            $headers .= "Reply-To: adresse@jdrconnexion.fr\r\n";
-            $headers .= "Content-type: text/plain; charset=UTF-8";
-
+        
+            $message = "
+            <html>
+            <head>
+                <title>Validez votre compte</title>
+            </head>
+            <body>
+                <h2>Bonjour ".$data['str_pseudo'].",</h2>
+                <p>Cliquez sur le lien suivant pour définir votre mot de passe et valider votre compte :</p>
+                <a href='https://www.jdrconnexion.fr".$lien_validation."' style='display:inline-block; background-color:#86388C; color:#f2efbd; padding:10px 20px; border-radius:5px; text-decoration:none;'>Valider mon compte</a>
+                <br><br>
+                <p>Ce lien est valable 24h.</p>
+                <p>Cordialement,</p>
+                <p>L'équipe de JDRConnexion</p>
+            </body>
+            </html>
+            ";
+        
+            $headers = "From: admin@jdrconnexion.fr \r\n";
+            $headers .= "Reply-To: admin@jdrconnexion.fr \r\n";
+            $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+        
             if (mail($to, $subject, $message, $headers)) {
                 $_SESSION['succes'] = "Enregistrement réussi, un email vous a été envoyé.";
                 $this->render("accueil", ["user"=>$enregistrement, "succes" => $_SESSION['succes']]);
@@ -162,7 +175,7 @@ class UserController {
                 $_SESSION["erreur"] = "Echec de l'envoi de l'email. Contactez l'administrateur.";
                 $this->render("inscription", ["erreur" => $_SESSION["erreur"]]);
             }
-        } 
+        }
         else {
             $_SESSION["erreur"] = "Echec de l'enregistrement";
             $this->render("inscription", ["erreur" => $_SESSION["erreur"]]);
@@ -438,7 +451,7 @@ class UserController {
         else {
             $_SESSION['erreur'] = "Erreur lors de l'envoi du message.";
         }
-        $this->render("conversation", ["destinataire" => $destinataire, "expediteur" => $expediteur]);
+        $this->render("conversation", ["destinataire" => $expediteur, "expediteur" => $destinataire]);
     }
 
     public function supprimerMessage(?int $id_message, ?string $pseudo = NULL) {

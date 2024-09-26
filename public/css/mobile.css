@@ -19,6 +19,7 @@ body {
     font-family: 'Merriweather', sans-serif;
     background-color: var(--parchemin) !important;
     color: var(--ecriture) !important;
+    min-height: 100vh;
 }
 a {
     text-decoration: none;
@@ -134,10 +135,14 @@ h1, h2, h3 {
 .erreur_texte {
     color: var(--erreur);
     font-weight: 900;
+    display: flex;
+    justify-content: center;
 }
 .succes_texte {
     color: var(--succes);
     font-weight: 900;
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -288,6 +293,7 @@ footer a {
 }
 footer p {
     text-align: center;
+    font-size: small;
 }
 .footer_sociaux{
     display: flex;
@@ -311,6 +317,7 @@ footer p {
     height: 25px;
     margin: 0px 20px;
 }
+
         /* FIN DU FOOTER */
 
 
@@ -435,6 +442,8 @@ footer p {
     width: 90%; 
     margin: 0 auto;
     overflow-x: auto;
+    max-height: 100vh;
+    overflow-y: auto;
 }
 .accueil_tableau {
     width: 100%;
@@ -465,7 +474,7 @@ footer p {
     font-weight: bold;
 }
 .accueil_image_social {
-    width: 70%;
+    width: 100%;
     height: 300px;
     border-radius: 25px;
     margin: 50px 10px;
@@ -503,11 +512,21 @@ footer p {
     justify-content: flex-end;
 }
 .connexion_champs input {
-    width: 100%;
+    width: 90%;
     height: 55px;
     border-radius: 15px;
     padding: 5px;
     margin-top: 10px;
+}
+.connexion_champs select {
+    width: 90%;
+    height: 55px;
+    border-radius: 15px;
+    padding: 5px;
+    margin-top: 10px;
+}
+.max_haut {
+    height: 35px;
 }
 .connexion_form .btn_gd_utilisateur {
     align-self: center;
@@ -562,12 +581,14 @@ footer p {
     flex-direction: column;
     justify-content: space-between;
     font-size: 0.8em;
+    text-align: center;
 }
 .profil_description {
     display: flex;
     width: 80%;
     margin: 15px 25px;
     font-size: 0.8em;
+    justify-content: center;
 }
 .profil_action {
     display: flex;
@@ -676,14 +697,30 @@ footer p {
     width: 33%;
     min-width: 30%;
     margin: auto;
+    padding: 0px 25px;
 }
 .pagination-number {
     display: none;
+    text-align: center;
 }
 .active {
     display: block;
 }
 
+
+        /* MESSAGE */
+
+
+.message_titre {
+    text-align: center;
+    margin: 50px auto;
+}
+.message_centrer {
+    margin: 50px auto;
+    width: 90%;
+}
+
+        /* FIN DE MESSAGE */
 
         /* CONVERSATION */
 .conversation_centrer {
@@ -692,20 +729,31 @@ footer p {
     width: 90%;
     margin: 50px auto;
 }
+.conversation_zone {
+    max-height: 100vh;
+    overflow-y: auto;
+}
 .conversation_gch {
     align-self: flex-start;
     margin: 50px 0px;
-    padding: 10px;
-    border: 2px solid var(--ecriture);
-    border-radius: 25px 25px 0px 25px;
+    width: 100%;
 }
 .conversation_dt {
     align-self: flex-end;
     margin: 50px 0px;
+    text-align: end;
+    width: 100%;
+}
+.conversation_bordure_gch {
+    border: 2px solid var(--ecriture);
+    border-radius: 25px 25px 0px 25px;
     padding: 10px;
+}
+.conversation_bordure_dt {
     border: 2px solid var(--ecriture);
     border-radius: 25px 25px 25px 0px;
-    text-align: end;
+    padding: 10px;
+    margin-left: auto;
 }
 .conversation_message {
     margin: 10px 0px;
@@ -713,3 +761,16 @@ footer p {
 .conversation_mini_texte {
     font-size: small;
 }
+
+        /* FIN DE CONVERSATION */
+
+
+        /* DISPONIBILITE */
+
+
+.disponibilite_item {
+    margin: 25px auto;
+}
+
+        /* FIN DE DISPO */
+        

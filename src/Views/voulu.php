@@ -25,47 +25,48 @@ if(isset($utilisateur) && !empty($utilisateur)) {
             if($succes !== '') { ?>
                 <p class="succes_texte"> <?= $succes ?> </p>
             <?php } ?>
-            <table class="accueil_tableau dispo_marge_bas">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Catégorie</th>
-                        <th>Résumé</th>
-                        <?php
-                        if(isset($user)) {
-                            if($pseudo === $user->getStrPseudo()){ ?>
-                                <th>Supprimer ?</th>
-                            <?php }
-                        } ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    if(!empty($tab_voulu)) {
-                        foreach($tab_voulu as $jeu) { ?>
-                            <tr>
-                                <td><?= htmlspecialchars($jeu['str_nom'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
-                                <td><?= htmlspecialchars($jeu['categorie'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
-                                <td><?= htmlspecialchars($jeu['str_resume'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
-                                <?php
-                                if(isset($user)) {
-                                    if($pseudo === $user->getStrPseudo()){ ?>
-                                    <th><a href="<?= HOME_URL ?>voulu/<?= $pseudo ?>/delete/<?= htmlspecialchars($jeu['id_game'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu de votre liste ?');"> X </a></th>
+            <div class="tableau_containeur">
+                <table class="accueil_tableau dispo_marge_bas">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Catégorie</th>
+                            <th>Résumé</th>
+                            <?php
+                            if(isset($user)) {
+                                if($pseudo === $user->getStrPseudo()){ ?>
+                                    <th>Supprimer ?</th>
                                 <?php }
                             } ?>
-                            </tr>
-                        <?php }
-                    }
-                    else { ?>
-                        <tr><td colspan="4" class="erreur">Aucun jeu renseigné.</td></tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if(!empty($tab_voulu)) {
+                            foreach($tab_voulu as $jeu) { ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($jeu['str_nom'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                                    <td><?= htmlspecialchars($jeu['categorie'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                                    <td><?= htmlspecialchars($jeu['str_resume'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
+                                    <?php
+                                    if(isset($user)) {
+                                        if($pseudo === $user->getStrPseudo()){ ?>
+                                        <th><a href="<?= HOME_URL ?>voulu/<?= $pseudo ?>/delete/<?= htmlspecialchars($jeu['id_game'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce jeu de votre liste ?');"> X </a></th>
+                                    <?php }
+                                } ?>
+                                </tr>
+                            <?php }
+                        }
+                        else { ?>
+                            <tr><td colspan="4" class="erreur">Aucun jeu renseigné.</td></tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
             <?php
             if(isset($user)) {
                 if($pseudo === $user->getStrPseudo()) { ?>
-                    <h3>Ajouter un jeu voulu :</h3>
+                    <h3 class="message_titre">Ajouter un jeu voulu :</h3>
                     <form action="<?= HOME_URL ?>voulu/<?= $pseudo ?>/add" method="POST" class="connexion_form">
                         <input type="hidden" name="id_user" id="id_user" value="<?= $id_utilisateur ?>">
                         <div class="connexion_champs">

@@ -16,7 +16,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
 
 ?>
 
-    <h2>VOUS ETES DANS LES MESSAGES</h2>
+    <h2 class="message_titre">VOUS ETES DANS LES MESSAGES</h2>
     <?php
     if($erreur !== '') { ?>
         <p class="erreur_texte"> <?= $erreur ?> </p>
@@ -30,6 +30,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                 <p class="erreur_texte">Vous n'avez pas de message.</p>
             <?php }
             else { ?>
+            <div class="tableau_containeur message_centrer">
                 <table class="accueil_tableau">
                     <thead>
                         <tr>
@@ -47,15 +48,17 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                                 <td><a href="<?= HOME_URL ?>profil/<?= $expediteur['str_pseudo'] ?>"><img src="<?= HOME_URL ?><?= $expediteur['str_chemin'] ?>" alt="miniature de l'image de profile" class="accueil_miniature_profil"></a></td>
                                 <td><a href="<?= HOME_URL ?>profil/<?= $expediteur['str_pseudo'] ?>"><?= $expediteur['str_pseudo'] ?></a></td>
                                 <td><a href="<?= HOME_URL ?>message/<?= $pseudo ?>/conversation/<?= $expediteur['str_pseudo'] ?>"><?= $expediteur['last_message_date'] ?></a></td>
-                                <td><a href="<?= HOME_URL ?>message/<?= $pseudo ?>/conversation/<?= $expediteur['str_pseudo'] ?>"><?= ($expediteur['bln_lu'] == 0) ? 'Messages non lu' : 'Pas de nouveau message' ?></a></td>
+                                <td><a href="<?= HOME_URL ?>message/<?= $pseudo ?>/conversation/<?= $expediteur['str_pseudo'] ?>"><?= ($expediteur['bln_lu'] == 0) ? '<strong>Messages non lu</strong>' : 'Pas de nouveau message' ?></a></td>
                                 <td><a href="<?= HOME_URL ?>message/<?= $pseudo ?>/conversation/<?= $expediteur['str_pseudo'] ?>">Voir la conversation</a></td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
+            </div>
             <?php }
         }
         else { ?>
+        <div class="message_centrer">
             <form action="<?= HOME_URL ?>message/<?= $pseudo ?>" method="POST" class="connexion_form">
                 <input type="hidden" name="id_expediteur" value="<?= intval($user->getIdUser()) ?>">
                 <input type="hidden" name="id_destinataire" value="<?= $id_utilisateur ?>">
@@ -63,6 +66,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
                 <textarea name="str_message" id="str_message" maxlength="255"></textarea>
                 <button type="submit" class="btn_gd_utilisateur">Envoyer</button>
             </form>
+        </div>
         <?php }
     }
     else {?>

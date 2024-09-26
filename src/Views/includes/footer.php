@@ -11,7 +11,7 @@
             </div>
         </div>
         <a href="<?= HOME_URL ?>cgu">Conditions Générale d'Utilisation</a>
-        <p>Tout droits réservés. ©JDRConnexion <br> par ROCHES Laurent</p>
+        <p class="conversation_mini_texte">Tout droits réservés. ©JDRConnexion <br> par ROCHES Laurent</p>
     </footer>
     <script src="<?= HOME_URL ?>js/burger.js"></script>
 </body>
