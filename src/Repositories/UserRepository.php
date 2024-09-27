@@ -85,12 +85,12 @@ class UserRepository {
                     WHERE user.id_user <> 2";
             $params = [];
             if($id_game !== null) {
-                $sql .= " AND user.id_user IN (SELECT id_user FROM game_connu WHERE id_game = :id_game)";
+                $sql .= " AND id_game = :id_game";
                 $params[':id_game'] = $id_game;
             }
             if(!empty($str_pseudo)) {
                 $sql .= " AND str_pseudo LIKE :str_pseudo";
-                $params[':str_pseudo'] = '%' . $str_pseudo . '%';
+                $params[':str_pseudo'] = "%" . $str_pseudo . "%";
             }
             if($bln_mj !== null) {
                 $sql .= " AND bln_mj = :bln_mj";
@@ -98,7 +98,7 @@ class UserRepository {
             }
             if(!empty($str_jour)) {
                 $sql .= " AND disponibilite.str_jour LIKE :str_jour";
-                $params[':str_jour'] = '%' . $str_jour . '%';
+                $params[':str_jour'] = "%" . $str_jour . "%";
             }
             if(!empty($time_debut)) {
                 $sql .= " AND time_fin > :time_debut";

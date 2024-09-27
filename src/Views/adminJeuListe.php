@@ -9,7 +9,7 @@ $tab_game = $GameRepository->getAllGame();
 
 ?>
 <div class="accueil_center">
-    <h2>Pour ajouter un nouveau jeu :</h2>
+    <h2 class="message_titre">Pour ajouter un nouveau jeu :</h2>
     <a href="<?= HOME_URL ?>admin/jeu/create" class="btn_gd_article">Ajouter</a>
 
     <h2>Liste des jeux enregistrés :</h2>

@@ -10,9 +10,9 @@ $UserRepository = UserRepository::getInstance($database);
 $ProfilImageRepository = ProfilImageRepository::getInstance($database);
 $GameRepository = GameRepository::getInstance($database);
 
-$id_game = isset($_GET['id_game']) ? intval($_GET['id_game']) : null;
+$id_game = isset($_GET['id_game']) && $_GET['id_game'] !== '' ? intval($_GET['id_game']) : null;
 $str_pseudo = isset($_GET['str_pseudo']) ? htmlspecialchars($_GET['str_pseudo'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) : '';
-$bln_mj = isset($_GET['bln_mj']) ? intval($_GET['bln_mj']) : null;
+$bln_mj = isset($_GET['bln_mj']) && $_GET['bln_mj'] !== '' ? intval($_GET['bln_mj']) : null;
 $str_jour = isset($_GET['str_jour']) ? htmlspecialchars($_GET['str_jour'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) : '';
 $time_debut = isset($_GET['time_debut']) ? htmlspecialchars($_GET['time_debut'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) : '';
 $time_fin = isset($_GET['time_fin']) ? htmlspecialchars($_GET['time_fin'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) : '';
