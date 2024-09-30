@@ -33,6 +33,12 @@ include_once __DIR__ . '/includes/header.php';
         <div class="profil_btn_action">
             <a href="<?= HOME_URL ?>admin/user" class="btn_gd_utilisateur">Utilisateurs</a>
         </div>
+        <div class="profil_btn_action">
+            <a href="<?= HOME_URL ?>admin/tabou" class="btn_gd_utilisateur">Censure</a>
+        </div>
+        <div class="profil_btn_action">
+            <a href="<?= HOME_URL ?>admin/message" class="btn_gd_utilisateur">Message</a>
+        </div>
     </div>
 </div>
 <?php

@@ -4,6 +4,7 @@ namespace src\Repositories;
 
 use PDO;
 use PDOException;
+use src\Models\CategorieGame;
 use src\Models\Database;
 use src\Models\Game;
 
@@ -238,6 +239,26 @@ class GameRepository {
         }
     }
 
+    public function createCategorie(CategorieGame $categorieGame):bool {
+        try {
+            $sql = "INSERT INTO categorie_game (str_nom)
+                    VALUES (:str_nom);";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ":str_nom" => $categorieGame->getStrNom()
+            ]);
+            if ($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
     public function getAllCategorie():array {
         try {
             $sql = "SELECT *
@@ -246,6 +267,66 @@ class GameRepository {
             $statement->execute();
             $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $retour;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function getThisCategorie(int $id_categorie_game):array | bool {
+        try {
+            $sql = "SELECT *
+                    FROM categorie_game
+                    WHERE id_categorie_game = :id_categorie_game
+                    LIMIT 1;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute(["id_categorie_game" => $id_categorie_game]);
+            $retour = $statement->fetch(PDO::FETCH_ASSOC);
+            if($retour) {
+                return $retour;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function updateCategorieGame(CategorieGame $categorieGame):bool | array {
+        try {
+            $sql = "UPDATE categorie_game SET
+                    str_nom = :str_nom
+                    WHERE id_categorie_game = :id_categorie_game;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ":str_nom" => $categorieGame->getStrNom(),
+                ":id_categorie_game" => $categorieGame->getIdCategorieGame()
+            ]);
+            if($retour) {
+                return $this->getThisCategorie($categorieGame->getIdCategorieGame());
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function deleteThisCategorie(int $id_categorie_game):bool {
+        try {
+            $sql = "DELETE FROM categorie_game WHERE id_categorie_game = :id_categorie_game;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([":id_categorie_game" => $id_categorie_game]);
+            if($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
         }
         catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());

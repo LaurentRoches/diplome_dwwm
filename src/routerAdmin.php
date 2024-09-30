@@ -116,6 +116,9 @@ switch ($routeComposee[1]) {
                     }
                     $AdminController->pageAjouterCategorieJeu($routeComposee[3]);
                     break;
+                case 'delete':
+                    $AdminController->deleteThisCategorieJeu($routeComposee[3]);
+                    break;
                 default:
                     $HomeController->pageAdmin();
                     break;
@@ -144,6 +147,27 @@ switch ($routeComposee[1]) {
             break;
         }
         $AdminController->pageAdminUser();
+        break;
+    case 'tabou':
+        if(isset($routeComposee[2])) {
+            switch($routeComposee[2]) {
+                case 'update':
+                    if($methode == 'POST') {
+                        $AdminController->updateThisTabou($routeComposee[3]);
+                        break;
+                    }
+                    $AdminController->pageAjouterTabou($routeComposee[3]);
+                    break;
+                case 'delete':
+                    $AdminController->deleteThisTabou($routeComposee[3]);
+                    break;
+                default:
+                    $HomeController->pageAdmin();
+                    break;
+            }
+            break;
+        }
+        $AdminController->pageAdminTabou();
         break;
     default :
         $HomeController->page404();

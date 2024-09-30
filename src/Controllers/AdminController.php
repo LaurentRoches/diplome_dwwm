@@ -3,6 +3,7 @@
 namespace src\Controllers;
 
 use src\Models\Article;
+use src\Models\CategorieGame;
 use src\Models\Database;
 use src\Models\Game;
 use src\Repositories\ArticleRepository;
@@ -189,6 +190,94 @@ class AdminController {
         else {
             $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
             $this->render("adminJeuListe", ['erreur' => $_SESSION['erreur']]);
+            return;
+        }
+    }
+
+    public function pageAdminCategorieJeu() {
+        $this->render("adminCategorieJeuListe");
+    }
+
+    public function pageAjouterCategorieJeu(?int $id_categorie_game = 0) {
+        if($id_categorie_game != 0) {
+            $id_categorie_game = intval($id_categorie_game);
+            $database = new Database();
+            $GameRepository = GameRepository::getInstance($database);
+            $categorie = $GameRepository->getThisCategorie($id_categorie_game);
+            $categorie = $this->sanitize($categorie);
+        }
+        else {
+            $categorie = NULL;
+        }
+        $this->render("adminCategorieJeu", ["categorie" => $categorie]);
+    }
+
+    public function ajouterCategorieJeu() {
+        $data = $_POST;
+        $data = $this->sanitize($data);
+
+        foreach($data as $entree) {
+            if(!isset($entree) || $entree == '') {
+                $_SESSION['erreur'] = "Toutes les entrées pour cette catégorie sont importantes.";
+                $this->render("adminCategorieJeu", ["erreur" => $_SESSION['erreur']]);
+                return;
+            }
+        }
+        $database = new Database();
+        $GameRepository = GameRepository::getInstance($database);
+        $categorie = new CategorieGame($data);
+
+        $creer = $GameRepository->createCategorie($categorie);
+        if($creer) {
+            $_SESSION['succes'] = "Catégorie créer avec succès!";
+            $this->render("adminCategorieJeuListe", ["succes" => $_SESSION['succes']]);
+            return;
+        }
+        else {
+            $_SESSION["erreur"] = "Echec de l'enregistrment.";
+            $this->render("adminCategorieJeu", ["erruer" => $_SESSION["erreur"]]);
+            return;
+        }
+    }
+
+    public function updateThisCategorieJeu() {
+        $data = $_POST;
+        $data = $this->sanitize($data);
+
+        foreach($data as $entree) {
+            if(!isset($entree) || $entree == '') {
+                $_SESSION['erreur'] = "Toutes les entrées pour cette catégorie sont importantes.";
+                $this->render("adminCategorieJeu", ["erreur" => $_SESSION['erreur']]);
+                return;
+            }
+        }
+        $database = new Database();
+        $GameRepository = GameRepository::getInstance($database);
+        $categorie = new CategorieGame($data);
+
+        $maj = $GameRepository->updateCategorieGame($categorie);
+        if($maj) {
+            $_SESSION['succes'] = "Catégorie mise à jour avec succès.";
+        } 
+        else {
+            $_SESSION['erreur'] = "Erreur lors de la mise à jour de la catégorie.";
+        }
+        $this->render("adminCategorieJeuListe");
+    }
+
+    public function deleteThisCategorieJeu(int $id_categorie_game) {
+        $id_categorie_game = intval($id_categorie_game);
+        $database = new Database();
+        $GameRepository = GameRepository::getInstance($database);
+        $suppression = $GameRepository->deleteThisCategorie($id_categorie_game);
+        if($suppression) {
+            $_SESSION['succes'] = "Catégorie éffacée avec succès de la liste.";
+            $this->render("adminCategorieJeuListe", ['succes' => $_SESSION['succes']]);
+            return;
+        }
+        else {
+            $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+            $this->render("adminCategorieJeuListe", ['erreur' => $_SESSION['erreur']]);
             return;
         }
     }
