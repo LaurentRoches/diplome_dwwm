@@ -150,7 +150,7 @@ class AdminController {
         }
     }
 
-    public function updateThisJeu() {0
+    public function updateThisJeu() {
         $data = $_POST;
         $data = $this->sanitize($data);
 

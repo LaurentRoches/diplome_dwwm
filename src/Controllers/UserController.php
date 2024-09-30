@@ -564,11 +564,14 @@ class UserController {
         $user = new User($data);
 
         $test_pseudo = $UserRepository->getThisUserByPseudo($user->getStrPseudo());
-        if(intval($test_pseudo->getIdUser()) !== intval($utilisateur->getIdUser())) {
-            $_SESSION['erreur'] = "Un utilisateur utilise déjà ce pseudonyme.";
-            $this->render("updateProfil", ["utilisateur"=>$utilisateur]);
-            return;
+        if($test_pseudo) {
+            if(intval($test_pseudo->getIdUser()) !== intval($utilisateur->getIdUser())) {
+                $_SESSION['erreur'] = "Un utilisateur utilise déjà ce pseudonyme.";
+                $this->render("updateProfil", ["utilisateur"=>$utilisateur]);
+                return;
+            }
         }
+        
 
         $test_email =$UserRepository->getThisUserByEmail($user->getStrEmail());
         if(htmlspecialchars($test_email->getStrEmail(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false) !== htmlspecialchars($utilisateur->getStrEmail(), ENT_QUOTES | ENT_HTML401, 'UTF-8', false)) {
@@ -580,6 +583,7 @@ class UserController {
         $verif = $UserRepository->updateThisUser($user);
         if($verif) {
             $_SESSION['succes'] = "Profil mis à jour avec succès.";
+            $_SESSION["user"] = serialize($user);
         } 
         else {
             $_SESSION['erreur'] = "Erreur lors de la mise à jour du profil.";
