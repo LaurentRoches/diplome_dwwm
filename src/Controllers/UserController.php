@@ -447,11 +447,13 @@ class UserController {
         $retour = $MessageRepository->createMessage($message);
         if($retour) {
             $_SESSION['succes'] = "Message envoyé avec succès.";
+            header("Location: " . HOME_URL . "message/" . htmlspecialchars($expediteur->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8') . "/conversation/" . htmlspecialchars($destinataire->getStrPseudo(), ENT_QUOTES | ENT_HTML401, 'UTF-8'));
+            exit();
         } 
         else {
             $_SESSION['erreur'] = "Erreur lors de l'envoi du message.";
+            $this->render("conversation", ["destinataire" => $expediteur, "expediteur" => $destinataire]);
         }
-        $this->render("conversation", ["destinataire" => $expediteur, "expediteur" => $destinataire]);
     }
 
     public function supprimerMessage(?int $id_message, ?string $pseudo = NULL) {
