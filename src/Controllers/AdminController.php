@@ -6,8 +6,10 @@ use src\Models\Article;
 use src\Models\CategorieGame;
 use src\Models\Database;
 use src\Models\Game;
+use src\Models\Tabou;
 use src\Repositories\ArticleRepository;
 use src\Repositories\GameRepository;
+use src\Repositories\TabouRepository;
 use src\Services\Reponse;
 use src\Services\Securite;
 
@@ -278,6 +280,95 @@ class AdminController {
         else {
             $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
             $this->render("adminCategorieJeuListe", ['erreur' => $_SESSION['erreur']]);
+            return;
+        }
+    }
+
+    public function pageAdminTabou() {
+        $this->render("adminTabouListe");
+    }
+
+    public function pageAjouterTabou(?int $id_tabou = 0) {
+        if($id_tabou != 0) {
+            $id_tabou = intval($id_tabou);
+            $database = new Database();
+            $TabouRepository = TabouRepository::getInstance($database);
+            $tabou = $TabouRepository->getThisTabou($id_tabou);
+            $tabou = $this->sanitize($tabou);
+        }
+        else {
+            $tabou = NULL;
+        }
+        $this->render("adminTabou", ["tabou" => $tabou]);
+    }
+
+    public function ajouterTabou() {
+        $data = $_POST;
+        $data = $this->sanitize($data);
+
+        foreach($data as $entree) {
+            if(!isset($entree) || $entree == '') {
+                $_SESSION['erreur'] = "Toutes les entrées pour cette censure sont importantes.";
+                $this->render("adminTabou", ["erreur" => $_SESSION['erreur']]);
+                return;
+            }
+        }
+        $database = new Database();
+        $TabouRepository = TabouRepository::getInstance($database);
+        $tabou = new Tabou($data);
+
+        $creer = $TabouRepository->addTabou($tabou->getStrMot());
+        if($creer) {
+            $_SESSION['succes'] = "Tabou créer avec succès!";
+            $this->render("adminTabouListe", ["succes" => $_SESSION['succes']]);
+            return;
+        }
+        else {
+            $_SESSION["erreur"] = "Echec de l'enregistrment.";
+            $this->render("adminTabou", ["erruer" => $_SESSION["erreur"]]);
+            return;
+        }
+    }
+
+    public function updateThisTabou() {
+        $data = $_POST;
+        $data = $this->sanitize($data);
+
+        foreach($data as $entree) {
+            if(!isset($entree) || $entree == '') {
+                $_SESSION['erreur'] = "Toutes les entrées pour cette censure sont importantes.";
+                $this->render("adminTabou", ["erreur" => $_SESSION['erreur']]);
+                return;
+            }
+        }
+        $database = new Database();
+        $TabouRepository = TabouRepository::getInstance($database);
+        $tabou = new Tabou($data);
+        
+        $maj = $TabouRepository->updateTabou($tabou);
+        if($maj) {
+            $_SESSION['succes'] = "Censure mise à jour avec succès.";
+        } 
+        else {
+            $_SESSION['erreur'] = "Erreur lors de la mise à jour de la censure.";
+        }
+        $this->render("adminTabouListe");
+    }
+
+    public function deleteThisTabou(int $id_tabou) {
+        $id_tabou = intval($id_tabou);
+        $database = new Database();
+        $TabouRepository = TabouRepository::getInstance($database);
+
+        $suppression = $TabouRepository->deleteThisTabou($id_tabou);
+        if($suppression) {
+            $_SESSION['succes'] = "Censure éffacée avec succès de la liste.";
+            $this->render("adminTabouListe", ['succes' => $_SESSION['succes']]);
+            return;
+        }
+        else {
+            $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+            $this->render("adminTabouListe", ['erreur' => $_SESSION['erreur']]);
             return;
         }
     }

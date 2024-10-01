@@ -5,6 +5,7 @@ namespace src\Repositories;
 use PDO;
 use PDOException;
 use src\Models\Database;
+use src\Models\Tabou;
 
 class TabouRepository {
 
@@ -51,18 +52,55 @@ class TabouRepository {
         }
     }
 
-    public function getThisTabou(string $str_mot):bool {
+    public function getThisTabou(int $id_tabou):array | bool {
         try {
             $sql = "SELECT * 
                     FROM tabou 
-                    WHERE str__mot = :str_mot
+                    WHERE id_tabou = :id_tabou
                     LIMIT 1;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([
-                ":str_mot" => $str_mot
+                ":id_tabou" => $id_tabou
             ]);
             $retour = $statement->fetch(PDO::FETCH_ASSOC);
             if ($retour) {
+                return $retour;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function updateTabou(Tabou $tabou):bool | array {
+        try {
+            $sql = "UPDATE tabou SET str_mot = :str_mot WHERE id_tabou = :id_tabou;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ":str_mot" => $tabou->getStrMot(),
+                ":id_tabou" => $tabou->getIdTabou()
+            ]);
+            if($retour) {
+                return $this->getThisTabou($tabou->getIdTabou());
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function deleteThisTabou(int $id_tabou):bool {
+        try {
+            $sql = "DELETE FROM tabou WHERE id_tabou = :id_tabou;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([":id_tabou" => $id_tabou]);
+            if($retour) {
                 return TRUE;
             }
             else {

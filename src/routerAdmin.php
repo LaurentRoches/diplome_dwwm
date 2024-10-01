@@ -151,6 +151,13 @@ switch ($routeComposee[1]) {
     case 'tabou':
         if(isset($routeComposee[2])) {
             switch($routeComposee[2]) {
+                case 'create':
+                    if($methode == 'POST') {
+                        $AdminController->ajouterTabou();
+                        break;
+                    }
+                    $AdminController->pageAjouterTabou();
+                    break;
                 case 'update':
                     if($methode == 'POST') {
                         $AdminController->updateThisTabou($routeComposee[3]);
