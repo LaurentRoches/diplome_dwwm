@@ -36,7 +36,6 @@ $tab_categorie = $GameRepository->getAllCategorie();
                 else { ?>
                     <p class="erreur_texte">Aucun jeu enregistré</p>
                 <?php } ?>
-
             </tbody>
         </table>
     </div>

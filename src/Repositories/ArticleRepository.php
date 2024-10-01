@@ -5,6 +5,7 @@ namespace src\Repositories;
 use PDO;
 use PDOException;
 use src\Models\Article;
+use src\Models\CategorieArticle;
 use src\Models\Database;
 
 class ArticleRepository {
@@ -160,4 +161,92 @@ class ArticleRepository {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
+
+    public function getThisCategorie(int $id_categorie_article):array | bool {
+        try {
+            $sql = "SELECT * FROM categorie_article WHERE id_categorie_article = :id_categorie_article LIMIT 1;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ":id_categorie_article" => $id_categorie_article
+            ]);
+            $retour = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($retour) {
+                return $retour;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function createCategorie(CategorieArticle $categorieArticle):bool {
+        try {
+            $sql = "INSERT INTO categorie_article (str_nom) VALUES (:str_nom);";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([":str_nom" => $categorieArticle->getStrNom()]);
+            if ($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function updateCategorieArticle(CategorieArticle $categorieArticle):bool {
+        try {
+            $sql = "UPDATE categorie_article SET str_nom = :str_nom WHERE id_categorie_article = :id_categorie_article;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ":str_nom" => $categorieArticle->getStrNom(),
+                ":id_categorie_article" => $categorieArticle->getIdCategorieArticle()
+            ]);
+            if ($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function deleteThisCategorie(int $id_categorie_article):bool {
+        try {
+            $sql = "DELETE FROM categorie_article WHERE id_categorie_article = :id_categorie_article;";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([":id_categorie_article" => $id_categorie_article]);
+            if ($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function getAllCategorie():array {
+        try {
+            $sql = "SELECT * FROM categorie_article;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute();
+            $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $retour;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
 }

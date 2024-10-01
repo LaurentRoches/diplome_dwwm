@@ -3,6 +3,7 @@
 namespace src\Controllers;
 
 use src\Models\Article;
+use src\Models\CategorieArticle;
 use src\Models\CategorieGame;
 use src\Models\Database;
 use src\Models\Game;
@@ -372,5 +373,94 @@ class AdminController {
             return;
         }
     }
+
+    public function pageAdminCategorieArticle() {
+        $this->render("adminCategorieArticleListe");
+    }
+
+    public function pageAjouterCategorieArticle(?int $id_categorie_article = 0) {
+        if($id_categorie_article != 0) {
+            $id_categorie_article = intval($id_categorie_article);
+            $database = new Database();
+            $ArticleRepository = ArticleRepository::getInstance($database);
+            $categorie = $ArticleRepository->getThisCategorie($id_categorie_article);
+            $categorie = $this->sanitize($categorie);
+        }
+        else {
+            $categorie = NULL;
+        }
+        $this->render("adminCategorieArticle", ["categorie" => $categorie]);
+    }
+
+    public function ajouterCategorieArticle() {
+        $data = $_POST;
+        $data = $this->sanitize($data);
+
+        foreach($data as $entree) {
+            if(!isset($entree) || $entree == '') {
+                $_SESSION['erreur'] = "Toutes les entrées pour cette catégorie sont importantes.";
+                $this->render("adminCategorieArticle", ["erreur" => $_SESSION['erreur']]);
+                return;
+            }
+        }
+        $database = new Database();
+        $ArticleRepository = ArticleRepository::getInstance($database);
+        $categorie = new CategorieArticle($data);
+
+        $creer = $ArticleRepository->createCategorie($categorie);
+        if($creer) {
+            $_SESSION['succes'] = "Catégorie créer avec succès!";
+            $this->render("adminCategorieArticleListe", ["succes" => $_SESSION['succes']]);
+            return;
+        }
+        else {
+            $_SESSION["erreur"] = "Echec de l'enregistrment.";
+            $this->render("adminCategorieArticle", ["erruer" => $_SESSION["erreur"]]);
+            return;
+        }
+    }
+
+    public function updateThisCategorieArticle() {
+        $data = $_POST;
+        $data = $this->sanitize($data);
+
+        foreach($data as $entree) {
+            if(!isset($entree) || $entree == '') {
+                $_SESSION['erreur'] = "Toutes les entrées pour cette catégorie sont importantes.";
+                $this->render("adminCategorieArticle", ["erreur" => $_SESSION['erreur']]);
+                return;
+            }
+        }
+        $database = new Database();
+        $ArticleRepository = ArticleRepository::getInstance($database);
+        $categorie = new CategorieArticle($data);
+
+        $maj = $ArticleRepository->updateCategorieArticle($categorie);
+        if($maj) {
+            $_SESSION['succes'] = "Catégorie mise à jour avec succès.";
+        } 
+        else {
+            $_SESSION['erreur'] = "Erreur lors de la mise à jour de la catégorie.";
+        }
+        $this->render("adminCategorieArticleListe");
+    }
+
+    public function deleteThisCategorieArticle(int $id_categorie_article) {
+        $id_categorie_article = intval($id_categorie_article);
+        $database = new Database();
+        $ArticleRepository = ArticleRepository::getInstance($database);
+        $suppression = $ArticleRepository->deleteThisCategorie($id_categorie_article);
+        if($suppression) {
+            $_SESSION['succes'] = "Catégorie éffacée avec succès de la liste.";
+            $this->render("adminCategorieArticleListe", ['succes' => $_SESSION['succes']]);
+            return;
+        }
+        else {
+            $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression.";
+            $this->render("adminCategorieArticleListe", ['erreur' => $_SESSION['erreur']]);
+            return;
+        }
+    }
+
 
 }
