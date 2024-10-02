@@ -22,7 +22,7 @@ class ArticleRepository {
         return new self($db);
     }
 
-    public function createArticle (Article $article):bool {
+    public function createArticle (Article $article, int $id_categorie_article):bool {
         try {
             $sql = "INSERT INTO article (str_titre, id_user, str_resume, str_chemin_img_1, str_titre_section_1, txt_section_1, str_chemin_img_2, str_titre_section_2, txt_section_2) 
                     VALUES (:str_titre, :id_user, :str_resume, :str_chemin_img_1, :str_titre_section_1, :txt_section_1, :str_chemin_img_2, :str_titre_section_2, :txt_section_2);";
