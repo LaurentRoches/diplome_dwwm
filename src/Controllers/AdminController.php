@@ -42,7 +42,7 @@ class AdminController {
         $data = $this->sanitize($data);
 
         foreach($data as $entree) {
-            if(!isset($entree) || $entree == '') {
+            if(empty($entree)) {
                 $_SESSION['erreur'] = "Toutes les entrées de cet article sont importantes.";
                 $this->render("adminArticle", ["erreur" => $_SESSION['erreur']]);
                 return;
@@ -50,17 +50,20 @@ class AdminController {
         }
         $database = new Database();
         $ArticleRepository = ArticleRepository::getInstance($database);
+        $tab_categorie_article = $data['id_categorie_article'];
+        unset($data['id_categorie_article']);
         $article = new Article($data);
 
-        $creer = $ArticleRepository->createArticle($article);
-        if($creer) {
+        $reussis = $ArticleRepository->createArticle($article, $tab_categorie_article);
+    
+        if($reussis) {
             $_SESSION['succes'] = "Article créer avec succès!";
             $this->render("adminArticleListe", ["succes" => $_SESSION['succes']]);
             return;
         }
         else {
             $_SESSION["erreur"] = "Echec de l'enregistrment.";
-            $this->render("adminArticle", ["erruer" => $_SESSION["erreur"]]);
+            $this->render("adminArticle", ["erreur" => $_SESSION["erreur"]]);
             return;
         }
     }
@@ -78,9 +81,11 @@ class AdminController {
         }
         $database = new Database();
         $ArticleRepository = ArticleRepository::getInstance($database);
+        $tab_categorie_article = $data['id_categorie_article'];
+        unset($data['id_categorie_article']);
         $article = new Article($data);
 
-        $maj = $ArticleRepository->updateArticle($article);
+        $maj = $ArticleRepository->updateArticle($article, $tab_categorie_article);
         if($maj) {
             $_SESSION['succes'] = "Article mis à jour avec succès.";
         } 

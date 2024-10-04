@@ -222,7 +222,7 @@ CREATE TABLE article (
     txt_section_2           TEXT NOT NULL,
     id_user                 Int NOT NULL,
     dtm_creation            Datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    dtm_maj                 Datetime ,
+    dtm_maj                 Datetime,
     CONSTRAINT id_user_article_FK FOREIGN KEY (id_user) REFERENCES user(id_user)
 )ENGINE=InnoDB;
 

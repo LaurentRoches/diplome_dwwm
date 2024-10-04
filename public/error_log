@@ -1,0 +1,93 @@
+[23-Sep-2024 14:02:47 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getIdUser() on array in /home/teto6893/jdrconnexion.fr/src/Views/accueil.php:100
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/Services/Reponse.php(23): include_once()
+#1 /home/teto6893/jdrconnexion.fr/src/Controllers/HomeController.php(22): src\Controllers\HomeController->render()
+#2 /home/teto6893/jdrconnexion.fr/src/router.php(17): src\Controllers\HomeController->index()
+#3 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#4 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#5 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Views/accueil.php on line 100
+[23-Sep-2024 14:03:24 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getIdUser() on array in /home/teto6893/jdrconnexion.fr/src/Views/accueil.php:100
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/Services/Reponse.php(23): include_once()
+#1 /home/teto6893/jdrconnexion.fr/src/Controllers/HomeController.php(22): src\Controllers\HomeController->render()
+#2 /home/teto6893/jdrconnexion.fr/src/router.php(17): src\Controllers\HomeController->index()
+#3 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#4 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#5 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Views/accueil.php on line 100
+[23-Sep-2024 14:03:44 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getIdUser() on array in /home/teto6893/jdrconnexion.fr/src/Views/accueil.php:100
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/Services/Reponse.php(23): include_once()
+#1 /home/teto6893/jdrconnexion.fr/src/Controllers/HomeController.php(22): src\Controllers\HomeController->render()
+#2 /home/teto6893/jdrconnexion.fr/src/router.php(17): src\Controllers\HomeController->index()
+#3 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#4 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#5 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Views/accueil.php on line 100
+[23-Sep-2024 14:04:44 UTC] PHP Parse error:  syntax error, unexpected token "[", expecting identifier or variable or "{" or "$" in /home/teto6893/jdrconnexion.fr/src/Views/accueil.php on line 100
+[23-Sep-2024 14:04:50 UTC] PHP Parse error:  syntax error, unexpected token "[", expecting identifier or variable or "{" or "$" in /home/teto6893/jdrconnexion.fr/src/Views/accueil.php on line 100
+[25-Sep-2024 12:30:31 UTC] PHP Warning:  file_get_contents(php:://input): Failed to open stream: No such file or directory in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 269
+[25-Sep-2024 12:30:31 UTC] PHP Warning:  Undefined array key "id_user" in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 271
+[25-Sep-2024 12:30:31 UTC] PHP Warning:  Undefined array key "id_game" in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 272
+[25-Sep-2024 12:30:31 UTC] PHP Fatal error:  Uncaught TypeError: src\Repositories\GameRepository::createGameConnu(): Argument #1 ($id_user) must be of type int, null given, called in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 275 and defined in /home/teto6893/jdrconnexion.fr/src/Repositories/GameRepository.php:169
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php(275): src\Repositories\GameRepository->createGameConnu()
+#1 /home/teto6893/jdrconnexion.fr/src/router.php(110): src\Controllers\UserController->ajoutGameConnu()
+#2 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#3 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#4 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Repositories/GameRepository.php on line 169
+[25-Sep-2024 12:30:56 UTC] PHP Warning:  file_get_contents(php:://input): Failed to open stream: No such file or directory in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 269
+[25-Sep-2024 12:30:56 UTC] PHP Warning:  Undefined array key "id_user" in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 271
+[25-Sep-2024 12:30:56 UTC] PHP Warning:  Undefined array key "id_game" in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 272
+[25-Sep-2024 12:30:56 UTC] PHP Fatal error:  Uncaught TypeError: src\Repositories\GameRepository::createGameConnu(): Argument #1 ($id_user) must be of type int, null given, called in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 275 and defined in /home/teto6893/jdrconnexion.fr/src/Repositories/GameRepository.php:169
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php(275): src\Repositories\GameRepository->createGameConnu()
+#1 /home/teto6893/jdrconnexion.fr/src/router.php(110): src\Controllers\UserController->ajoutGameConnu()
+#2 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#3 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#4 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Repositories/GameRepository.php on line 169
+[27-Sep-2024 20:06:34 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getIdUser() on null in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php:567
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/router.php(58): src\Controllers\UserController->updateUser()
+#1 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#2 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#3 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 567
+[27-Sep-2024 20:06:40 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getIdUser() on null in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php:567
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/router.php(58): src\Controllers\UserController->updateUser()
+#1 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#2 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#3 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 567
+[27-Sep-2024 20:06:57 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getIdUser() on null in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php:567
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/router.php(58): src\Controllers\UserController->updateUser()
+#1 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#2 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#3 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 567
+[27-Sep-2024 20:07:28 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getIdUser() on null in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php:567
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/router.php(58): src\Controllers\UserController->updateUser()
+#1 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#2 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#3 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 567
+[27-Sep-2024 20:08:23 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getIdUser() on null in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php:567
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/router.php(58): src\Controllers\UserController->updateUser()
+#1 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#2 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#3 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 567
+[27-Sep-2024 20:22:03 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getIdUser() on null in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php:567
+Stack trace:
+#0 /home/teto6893/jdrconnexion.fr/src/router.php(58): src\Controllers\UserController->updateUser()
+#1 /home/teto6893/jdrconnexion.fr/src/init.php(16): require_once('/home/teto6893/...')
+#2 /home/teto6893/jdrconnexion.fr/public/index.php(3): require_once('/home/teto6893/...')
+#3 {main}
+  thrown in /home/teto6893/jdrconnexion.fr/src/Controllers/UserController.php on line 567
