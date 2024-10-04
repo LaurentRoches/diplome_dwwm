@@ -47,7 +47,7 @@ $tab_article = $ArticleRepository->getAllArticles();
                     } 
                 }
                 else { ?>
-                    <p class="erreur_texte">Aucun jeu enregistré</p>
+                    <p class="erreur_texte">Aucun article enregistré</p>
                 <?php } ?>
             </tbody>
         </table>
