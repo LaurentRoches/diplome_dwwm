@@ -774,4 +774,10 @@ footer p {
 }
 
         /* FIN DE DISPO */
-        
+
+
+.img_tab_admin_article {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}

@@ -138,3 +138,8 @@ footer {
     max-width: 40%;
 }
 
+.img_tab_admin_article {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}

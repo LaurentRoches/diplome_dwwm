@@ -13,6 +13,7 @@ $GameRepository = GameRepository::getInstance($database);
 $liste_user = $UserRepository->getAllUserLimit3();
 $liste_article = $ArticleRepository->getAllArticlesLimit3();
 
+
 ?>
 <head>
     <meta name="description" content="JDRConnexion, le site idéal pour trouver des partenaires et former un groupe pour vos parties de Jeu de Rôle. Rejoignez-nous pour vivre des aventures épiques!">
@@ -53,7 +54,7 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
     <div>
         <?php
         if(!empty($liste_article)) { ?>
-            <div style="background-image: url(<?= $liste_article[0]['str_chemin_img_1'] ?>);" class="accueil_miniature_article_gd">
+            <div style="background-image: url(<?= HOME_URL ?><?= $liste_article[0]['str_chemin_img_1'] ?>);" class="accueil_miniature_article_gd">
                 <div class="accueil_miniature_overlay">
                     <h3><?= $liste_article[0]['str_titre'] ?></h3>
                     <p>Ecrit le <?php 

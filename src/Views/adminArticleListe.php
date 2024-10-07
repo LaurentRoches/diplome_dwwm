@@ -21,7 +21,7 @@ $tab_article = $ArticleRepository->getAllArticles();
                     <th>Image miniature</th>
                     <th>Titre</th>
                     <th>Résumé</th>
-                    <th>Catégorie</th>
+                    <th>Catégorie(s)</th>
                     <th>Mettre à jour</th>
                     <th>Supprimer</th>
                 </tr>
@@ -32,7 +32,7 @@ $tab_article = $ArticleRepository->getAllArticles();
                     foreach($tab_article as $article) { 
                         $tab_categorie = $ArticleRepository->getAllCategorieOfThisArticle($article['id_article']); ?>
                         <tr>
-                            <td><img src="<?= HOME_URL ?><?= $article['str_chemin_img_1'] ?>" alt=""></td>
+                            <td><img class="img_tab_admin_article" src="<?= HOME_URL ?><?= $article['str_chemin_img_1'] ?>" alt=""></td>
                             <td><a href="<?= HOME_URL ?>admin/article/update/<?= intval($article['id_article']) ?>"><?= htmlspecialchars($article['str_titre'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></a></td>
                             <td><?= htmlspecialchars($article['str_resume'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></td>
                             <td><?php
