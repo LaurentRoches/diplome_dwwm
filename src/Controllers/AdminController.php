@@ -58,8 +58,8 @@ class AdminController {
     
         if($reussis) {
             $_SESSION['succes'] = "Article créer avec succès!";
-            $this->render("adminArticleListe", ["succes" => $_SESSION['succes']]);
-            return;
+            header("Location: " . HOME_URL ."admin/article");
+            exit;
         }
         else {
             $_SESSION["erreur"] = "Echec de l'enregistrment.";
@@ -92,7 +92,8 @@ class AdminController {
         else {
             $_SESSION['erreur'] = "Erreur lors de la mise à jour de l'article.";
         }
-        $this->render("adminArticleListe");
+        header("Location: " . HOME_URL ."admin/article");
+        exit;
     }
 
     public function deleteThisArticle(int $id_article) {
@@ -149,8 +150,8 @@ class AdminController {
         $creer = $GameRepository->createGame($game);
         if($creer) {
             $_SESSION['succes'] = "Jeu créer avec succès!";
-            $this->render("adminJeuListe", ["succes" => $_SESSION['succes']]);
-            return;
+            header("Location: " . HOME_URL ."admin/jeu");
+            exit;
         }
         else {
             $_SESSION["erreur"] = "Echec de l'enregistrment.";
@@ -181,7 +182,8 @@ class AdminController {
         else {
             $_SESSION['erreur'] = "Erreur lors de la mise à jour du jeu.";
         }
-        $this->render("adminJeuListe");
+        header("Location: " . HOME_URL ."admin/jeu");
+        exit;
     }
 
     public function deleteThisJeu(int $id_game) {
@@ -238,8 +240,8 @@ class AdminController {
         $creer = $GameRepository->createCategorie($categorie);
         if($creer) {
             $_SESSION['succes'] = "Catégorie créer avec succès!";
-            $this->render("adminCategorieJeuListe", ["succes" => $_SESSION['succes']]);
-            return;
+            header("Location: " . HOME_URL ."admin/categorieJeu");
+            exit;
         }
         else {
             $_SESSION["erreur"] = "Echec de l'enregistrment.";
@@ -270,7 +272,8 @@ class AdminController {
         else {
             $_SESSION['erreur'] = "Erreur lors de la mise à jour de la catégorie.";
         }
-        $this->render("adminCategorieJeuListe");
+        header("Location: " . HOME_URL ."admin/categorieJeu");
+        exit;
     }
 
     public function deleteThisCategorieJeu(int $id_categorie_game) {
@@ -326,8 +329,8 @@ class AdminController {
         $creer = $TabouRepository->addTabou($tabou->getStrMot());
         if($creer) {
             $_SESSION['succes'] = "Tabou créer avec succès!";
-            $this->render("adminTabouListe", ["succes" => $_SESSION['succes']]);
-            return;
+            header("Location: " . HOME_URL ."admin/tabou");
+            exit;
         }
         else {
             $_SESSION["erreur"] = "Echec de l'enregistrment.";
@@ -358,7 +361,8 @@ class AdminController {
         else {
             $_SESSION['erreur'] = "Erreur lors de la mise à jour de la censure.";
         }
-        $this->render("adminTabouListe");
+        header("Location: " . HOME_URL ."admin/tabou");
+        exit;
     }
 
     public function deleteThisTabou(int $id_tabou) {
@@ -415,8 +419,8 @@ class AdminController {
         $creer = $ArticleRepository->createCategorie($categorie);
         if($creer) {
             $_SESSION['succes'] = "Catégorie créer avec succès!";
-            $this->render("adminCategorieArticleListe", ["succes" => $_SESSION['succes']]);
-            return;
+            header("Location: " . HOME_URL ."admin/categorieArticle");
+            exit;
         }
         else {
             $_SESSION["erreur"] = "Echec de l'enregistrment.";
@@ -447,7 +451,8 @@ class AdminController {
         else {
             $_SESSION['erreur'] = "Erreur lors de la mise à jour de la catégorie.";
         }
-        $this->render("adminCategorieArticleListe");
+        header("Location: " . HOME_URL ."admin/categorieArticle");
+        exit;
     }
 
     public function deleteThisCategorieArticle(int $id_categorie_article) {

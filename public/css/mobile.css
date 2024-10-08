@@ -420,24 +420,52 @@ footer p {
     margin-top: 25px;
     margin-bottom: 25px;
 }
+.accueil_container_miniatures {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
 .accueil_miniature_article_gd {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    width: 50%;
+    width: 100%;
     height: 400px;
+    margin-bottom: 15px;
+    border-radius: 25px;
 }
 .accueil_miniature_overlay {
     position: absolute;
-    bottom: 0;
+    bottom: 50px;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.25);
     color: var(--parchemin);
-    font-size: 1.25em;
+    font-size: 1em;
     text-shadow: 2px 2px 5px var(--ecriture);
     text-align: center;
     padding: 10px 0;
+}
+.accueil_container_miniature_secondaire {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+.accueil_miniature_secondaire_article {
+    width: 75px;
+    height: 75px;
+    border-radius: 25px 0px 0px 25px;
+}
+.accueil_titre_miniature_secondaire {
+    background-color: var(--article);
+    color: var(--parchemin);
+    height: 75px;
+    font-size: 0.85em;
+    text-align: center;
+    text-shadow: 2px 2px 5px var(--ecriture);
+    align-content: center;
+    padding: 5px;
+
 }
 .tableau_containeur{
     width: 90%; 

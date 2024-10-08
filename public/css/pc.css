@@ -91,6 +91,32 @@ footer {
 .accueil_liste_jeu img {
     flex-basis: calc(30% - 20px);
 }
+.accueil_container_miniatures {
+    flex-direction: row;
+}
+.accueil_miniature_article_gd {
+    width: 55%;
+    margin-right: 20px;
+}
+.accueil_miniature_overlay {
+    font-size: 1.25em;
+}
+.accueil_pc_article_droite {
+    width: 45%;
+}
+.accueil_container_miniature_secondaire {
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.accueil_miniature_secondaire_article {
+    width: 100%;
+    height: 140px;
+    border-radius: 25px 25px 0px 0px;
+}
+.accueil_titre_miniature_secondaire {
+    height: 50px;
+    border-radius: 0px 0px 25px 25px;
+}
 .accueil_tableau {
     font-size: 1em;
 }

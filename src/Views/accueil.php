@@ -51,29 +51,29 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
         </div>
     </div>
     <h3 class="accueil_titre_section accueil_gauche">Les derniers articles :</h3>
-    <div>
+    <div class="accueil_container_miniatures">
         <?php
         if(!empty($liste_article)) { ?>
-            <div style="background-image: url(<?= HOME_URL ?><?= $liste_article[0]['str_chemin_img_1'] ?>);" class="accueil_miniature_article_gd">
+            <div style="background-image: url(<?= HOME_URL ?><?= htmlspecialchars($liste_article[0]['str_chemin_img_1'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>);" class="accueil_miniature_article_gd">
                 <div class="accueil_miniature_overlay">
-                    <h3><?= $liste_article[0]['str_titre'] ?></h3>
-                    <p>Ecrit le <?php 
+                    <h3><?= htmlspecialchars($liste_article[0]['str_titre'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></h3>
+                    <p class="conversation_mini_texte">Ecrit le <?php 
                     if(isset($liste_article[0]['dtm_maj']) && !empty($liste_article[0]['dtm_maj'])) {
-                        echo $liste_article[0]['dtm_maj'];
+                        echo htmlspecialchars($liste_article[0]['dtm_maj'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
                     }
                     else {
-                        echo $liste_article[0]['dtm_creation'];
-                    }?> par <?= $liste_article[0]['str_pseudo'] ?></p>
+                        echo htmlspecialchars($liste_article[0]['dtm_creation'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
+                    }?> par <?= htmlspecialchars($liste_article[0]['str_pseudo'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></p>
                 </div>
             </div>
-            <div>
-                <div>
-                    <img src="<?= HOME_URL ?>" alt="">
-                    <p></p>
+            <div class="accueil_pc_article_droite">
+                <div class="accueil_container_miniature_secondaire">
+                    <img class="accueil_miniature_secondaire_article" src="<?= HOME_URL ?><?= htmlspecialchars($liste_article[1]['str_chemin_img_1'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" alt="miniature de l'article 2 sur le JDR">
+                    <p class="accueil_titre_miniature_secondaire"><?= htmlspecialchars($liste_article[1]['str_titre'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></p>
                 </div>
-                <div>
-                    <img src="<?= HOME_URL ?>" alt="">
-                    <p></p>
+                <div class="accueil_container_miniature_secondaire">
+                    <img class="accueil_miniature_secondaire_article" src="<?= HOME_URL ?><?= htmlspecialchars($liste_article[2]['str_chemin_img_1'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" alt="miniature de l'article 3 sur le JDR">
+                    <p class="accueil_titre_miniature_secondaire"><?= htmlspecialchars($liste_article[2]['str_titre'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></p>
                 </div>
             </div>
         <?php }
@@ -102,8 +102,8 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
                             continue;
                         }?>
                     <tr>
-                        <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><img src="<?= HOME_URL ?><?= $utilisateur['str_chemin'] ?>" alt="miniature de l'image de profile" class="accueil_miniature_profil"></a></td>
-                        <td><a href="<?= HOME_URL ?>profil/<?= $utilisateur['str_pseudo'] ?>"><?= $utilisateur['str_pseudo'] ?></a></td>
+                        <td><a href="<?= HOME_URL ?>profil/<?= htmlspecialchars($utilisateur['str_pseudo'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>"><img src="<?= HOME_URL ?><?= htmlspecialchars($utilisateur['str_chemin'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" alt="miniature de l'image de profile" class="accueil_miniature_profil"></a></td>
+                        <td><a href="<?= HOME_URL ?>profil/<?= htmlspecialchars($utilisateur['str_pseudo'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>"><?= htmlspecialchars($utilisateur['str_pseudo'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></a></td>
                         <td>
                         <?php if($utilisateur['bln_mj'] == 1) { ?>
                             <img src="<?= HOME_URL ?>img/Icons/valider_icon.png" alt="Est un Maître du Jeu" class="accueil_icon_mj">
