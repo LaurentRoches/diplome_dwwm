@@ -131,9 +131,12 @@ class AvisArticle {
     /**
      * Get the value of dtm_maj
      */
-    public function getDtmMaj(): string
+    public function getDtmMaj(): ?string
     {
-        return $this->dtm_maj->format('d-m-Y');
+        if ($this->dtm_maj !== null) {
+            return $this->dtm_maj->format('d-m-Y');
+        }
+        return null;
     }
 
     /**

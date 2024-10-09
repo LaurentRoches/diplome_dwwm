@@ -2,9 +2,11 @@
 
 namespace src\Repositories;
 
+use DateTime;
 use PDO;
 use PDOException;
 use src\Models\Article;
+use src\Models\AvisArticle;
 use src\Models\CategorieArticle;
 use src\Models\Database;
 
@@ -217,8 +219,8 @@ class ArticleRepository {
     public function getAllCategorieOfThisArticle(int $id_article):array | bool {
         try {
             $sql = "SELECT categorie_article.*
-                    FROM liste_categorie_article
-                    LEFT JOIN categorie_article ON categorie_article.id_categorie_article = liste_categorie_article.id_categorie_article
+                    FROM categorie_article
+                    LEFT JOIN liste_categorie_article ON categorie_article.id_categorie_article = liste_categorie_article.id_categorie_article
                     WHERE id_article = :id_article;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([":id_article" => $id_article]);
@@ -243,7 +245,7 @@ class ArticleRepository {
                     WHERE id_article = :id_article;";
             $statement = $this->DB->prepare($sql);
             $statement->execute([":id_article" => $id_article]);
-            $retour = $statement->fetch(PDO::FETCH_ASSOC);
+            $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
             if($retour){
                 return $retour;
             }
@@ -337,6 +339,78 @@ class ArticleRepository {
             $statement->execute();
             $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $retour;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function verifyAvis(int $id_article, int $id_user): bool {
+        try {
+            $sql = "SELECT * FROM avis_article WHERE id_article = :id_article AND id_user = :id_user LIMIT 1;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ":id_article" => $id_article,
+                ":id_user" => $id_user
+            ]);
+            $retour = $statement->fetch();
+            if($retour) {
+                return TRUE;
+            }
+            return FALSE;
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function createAvis(AvisArticle $avisArticle):bool {
+        try {
+            $sql = "INSERT INTO avis_article (id_article, id_user, str_titre, str_avis) VALUES (:id_article, :id_user, :str_titre, :str_avis);";
+            $statement = $this->DB->prepare($sql);
+            $retour = $statement->execute([
+                ":id_article" => $avisArticle->getIdArticle(),
+                ":id_user" => $avisArticle->getIdUser(),
+                ":str_titre" => $avisArticle->getStrTitre(),
+                ":str_avis" => $avisArticle->getStrAvis()
+            ]);
+            if ($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
+        }
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
+    public function updateAvis(AvisArticle $avisArticle):bool {
+        try {
+            $sql = "UPDATE avis_article SET
+                    str_titre = :str_titre,
+                    str_avis = :str_avis,
+                    dtm_maj = :dtm_maj
+                    WHERE id_article = :id_article AND id_user = :id_user;";
+            $statement = $this->DB->prepare($sql);
+            
+            $dtmMaj = $avisArticle->getDtmMaj();
+            $dtmMajStr = ($dtmMaj instanceof DateTime) ? $dtmMaj->format('Y-m-d H:i:s') : null;
+
+            $retour = $statement->execute([
+                ":id_article" => $avisArticle->getIdArticle(),
+                ":id_user" => $avisArticle->getIdUser(),
+                ":str_titre" => $avisArticle->getStrTitre(),
+                ":str_avis" => $avisArticle->getStrAvis(),
+                ":dtm_maj" => $dtmMajStr
+            ]);
+            if ($retour) {
+                return TRUE;
+            }
+            else {
+                return FALSE;
+            }
         }
         catch (PDOException $error) {
             throw new \Exception("Database error: " . $error->getMessage());

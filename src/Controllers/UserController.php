@@ -4,10 +4,12 @@ namespace src\Controllers;
 
 use DateTime;
 use Exception;
+use src\Models\AvisArticle;
 use src\Models\AvisUser;
 use src\Models\Database;
 use src\Models\Message;
 use src\Models\User;
+use src\Repositories\ArticleRepository;
 use src\Repositories\DisponibiliteRepository;
 use src\Repositories\GameRepository;
 use src\Repositories\MessageRepository;
@@ -645,6 +647,37 @@ class UserController {
         else {
             $_SESSION['erreur'] = "Une erreur est survenue lors de la suppression";
             $this->render("profil", ['utilisateur' => $utilisateur]);
+        }
+    }
+
+    public function addAvisArticle() {
+        $data = $_POST;
+        $data = $this->sanitize($data);
+
+        $database = new Database();
+        $ArticleRepository = ArticleRepository::getInstance($database);
+
+        $existe = $ArticleRepository->verifyAvis($data['id_article'], $data['id_user']);
+
+        if($existe) {
+            $date = new DateTime();
+            $data['dtm_maj'] = $date->format('Y-m-d H:i:s');
+            $avis = new AvisArticle($data);
+            $retour = $ArticleRepository->updateAvis($avis);
+        }
+        else {
+            $avis = new AvisArticle($data);
+            $retour = $ArticleRepository->createAvis($avis);
+        }
+        if($retour) {
+            $_SESSION['succes'] = "Avis enregisté avec succès!";
+            header("Location: " . HOME_URL ."article/".$data['id_article']);
+            exit;
+        }
+        else {
+            $_SESSION['erreur'] = "Echec lors de l'enregistrement!";
+            header("Location: " . HOME_URL ."article/".$data['id_article']);
+            exit;
         }
     }
 

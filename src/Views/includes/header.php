@@ -48,7 +48,7 @@ $database = new Database();
             <?php }
         } ?>
         <li><a href="<?= HOME_URL ?>userliste">Utilisateurs</a></li>
-        <li><a href="<?= HOME_URL ?>articleliste">Articles</a></li>
+        <li><a href="<?= HOME_URL ?>article">Articles</a></li>
         <?php
         if(isset($_SESSION['connecte'])){ ?>
         <li><a href="<?= HOME_URL ?>profil">Mon profil</a></li>

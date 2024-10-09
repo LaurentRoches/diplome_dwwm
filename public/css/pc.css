@@ -188,3 +188,18 @@ footer {
     width: 30%;
     margin-bottom: 20px;
 }
+
+
+        /* ARTICLE */
+    
+.article_main_image {
+    width: 65%;
+    height: 500px;
+    margin: 15px 0px;
+}
+.article_categorie {
+    flex-direction: row;
+}
+.article_avis_auteur {
+    align-self: flex-start;
+}
