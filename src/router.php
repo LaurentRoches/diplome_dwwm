@@ -75,6 +75,17 @@ switch ($route) {
             break;
         }
         break;
+    case $routeComposee[0] == 'article':
+        if(isset($routeComposee[1])) {
+            if($methode == 'POST') {
+                $UserController->addAvisArticle();
+                break;
+            }
+            $HomeController->pageArticle(intval($routeComposee[1]));
+            break;
+        }
+        $HomeController->pageArticleListe();
+        break;
     case $routeComposee[0] == 'disponibilite':
         if(isset($routeComposee[2]) && !empty($routeComposee[2])) {
             if($routeComposee [2] == 'add' && $methode == 'POST') {

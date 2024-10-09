@@ -425,13 +425,16 @@ footer p {
     display: flex;
     flex-direction: column;
 }
+.accueil_lien_article_main {
+    width: 100%;
+}
 .accueil_miniature_article_gd {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 600px;
     margin-bottom: 15px;
     border-radius: 25px;
 }
@@ -465,6 +468,7 @@ footer p {
     text-shadow: 2px 2px 5px var(--ecriture);
     align-content: center;
     padding: 5px;
+    border-radius: 0px 25px 25px 0px;
 
 }
 .tableau_containeur{
@@ -802,6 +806,25 @@ footer p {
 }
 
         /* FIN DE DISPO */
+
+        
+        /* LISTE ARTICLE */
+    
+.liste_vignette_article {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.vignette_article {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+
+
+
+
 
 
 .img_tab_admin_article {

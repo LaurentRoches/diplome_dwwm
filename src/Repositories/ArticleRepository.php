@@ -145,14 +145,27 @@ class ArticleRepository {
         }
     }
 
-    public function getAllArticles (): array {
+    public function getAllArticles(): array {
         try {
-            $sql = "SELECT article.*, user.str_pseudo 
+            $sqlRecent = "SELECT id_article 
+                          FROM article 
+                          ORDER BY COALESCE(dtm_maj, dtm_creation) DESC 
+                          LIMIT 3";
+    
+            $statementRecent = $this->DB->prepare($sqlRecent);
+            $statementRecent->execute();
+            $recentArticles = $statementRecent->fetchAll(PDO::FETCH_COLUMN);
+
+            $placeholders = implode(',', array_fill(0, count($recentArticles), '?'));
+
+            $sql = "SELECT article.str_titre, article.id_article, article.str_chemin_img_1, user.str_pseudo 
                     FROM article
                     LEFT JOIN user ON user.id_user = article.id_user
-                    ORDER BY COALESCE(article.dtm_maj, article.dtm_creation) DESC;";
+                    WHERE article.id_article NOT IN ($placeholders)
+                    ORDER BY RAND();";
+    
             $statement = $this->DB->prepare($sql);
-            $statement->execute();
+            $statement->execute($recentArticles);
             $retour = $statement->fetchAll(PDO::FETCH_ASSOC);
             return $retour;
         }
@@ -160,6 +173,7 @@ class ArticleRepository {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
+    
 
     public function getAllArticlesLimit3 (): array {
         try {

@@ -54,7 +54,7 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
     <div class="accueil_container_miniatures">
         <?php
         if(!empty($liste_article)) { ?>
-            <div style="background-image: url(<?= HOME_URL ?><?= htmlspecialchars($liste_article[0]['str_chemin_img_1'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>);" class="accueil_miniature_article_gd">
+            <a href="<?= HOME_URL ?>article/<?= intval($liste_article[0]['id_article']) ?>" style="background-image: url(<?= HOME_URL ?><?= htmlspecialchars($liste_article[0]['str_chemin_img_1'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>);" class="accueil_miniature_article_gd">
                 <div class="accueil_miniature_overlay">
                     <h3><?= htmlspecialchars($liste_article[0]['str_titre'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></h3>
                     <p class="conversation_mini_texte">Ecrit le <?php 
@@ -65,23 +65,23 @@ $liste_article = $ArticleRepository->getAllArticlesLimit3();
                         echo htmlspecialchars($liste_article[0]['dtm_creation'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false);
                     }?> par <?= htmlspecialchars($liste_article[0]['str_pseudo'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></p>
                 </div>
-            </div>
+            </a>
             <div class="accueil_pc_article_droite">
-                <div class="accueil_container_miniature_secondaire">
+                <a href="<?= HOME_URL ?>article/<?= intval($liste_article[1]['id_article']) ?>" class="accueil_container_miniature_secondaire">
                     <img class="accueil_miniature_secondaire_article" src="<?= HOME_URL ?><?= htmlspecialchars($liste_article[1]['str_chemin_img_1'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" alt="miniature de l'article 2 sur le JDR">
                     <p class="accueil_titre_miniature_secondaire"><?= htmlspecialchars($liste_article[1]['str_titre'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></p>
-                </div>
-                <div class="accueil_container_miniature_secondaire">
+                </a>
+                <a href="<?= HOME_URL ?>article/<?= intval($liste_article[2]['id_article']) ?>" class="accueil_container_miniature_secondaire">
                     <img class="accueil_miniature_secondaire_article" src="<?= HOME_URL ?><?= htmlspecialchars($liste_article[2]['str_chemin_img_1'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?>" alt="miniature de l'article 3 sur le JDR">
                     <p class="accueil_titre_miniature_secondaire"><?= htmlspecialchars($liste_article[2]['str_titre'], ENT_QUOTES | ENT_HTML401, 'UTF-8', false) ?></p>
-                </div>
+                </a>
             </div>
         <?php }
         else { ?>
             <p class="erreur_texte">Aucun article enregistré</p>
         <?php } ?>
     </div>
-    <a href="<?= HOME_URL ?>articleliste" class="btn_gd_article accueil_droite">En savoir plus</a>
+    <a href="<?= HOME_URL ?>article" class="btn_gd_article accueil_droite">En savoir plus</a>
     <h3 class="accueil_titre_section accueil_gauche">Les utilisateurs :</h3>
     <div class="tableau_containeur">
         <table class="accueil_tableau">

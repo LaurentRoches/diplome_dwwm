@@ -3,6 +3,7 @@
 namespace src\Controllers;
 
 use src\Models\Database;
+use src\Repositories\ArticleRepository;
 use src\Repositories\UserRepository;
 use src\Services\Reponse;
 use src\Services\Securite;
@@ -275,4 +276,28 @@ class HomeController {
     public function pageAdmin() {
         $this->render("dashboard");
     }
+
+    public function pageArticleListe() {
+        $this->render("articleliste");
+    }
+
+    public function pageArticle(int $id_article) {
+        if($id_article == 0) {
+            $_SESSION['erreur'] = "Une erreur de chargement de l'article est survenue.";
+            $this->render("accueil", ["erreur" => $_SESSION['erreur']]);
+            return;
+        }
+        $database = new Database();
+        $ArticleRepository = ArticleRepository::getInstance($database);
+        $article = $ArticleRepository->getThisArticle($id_article);
+        if($article) {
+            $this->render("article", ["article" => $article]);
+            return;
+        }
+        else {
+            $_SESSION['erreur'] = "Une erreur de chargement de l'article est survenue.";
+            $this->render("accueil", ["erreur" => $_SESSION['erreur']]);
+            return;
+        }
+    }   
 }
