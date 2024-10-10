@@ -48,6 +48,13 @@ switch ($route) {
             break;
         }
         break;
+    case $routeComposee[0] == 'mdpoublie':
+        if($methode == 'POST') {
+            $UserController->mdpOublie();
+            break;
+        }
+        $HomeController->pageMdpOublie();
+        break;
     case $routeComposee[0] == 'profil' :
         if(isset($routeComposee[2]) && $routeComposee[2] == 'update'){
             if($methode == 'GET') {

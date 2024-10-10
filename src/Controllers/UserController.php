@@ -681,4 +681,63 @@ class UserController {
         }
     }
 
+    public function mdpOublie() {
+        $data = $_POST;
+        $data = $this->sanitize($data);
+        $database = new Database();
+        $UserRepository = UserRepository::getInstance($database);
+        $user = $UserRepository->getThisUserByEmail($data['str_email']);
+
+        if(!$user) {
+            $_SESSION['erreur'] = "Aucun utilisateur avec cette adresse email trouvé.";
+            $this->render("accueil", ['erreur' => $_SESSION['erreur']]);
+            return;
+        }
+        $str_token = bin2hex(random_bytes(50));
+        $user->setStrToken($str_token);
+        $enregistrement = $UserRepository->updateMdpOublie($user);
+
+        if ($enregistrement) {
+
+            $lien_validation = HOME_URL."validation?token=".$str_token."&pseudo=".urlencode($enregistrement->getStrPseudo());
+
+            $to = $enregistrement->getStrEmail();
+            $subject = "Mot de passe oublié";
+        
+            $message = "
+            <html>
+            <head>
+                <title>Mot de passe oublié</title>
+            </head>
+            <body>
+                <h2>Bonjour ".$enregistrement->getStrPseudo().",</h2>
+                <p>Cliquez sur le lien suivant pour redéfinir votre mot de passe :</p>
+                <a href='https://www.jdrconnexion.fr".$lien_validation."' style='display:inline-block; background-color:#86388C; color:#f2efbd; padding:10px 20px; border-radius:5px; text-decoration:none;'>Nouveau mdp</a>
+                <br><br>
+                <p>Ce lien est valable 24h.</p>
+                <p>Cordialement,</p>
+                <p>L'équipe de JDRConnexion</p>
+            </body>
+            </html>
+            ";
+        
+            $headers = "From: admin@jdrconnexion.fr \r\n";
+            $headers .= "Reply-To: admin@jdrconnexion.fr \r\n";
+            $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+        
+            if (mail($to, $subject, $message, $headers)) {
+                $_SESSION['succes'] = "Demande faite, un email vous a été envoyé.";
+                $this->render("accueil", ["user"=>$enregistrement, "succes" => $_SESSION['succes']]);
+            } 
+            else {
+                $_SESSION["erreur"] = "Echec de l'envoi de l'email. Contactez l'administrateur.";
+                $this->render("mdpoublie", ["erreur" => $_SESSION["erreur"]]);
+            }
+        }
+        else {
+            $_SESSION["erreur"] = "Echec de la demande.";
+            $this->render("mdpoublie", ["erreur" => $_SESSION["erreur"]]);
+        }
+    }
+
 }

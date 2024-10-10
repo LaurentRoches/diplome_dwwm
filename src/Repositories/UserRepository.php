@@ -579,4 +579,21 @@ class UserRepository {
         }
     }
 
+    public function updateMdpOublie(User $user):User {
+        try {
+            $sql = "UPDATE user SET 
+                    str_token = :str_token
+                    WHERE id_user = :id_user;";
+            $statement = $this->DB->prepare($sql);
+            $statement->execute([
+                ":str_token" => $user->getStrToken(),
+                ":id_user" => $user->getIdUser()
+            ]);
+            return $this->getThisUserById($user->getIdUser());
+        } 
+        catch (PDOException $error) {
+            throw new \Exception("Database error: " . $error->getMessage());
+        }
+    }
+
 }

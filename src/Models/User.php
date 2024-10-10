@@ -16,7 +16,7 @@ class User {
     private string $str_mdp = '';
     private string $str_token;
     private string $str_pseudo;
-    private string $str_description = '';
+    private ?string $str_description = '';
     private bool $bln_mj = FALSE;
     private int $id_experience = 1;
     private int $id_role = 1;
@@ -202,12 +202,12 @@ class User {
     /**
      * Set the value of str_description
      */
-    public function setStrDescription(string $str_description): self
+    public function setStrDescription(?string $str_description): self
     {
-        $this->str_description = $str_description;
-
+        $this->str_description = $str_description ?? '';
         return $this;
     }
+
 
     /**
      * Get the value of id_experience

@@ -24,7 +24,7 @@ include_once __DIR__ . '/includes/header.php';
             <div class="connexion_champs">
                 <label for="str_mdp" class="">Mot de passe :</label>
                 <input id="str_mdp" name="str_mdp" type="password" required class="">
-                <a href="#" class="">Mot de passe oublié?</a>
+                <a href="<?=HOME_URL?>mdpoublie" class="">Mot de passe oublié?</a>
             </div>
             <button type="submit" class="btn_gd_utilisateur">Se connecter</button>
         </form>

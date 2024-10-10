@@ -299,5 +299,9 @@ class HomeController {
             $this->render("accueil", ["erreur" => $_SESSION['erreur']]);
             return;
         }
-    }   
+    }
+
+    public function pageMdpOublie() {
+        $this->render("mdpoublie");
+    }
 }
