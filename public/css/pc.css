@@ -124,7 +124,10 @@ footer {
     font-size: 1em;
 }
 .accueil_image_social {
-    width: 70%;
+    width: 40%;
+}
+.accueil_texte_social {
+    width: 55%;
 }
 
         /* FIN ACCUEIL */
@@ -193,7 +196,7 @@ footer {
         /* ARTICLE */
     
 .article_main_image {
-    width: 65%;
+    width: 55%;
     height: 500px;
     margin: 15px 0px;
 }

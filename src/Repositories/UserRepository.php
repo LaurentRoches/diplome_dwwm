@@ -117,8 +117,6 @@ class UserRepository {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
-    
-
 
     /**
      * Décompte de tous les utilisateurs trouvé selon les critères de recherche
@@ -179,7 +177,6 @@ class UserRepository {
             throw new \Exception("Database error: " . $error->getMessage());
         }
     }
-
 
     /**
      * Récupère trois utilisateurs, trier par note descendante
