@@ -30,7 +30,7 @@ include_once __DIR__ . '/includes/header.php';
         </form>
         <div class="connexion_inscription">
             <p>Pas encore de compte ?</p>
-            <button class="btn_pt_utilisateur">Inscription</button>
+            <a href="<?=HOME_URL?>inscription" class="btn_pt_utilisateur">Inscription</a>
         </div>
     </div>
 </div>

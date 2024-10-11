@@ -549,7 +549,7 @@ footer p {
     height: 55px;
     border-radius: 15px;
     padding: 5px;
-    margin-top: 10px;
+    margin: 10px 0px;
 }
 .connexion_champs select {
     width: 90%;
