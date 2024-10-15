@@ -79,7 +79,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
     <?php } ?>
     <div class="profil_action">
         <div class="profil_btn_action">
-            <a href="<?= HOME_URL ?>message/<?= $pseudo ?>" class="btn_gd_utilisateur conversation_mini_texte <?= ($non_lu) ? 'non_lu' : '' ?>"><?= ($non_lu) ? 'Nouveau message' : 'Messages' ?></a>
+            <a href="<?= HOME_URL ?>message/<?= $pseudo ?>" class="btn_gd_utilisateur <?= ($non_lu) ? 'conversation_mini_texte non_lu' : '' ?>"><?= ($non_lu) ? 'Nouveau message' : 'Messages' ?></a>
         </div>
         <div class="profil_btn_action">
             <a href="<?= HOME_URL ?>disponibilite/<?= $pseudo ?>" class="btn_gd_utilisateur">Disponibilité</a>
