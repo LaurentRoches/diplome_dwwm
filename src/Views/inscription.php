@@ -41,10 +41,11 @@ include_once __DIR__ . '/includes/header.php';
                 <label for="dtm_naissance" class="">Votre date de naissance :</label>
                 <input id="dtm_naissance" name="dtm_naissance" type="date" required class="">
             </div>
-            <button type="submit" class="btn_gd_utilisateur">S'enregistrer</button>
+            <button id="enregistrer" type="submit" class="btn_gd_utilisateur">S'enregistrer</button>
         </form>
     </div>
 </div>
+<script src="<?= HOME_URL ?>js/inscription_validation.js"></script>
 
 <?php
 
