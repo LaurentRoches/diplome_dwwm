@@ -10,7 +10,8 @@ function chargerClasses($classe) {
     if(file_exists(__DIR__ . $fichier)){
       require_once __DIR__ . $fichier;
     }
-  } catch (Error $error) {
+  } 
+  catch (Error $error) {
     echo "Une erreur est survenue : " . $error->getMessage();
   }
 }

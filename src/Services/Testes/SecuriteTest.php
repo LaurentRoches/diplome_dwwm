@@ -70,3 +70,6 @@ $test = new SecuriteTest();
 $test->testSanitizeSimpleArray();
 $test->testSanitizeNestedArray();
 $test->testSanitizeStdClass();
+
+// écrire dans l'invit de commande
+// php src\Services\Testes\SecuriteTest.php

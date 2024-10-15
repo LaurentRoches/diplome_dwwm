@@ -699,6 +699,9 @@ footer p {
     background-color: var(--hover);
     box-shadow: 4px 4px 15px red;
 }
+.non_lu {
+    box-shadow: 5px 5px 20px var(--erreur);
+}
 
         /* FIN PROFIL */
 

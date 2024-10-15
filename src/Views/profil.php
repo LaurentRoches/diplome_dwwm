@@ -3,6 +3,7 @@
 include_once __DIR__ . '/includes/header.php';
 
 use src\Repositories\ExperienceRepository;
+use src\Repositories\MessageRepository;
 use src\Repositories\UserRepository;
 use src\Repositories\ProfilImageRepository;
 
@@ -11,9 +12,18 @@ $ProfilImageRepository = ProfilImageRepository::getInstance($database);
 $ExperienceRepository = ExperienceRepository::getInstance($database);
 
 $temoin = FALSE;
+$non_lu = false;
 if(isset($user)) {
     if($utilisateur->getStrPseudo() === $user->getStrPseudo()){
         $temoin = TRUE;
+        $MessageRepository = MessageRepository::getInstance($database);
+        $tab_expediteur = $MessageRepository->getAllExpediteur($user->getIdUser());
+        foreach ($tab_expediteur as $expediteur) {
+            if (isset($expediteur['bln_lu']) && $expediteur['bln_lu'] == 0) {
+                $non_lu = true;
+                break;
+            }
+        }
     }
 }
 
@@ -69,7 +79,7 @@ if(isset($utilisateur) && !empty($utilisateur)) {
     <?php } ?>
     <div class="profil_action">
         <div class="profil_btn_action">
-            <a href="<?= HOME_URL ?>message/<?= $pseudo ?>" class="btn_gd_utilisateur">Messages</a>
+            <a href="<?= HOME_URL ?>message/<?= $pseudo ?>" class="btn_gd_utilisateur conversation_mini_texte <?= ($non_lu) ? 'non_lu' : '' ?>"><?= ($non_lu) ? 'Nouveau message' : 'Messages' ?></a>
         </div>
         <div class="profil_btn_action">
             <a href="<?= HOME_URL ?>disponibilite/<?= $pseudo ?>" class="btn_gd_utilisateur">Disponibilité</a>
